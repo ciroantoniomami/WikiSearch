@@ -1,0 +1,322 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    		<meta name="keywords" content="RAID,Acronym,Bit,Byte,Checksum,Computer,Data,Exclusive disjunction,Hard disk,Linux,Raid" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="/w/opensearch_desc.php" title="Wikipedia (English)" />
+		<link rel="copyright" href="../../../COPYING.html" />
+    <title>RAID - Simple English Wikipedia, the free encyclopedia</title>
+    <style type="text/css">/*<![CDATA[*/ @import "../../../skins/htmldump/main.css"; /*]]>*/</style>
+    <link rel="stylesheet" type="text/css" media="print" href="../../../skins/common/commonPrint.css" />
+    <!--[if lt IE 5.5000]><style type="text/css">@import "../../../skins/monobook/IE50Fixes.css";</style><![endif]-->
+    <!--[if IE 5.5000]><style type="text/css">@import "../../../skins/monobook/IE55Fixes.css";</style><![endif]-->
+    <!--[if IE 6]><style type="text/css">@import "../../../skins/monobook/IE60Fixes.css";</style><![endif]-->
+    <!--[if IE]><script type="text/javascript" src="../../../skins/common/IEFixes.js"></script>
+    <meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+    <script type="text/javascript" src="../../../skins/common/wikibits.js"></script>
+    <script type="text/javascript" src="../../../skins/htmldump/md5.js"></script>
+    <script type="text/javascript" src="../../../skins/htmldump/utf8.js"></script>
+    <script type="text/javascript" src="../../../skins/htmldump/lookup.js"></script>
+    <script type="text/javascript" src="../../../raw/gen.js"></script>        <style type="text/css">/*<![CDATA[*/
+@import "../../../raw/MediaWiki%7ECommon.css";
+@import "../../../raw/MediaWiki%7EMonobook.css";
+@import "../../../raw/gen.css";
+/*]]>*/</style>          </head>
+  <body
+    class="ns-0">
+    <div id="globalWrapper">
+      <div id="column-content">
+	<div id="content">
+	  <a name="top" id="contentTop"></a>
+	        <h1 class="firstHeading">RAID</h1>
+	  <div id="bodyContent">
+	    <h3 id="siteSub">From Simple English Wikipedia, the free encyclopedia</h3>
+	    <div id="contentSub"></div>
+	    	    	    <!-- start content -->
+	    <dl>
+<dd>For the military term, see <a href="../../../r/a/i/Raid.html" title="Raid">raid</a></dd>
+</dl>
+<p><b>RAID</b> is an <a href="../../../a/c/r/Acronym.html" title="Acronym">acronym</a>. It is used by companies that sell computer storage products. It stands for <b>Redundant Array of Inexpensive Disks</b> or <b>Redundant Array of Independent Disks</b>.</p>
+<p>It is about <a href="../../../h/a/r/Hard_disk.html" title="Hard disk">hard disks</a> that can fail. It is possible to avoid the loss of <a href="../../../d/a/t/Data.html" title="Data">data</a> if a harddisk fails. This is done by using several harddisks and putting a special controller or some special <a href="../../../s/o/f/Software.html" title="Software">software</a> onto the <a href="../../../c/o/m/Computer.html" title="Computer">computer</a>. The harddisks will then look like one harddisk to the user. When a single disk fails, it can be replaced without the loss of data.</p>
+<p>There are different RAID levels. They are different in what kind of harddisks are needed and how the harddisks are put together.</p>
+<table id="toc" class="toc" summary="Contents">
+<tr>
+<td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul>
+<li class="toclevel-1"><a href="#Raid_Levels_in_common_use"><span class="tocnumber">1</span> <span class="toctext">Raid Levels in common use</span></a>
+<ul>
+<li class="toclevel-2"><a href="#RAID_0_.22Striping.22"><span class="tocnumber">1.1</span> <span class="toctext">RAID 0 "Striping"</span></a></li>
+<li class="toclevel-2"><a href="#RAID_1_.22Mirroring.22"><span class="tocnumber">1.2</span> <span class="toctext">RAID 1 "Mirroring"</span></a></li>
+<li class="toclevel-2"><a href="#RAID_5_.22Striping_with_distributed_parity.22"><span class="tocnumber">1.3</span> <span class="toctext">RAID 5 "Striping with distributed parity"</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#RAID_Levels_used_less"><span class="tocnumber">2</span> <span class="toctext">RAID Levels used less</span></a>
+<ul>
+<li class="toclevel-2"><a href="#RAID_2"><span class="tocnumber">2.1</span> <span class="toctext">RAID 2</span></a></li>
+<li class="toclevel-2"><a href="#RAID_3_.22Striping_with_dedicated_parity.22"><span class="tocnumber">2.2</span> <span class="toctext">RAID 3 "Striping with dedicated parity"</span></a></li>
+<li class="toclevel-2"><a href="#RAID_4_.22Striping_with_dedicated_parity.22"><span class="tocnumber">2.3</span> <span class="toctext">RAID 4 "Striping with dedicated parity"</span></a></li>
+<li class="toclevel-2"><a href="#RAID6"><span class="tocnumber">2.4</span> <span class="toctext">RAID6</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Putting_it_all_together:_Combining_Raid_levels"><span class="tocnumber">3</span> <span class="toctext">Putting it all together: Combining Raid levels</span></a></li>
+<li class="toclevel-1"><a href="#What_RAID_Can_and_Cannot_Do"><span class="tocnumber">4</span> <span class="toctext">What RAID Can and Cannot Do</span></a>
+<ul>
+<li class="toclevel-2"><a href="#What_RAID_Can_Do"><span class="tocnumber">4.1</span> <span class="toctext">What RAID Can Do</span></a></li>
+<li class="toclevel-2"><a href="#What_RAID_Cannot_Do"><span class="tocnumber">4.2</span> <span class="toctext">What RAID Cannot Do</span></a></li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+</table>
+<script type="text/javascript">
+//<![CDATA[
+ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } 
+//]]>
+</script>
+<p><a name="Raid_Levels_in_common_use" id="Raid_Levels_in_common_use"></a></p>
+<h2><span class="editsection">[<a href="../../../r/a/i/RAID_cf91.html" title="Edit section: Raid Levels in common use">edit</a>]</span> <span class="mw-headline">Raid Levels in common use</span></h2>
+<p><a name="RAID_0_.22Striping.22" id="RAID_0_.22Striping.22"></a></p>
+<h3><span class="editsection">[<a href="../../../r/a/i/RAID_cf91.html" title="Edit section: RAID 0 &quot;Striping&quot;">edit</a>]</span> <span class="mw-headline">RAID 0 "Striping"</span></h3>
+<div class="thumb tright">
+<div class="thumbinner" style="width:182px;"><a href="../../../r/a/i/Image%7ERAID_0.png_1267.html" class="internal" title="RAID Level 0 simply puts the different blocks on the different disks. There is no redundancy"><img src="../../../upload/shared/thumb/6/63/RAID_0.png/180px-RAID_0.png" alt="RAID Level 0 simply puts the different blocks on the different disks. There is no redundancy" width="180" height="284" longdesc="../../../r/a/i/Image%7ERAID_0.png_1267.html" class="thumbimage" /></a>
+<div class="thumbcaption">
+<div class="magnify" style="float:right"><a href="../../../r/a/i/Image%7ERAID_0.png_1267.html" class="internal" title="Enlarge"><img src="../../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>
+RAID Level 0 simply puts the different blocks on the different disks. There is no redundancy</div>
+</div>
+</div>
+<p>RAID0 is not really RAID. It is not <a href="../../../r/e/d/Redundancy.html" title="Redundancy">redundant</a>. With RAID0 the Disks are simply put together, as a large disk. Often this is called "strips". When one disk fails, the whole array fails. Therefore, RAID0 is rarely used for important data.</p>
+<p>It is often used for Swapspace on <a href="../../../l/i/n/Linux.html" title="Linux">Linux</a> or <a href="../../../u/n/i/Unix.html" title="Unix">Unix</a>-like operating systems</p>
+<p><a name="RAID_1_.22Mirroring.22" id="RAID_1_.22Mirroring.22"></a></p>
+<h3><span class="editsection">[<a href="../../../r/a/i/RAID_cf91.html" title="Edit section: RAID 1 &quot;Mirroring&quot;">edit</a>]</span> <span class="mw-headline">RAID 1 "Mirroring"</span></h3>
+<div class="thumb tright">
+<div class="thumbinner" style="width:182px;"><a href="../../../r/a/i/Image%7ERAID_1.png_55b9.html" class="internal" title="With Raid Level 1 every block is there on both disks"><img src="../../../upload/shared/thumb/a/a1/RAID_1.png/180px-RAID_1.png" alt="With Raid Level 1 every block is there on both disks" width="180" height="285" longdesc="../../../r/a/i/Image%7ERAID_1.png_55b9.html" class="thumbimage" /></a>
+<div class="thumbcaption">
+<div class="magnify" style="float:right"><a href="../../../r/a/i/Image%7ERAID_1.png_55b9.html" class="internal" title="Enlarge"><img src="../../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>
+With Raid Level 1 every block is there on both disks</div>
+</div>
+</div>
+<p>With RAID1 two disks are put together. Both hold the same data, one is "mirroring" the other. This is easy, and fast, even in software.</p>
+<p><br /></p>
+<p><a name="RAID_5_.22Striping_with_distributed_parity.22" id="RAID_5_.22Striping_with_distributed_parity.22"></a></p>
+<h3><span class="editsection">[<a href="../../../r/a/i/RAID_cf91.html" title="Edit section: RAID 5 &quot;Striping with distributed parity&quot;">edit</a>]</span> <span class="mw-headline">RAID 5 "Striping with distributed parity"</span></h3>
+<div class="thumb tright">
+<div class="thumbinner" style="width:182px;"><a href="../../../r/a/i/Image%7ERAID_5.png_c91b.html" class="internal" title="RAID Level 5 stripes both parity and data blocks over all disks"><img src="../../../upload/shared/thumb/1/10/RAID_5.png/180px-RAID_5.png" alt="RAID Level 5 stripes both parity and data blocks over all disks" width="180" height="153" longdesc="../../../r/a/i/Image%7ERAID_5.png_c91b.html" class="thumbimage" /></a>
+<div class="thumbcaption">
+<div class="magnify" style="float:right"><a href="../../../r/a/i/Image%7ERAID_5.png_c91b.html" class="internal" title="Enlarge"><img src="../../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>
+RAID Level 5 stripes both parity and data blocks over all disks</div>
+</div>
+</div>
+<p>RAID Level 5 is very widely used. At least three harddrives are needed to build a RAID5 storage array. For each block of data, there will be three places, on the disks. Two disks will hold the data, and the third will hold a <a href="../../../c/h/e/Checksum.html" title="Checksum">checksum</a>. This checksum is calculated using the <a href="../../../e/x/c/Exclusive_disjunction.html" title="Exclusive disjunction">XOR</a> method. Since this method is symmetric, one data block (that was lost) can be rebuilt from the other data block and the parity. For each block, a different disk will hold the parity block. This is done to increase redundancy. Any disk can fail. If more than three disks are used, the size of the resulting logical disk will be the size of all disks together, except for one disk which holds parity information.</p>
+<p>Of course this is slower than RAID level 1, since on every write, all disks need to be read to calculate and update the parity information. Because the performance in a degraded RAID5 (A RAID5 with a failed disk) is horribly slow, an additional disk is often added. This is called <i>hot spare</i> disk. If a disk fails, the data can be rebuilt onto the hot spare disk. RAID5 can also be done in software quite easily.</p>
+<p><a name="RAID_Levels_used_less" id="RAID_Levels_used_less"></a></p>
+<h2><span class="editsection">[<a href="../../../r/a/i/RAID_cf91.html" title="Edit section: RAID Levels used less">edit</a>]</span> <span class="mw-headline">RAID Levels used less</span></h2>
+<p><a name="RAID_2" id="RAID_2"></a></p>
+<h3><span class="editsection">[<a href="../../../r/a/i/RAID_cf91.html" title="Edit section: RAID 2">edit</a>]</span> <span class="mw-headline">RAID 2</span></h3>
+<p>This was used with very large computers. Special (expensive) disks and a special controller are needed to use RAID Level 2. The data is distributed at the <a href="../../../b/i/t/Bit.html" title="Bit">bit</a>-level (all other levels use <a href="../../../b/y/t/Byte.html" title="Byte">byte</a>-level actions). Special calculations are done. Data is split up into static sequences of bits. 8 data bits and 2 parity bits are put together. Then a Hamming code is calculated. The fragments of the Hamming code are then distributed over the different disks.</p>
+<p>RAID 2 needs at least 10 disks to work.</p>
+<p><a name="RAID_3_.22Striping_with_dedicated_parity.22" id="RAID_3_.22Striping_with_dedicated_parity.22"></a></p>
+<h3><span class="editsection">[<a href="../../../r/a/i/RAID_cf91.html" title="Edit section: RAID 3 &quot;Striping with dedicated parity&quot;">edit</a>]</span> <span class="mw-headline">RAID 3 "Striping with dedicated parity"</span></h3>
+<div class="thumb tright">
+<div class="thumbinner" style="width:182px;"><a href="../../../r/a/i/Image%7ERAID_3.png_8ae8.html" class="internal" title="RAID Level 3"><img src="../../../upload/shared/thumb/f/f5/RAID_3.png/180px-RAID_3.png" alt="RAID Level 3" width="180" height="153" longdesc="../../../r/a/i/Image%7ERAID_3.png_8ae8.html" class="thumbimage" /></a>
+<div class="thumbcaption">
+<div class="magnify" style="float:right"><a href="../../../r/a/i/Image%7ERAID_3.png_8ae8.html" class="internal" title="Enlarge"><img src="../../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>
+RAID Level 3</div>
+</div>
+</div>
+<p>Raid Level 3 is much like RAID Level 1. An additional disk is added to store parity information. This is done by bitwise addition of the value of a block on the other disks. The parity information is stored on a separate (dedicated) disk. This is not good, because if the parity disk crashes, the parity information is lost.</p>
+<p>RAID Level 3 is usually done with at least 3 disks. A 2-Disk setup is identical to a RAID Level 1.</p>
+<p><a name="RAID_4_.22Striping_with_dedicated_parity.22" id="RAID_4_.22Striping_with_dedicated_parity.22"></a></p>
+<h3><span class="editsection">[<a href="../../../r/a/i/RAID_cf91.html" title="Edit section: RAID 4 &quot;Striping with dedicated parity&quot;">edit</a>]</span> <span class="mw-headline">RAID 4 "Striping with dedicated parity"</span></h3>
+<div class="thumb tright">
+<div class="thumbinner" style="width:122px;"><a href="../../../u/p/l/Special%7EUpload_3661.html" class="new" title="Image:RAID 4.png">Image:RAID 4.png</a>
+<div class="thumbcaption">RAID 4 calculates parity over larger blocks of data and stores it on a dedicated disk</div>
+</div>
+</div>
+<p>This is very similar to RAID3, except that the parity information is calculated over larger blocks, and not single bytes. This is like RAID 5.</p>
+<p>At least 3 disks are needed for a RAID4 array.</p>
+<p><a name="RAID6" id="RAID6"></a></p>
+<h3><span class="editsection">[<a href="../../../r/a/i/RAID_cf91.html" title="Edit section: RAID6">edit</a>]</span> <span class="mw-headline">RAID6</span></h3>
+<div class="thumb tright">
+<div class="thumbinner" style="width:182px;"><a href="../../../r/a/i/Image%7ERAID6.png_1692.html" class="internal" title="Diagram of a RAID 6 setup. Each number represents one data block; each column represents one disk; p and q represent the two Reed-Solomon syndromes."><img src="../../../upload/shared/thumb/8/85/RAID6.png/180px-RAID6.png" alt="Diagram of a RAID 6 setup. Each number represents one data block; each column represents one disk; p and q represent the two Reed-Solomon syndromes." width="180" height="108" longdesc="../../../r/a/i/Image%7ERAID6.png_1692.html" class="thumbimage" /></a>
+<div class="thumbcaption">
+<div class="magnify" style="float:right"><a href="../../../r/a/i/Image%7ERAID6.png_1692.html" class="internal" title="Enlarge"><img src="../../../skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>
+Diagram of a RAID 6 setup. Each number represents one data block; each column represents one disk; p and q represent the two Reed-Solomon syndromes.</div>
+</div>
+</div>
+<p>RAID level 6 was not among the original raid levels. It adds an additional parity block to a RAID5 array. It needs at least four disks (2 disks for the capacity, 2 disks for redundancy). Calculations are much more difficult than the simple XORs used with RAID5. Like with raid5, parity and data are on different disks, for each block. The two parity blocks are also located on different disks.</p>
+<p>RAID6 is slower than RAID5, but it allows the RAID to continue with any two disks failed.</p>
+<p><a name="Putting_it_all_together:_Combining_Raid_levels" id="Putting_it_all_together:_Combining_Raid_levels"></a></p>
+<h2><span class="editsection">[<a href="../../../r/a/i/RAID_cf91.html" title="Edit section: Putting it all together: Combining Raid levels">edit</a>]</span> <span class="mw-headline">Putting it all together: Combining Raid levels</span></h2>
+<p>Many controllers (and also software) allow it to put raid levels together. Instead of using the disks directly, first a RAID of some level is done. Many such components are then used to form a RAID of another level. Many people note it by writing the numbers together. Sometimes, they write a '+' or an '&amp;' in between.</p>
+<p><a name="What_RAID_Can_and_Cannot_Do" id="What_RAID_Can_and_Cannot_Do"></a></p>
+<h2><span class="editsection">[<a href="../../../r/a/i/RAID_cf91.html" title="Edit section: What RAID Can and Cannot Do">edit</a>]</span> <span class="mw-headline">What RAID Can and Cannot Do</span></h2>
+<p>This guide was taken from a thread in a RAID-related forum. This was done to help point out the advantages and disadvantages to choosing RAID. It is directed at people who want to choose RAID for either increases in performance or redundancy. It contains links to other threads in its forum containing user-generated anecdotal reviews of their RAID experiences.</p>
+<p><a name="What_RAID_Can_Do" id="What_RAID_Can_Do"></a></p>
+<h3><span class="editsection">[<a href="../../../r/a/i/RAID_cf91.html" title="Edit section: What RAID Can Do">edit</a>]</span> <span class="mw-headline">What RAID Can Do</span></h3>
+<ul>
+<li><i>RAID can protect uptime.</i> RAID levels 1, 0+1/10, 5, and 6 (and their variants such as 50 and 51) allow a mechanical hard disk to fail. Even if the disk fails the data on the array is accessible to users. Instead of the need to do a time consuming restore from tape, DVD, or other slow backup media, RAID allows data to be restored to a replacement disk from the other members of the array. During this restoration process, it is available to users in a degraded state. This is of high value to enterprises, as downtime quickly leads to lost earning power. For home users, it can protect uptime of large media storage arrays, which would require time consuming restoration from dozens of DVD or quite a few tapes in the event of a disk failing that is not protected by redundancy.</li>
+</ul>
+<ul>
+<li><i>RAID can increase performance in certain applications.</i> RAID levels 0, and 5-6 all use variations on striping, which allows multiple spindles to increase sustained transfer rates when doing linear transfers. Workstation type applications that work with large files, such as image and video editing applications, benefit greatly from disk striping. The extra throughput offered by disk striping is also useful in disk-to-disk backups applications. Also if RAID 1 or a striping based RAID with a sufficiently large block size is used RAID can provide performance improvements for access patterns involving multiple simultaneous random accesses (e.g., multi-user databases).</li>
+</ul>
+<p><a name="What_RAID_Cannot_Do" id="What_RAID_Cannot_Do"></a></p>
+<h3><span class="editsection">[<a href="../../../r/a/i/RAID_cf91.html" title="Edit section: What RAID Cannot Do">edit</a>]</span> <span class="mw-headline">What RAID Cannot Do</span></h3>
+<ul>
+<li><i>RAID cannot protect the data on the array.</i> A RAID array has one file system. This creates a single point of failure. A RAID array's file system is vulnerable to a wide variety of hazards other than physical disk failure. RAID cannot defend against these sources of data loss. RAID will not stop a virus from destroying data. RAID will not prevent corruption. RAID will not save data from accidental modification or deletion by the user. RAID does not protect data from hardware failure of any component besides physical disks. RAID does not protect data from natural or man made disaster such as fires and floods. To protect data, data must be backed up to removable media, such as DVD, tape, or an external hard drive, and stored in an off site location. RAID alone will not prevent a disaster, when (not if) it occurs, from turning into data loss. Disaster is not preventable, but backups allow data loss to be prevented.</li>
+</ul>
+<ul>
+<li><i>RAID cannot simplify disaster recovery.</i> When running a single disk, the disk is usually accessible with a generic ATA or SCSI driver built into most operating systems. However, most RAID controllers require specific drivers. Recovery tools that work with single disks on generic controllers will require special drivers to access data on RAID arrays. If these recovery tools are poorly coded and do not allow providing for additional drivers, then a RAID array will probably be inaccessible to that recovery tool.</li>
+</ul>
+<ul>
+<li><i>RAID cannot provide a performance boost in all applications.</i> This statement is especially true with typical desktop application users and gamers. Most desktop applications and games place performance emphasis on the buffer strategy and seek performance of the disk(s). Increasing raw sustained transfer rate shows little gains for desktop users and gamers, as most files that they access are typically very small anyway. Disk striping using RAID 0 increases linear transfer performance, not buffer and seek performance. As a result, disk striping using RAID 0 shows little to no performance gain in most desktop applications and games, although there are exceptions. For desktop users and gamers with high performance as a goal, it is better to buy a faster, bigger, and more expensive single disk than it is to run two slower/smaller drives in RAID 0. Even running the latest, greatest, and biggest drives in RAID-0 is unlikely to boost performance more than 10%, and performance may drop in some access patterns, particularly games.</li>
+</ul>
+<ul>
+<li><i>RAID is not readily moved to a new system.</i> When using a single disk, it is relatively straightforward to move the disk to a new system. Simply connect it to the new system, provided it has the same interface available. However, this is not so easy with a RAID array. A RAID BIOS must be able to read metadata from the array members in order to successfully construct the array and make it accessible to an operating system. Since RAID controller makers use different formats for their metadata (even controllers of different families from the same manufacturer may use incompatible metadata formats) it is virtually impossible to move a RAID array to a different controller. When moving a RAID array to a new system, plans should be made to move the controller as well. With the popularity of motherboard integrated RAID controllers, this is extremely difficult to accomplish. Generally, it is possible to move the RAID array members and controllers as a unit, and software RAID in Linux and Windows Server Products can also work around this limitation, but software RAID has other limitations (mostly performance related).</li>
+</ul>
+<p><br /></p>
+<div class="notice metadata" id="stub"><i>This <a href="../../../s/t/u/Wikipedia%7EStub_72af.html" title="Wikipedia:Stub">short article</a> can be made longer. You can help Wikipedia by <span class="plainlinks"><a href="http://simple.wikipedia.org../../../r/a/i/RAID_cf91.html" class="external text" title="http://simple.wikipedia.org../../../r/a/i/RAID_cf91.html" rel="nofollow">adding to it</a></span>.</i></div>
+
+<!-- 
+Pre-expand include size: 1144 bytes
+Post-expand include size: 298 bytes
+Template argument size: 0 bytes
+Maximum: 2048000 bytes
+-->
+<div class="printfooter">
+Retrieved from "<a href="http://simple.wikipedia.org../../../r/a/i/RAID_cf91.html">http://simple.wikipedia.org../../../r/a/i/RAID_cf91.html</a>"</div>
+	    <div id="catlinks"><p class='catlinks'><a href="../../../c/a/t/Special%7ECategories_101d.html" title="Special:Categories">Category</a>: <span dir='ltr'><a href="../../../c/o/m/Category%7EComputer_science_ea63.html" title="Category:Computer science">Computer science</a></span></p></div>	    <!-- end content -->
+	    <div class="visualClear"></div>
+	  </div>
+	</div>
+      </div>
+      <div id="column-one">
+	<div id="p-cactions" class="portlet">
+	  <h5>Views</h5>
+	  <ul>
+	    <li id="ca-nstab-main"
+	       class="selected"	       ><a href="../../../r/a/i/RAID_cf91.html">Article</a></li><li id="ca-talk"
+	       class="new"	       ><a href="../../../r/a/i/Talk%7ERAID_c79e.html">Talk</a></li><li id="ca-current"
+	       	       ><a href="http://simple.wikipedia.org/wiki/RAID">Newest version</a></li>	  </ul>
+	</div>
+	<div class="portlet" id="p-logo">
+	  <a style="background-image: url(../../../upload/b/bc/Wiki.png);"
+	    href="../../../index.html"
+	    title="Main Page"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+	  <h5>Getting around</h5>
+	  <div class='pBody'>
+	    <ul>
+	    	      <li id="n-mainpage"><a href="../../../index.html">Main Page</a></li>
+	     	      <li id="n-portal"><a href="../../../c/o/m/Wikipedia%7ECommunity_Portal_6a3c.html">Community portal</a></li>
+	     	      <li id="n-Simple-talk"><a href="../../../s/i/m/Wikipedia%7ESimple_talk_51fd.html">Simple talk</a></li>
+	     	      <li id="n-help"><a href="../../../c/o/n/Help%7EContents_22de.html">Help</a></li>
+	     	      <li id="n-sitesupport"><a href="http://wikimediafoundation.org/wiki/Fundraising">Support Wikipedia</a></li>
+	     	    </ul>
+	  </div>
+	</div>
+		<div id="p-search" class="portlet">
+	  <h5><label for="searchInput">Search</label></h5>
+	  <div id="searchBody" class="pBody">
+	    <form action="javascript:goToStatic(3)" id="searchform"><div>
+	      <input id="searchInput" name="search" type="text"
+	        accesskey="f" value="" />
+	      <input type='submit' name="go" class="searchButton" id="searchGoButton"
+	        value="Go" />
+	    </div></form>
+	  </div>
+	</div>
+	<div id="p-lang" class="portlet">
+	  <h5>In other languages</h5>
+	  <div class="pBody">
+	    <ul>
+	      	      <li>
+	      <a href="../../../../af/r/a/i/RAID_cf91.html">Afrikaans</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../ca/r/a/i/RAID_cf91.html">Català</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../cs/r/a/i/RAID_cf91.html">Česky</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../da/r/a/i/RAID_cf91.html">Dansk</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../de/r/a/i/RAID_cf91.html">Deutsch</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../en/r/a/i/RAID_cf91.html">English</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../es/r/a/i/RAID_cf91.html">Español</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../eo/r/a/i/RAID_cf91.html">Esperanto</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../fr/r/a/i/RAID_%28informatique%29_487e.html">Français</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../it/r/a/i/RAID_cf91.html">Italiano</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../he/r/a/i/RAID_cf91.html">עברית</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../hu/r/a/i/RAID_cf91.html">Magyar</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../nl/r/e/d/Redundant_Array_of_Independent_Disks_94f8.html">Nederlands</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../ja/r/a/i/RAID_cf91.html">日本語</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../no/r/a/i/RAID_cf91.html">‪Norsk (bokmål)‬</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../pl/r/a/i/RAID_%28informatyka%29_4ac1.html">Polski</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../pt/r/a/i/RAID_cf91.html">Português</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../ru/r/a/i/RAID_cf91.html">Русский</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../sk/r/a/i/RAID_cf91.html">Slovenčina</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../sl/r/a/i/RAID_cf91.html">Slovenščina</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../fi/r/a/i/RAID_%28tietotekniikka%29_939c.html">Suomi</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../sv/r/a/i/Raid.html">Svenska</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../tr/r/a/i/RAID_cf91.html">Türkçe</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../zh/r/a/i/RAID_cf91.html">中文</a>
+	      </li>
+	      	    </ul>
+	  </div>
+	</div>
+	      </div><!-- end of the left (by default at least) column -->
+      <div class="visualClear"></div>
+      <div id="footer">
+    <div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../../../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>	<div id="f-copyrightico"><a href="http://wikimediafoundation.org/"><img src="../../../images/wikimedia-button.png" border="0" alt="Wikimedia Foundation"/></a></div>	<ul id="f-list">
+	  	  	  <li id="f-credits">This page was last modified 13:07, 5 March 2007 by Wikipedia user <a href="../../../f/l/a/User%7EFlaBot_747f.html" title="User:FlaBot">FlaBot</a>. Based on work by Wikipedia user(s) <a href="../../../t/h/i/User%7EThijs%21bot_bdf4.html" title="User:Thijs!bot">Thijs!bot</a>, <a href="../../../e/p/t/User%7EEptalon_a472.html" title="User:Eptalon">Eptalon</a>, Hypersonic and <a href="../../../y/u/r/User%7EYurikBot_b393.html" title="User:YurikBot">YurikBot</a> and Anonymous user(s) of the Simple English Wikipedia.</li>	  <li id="f-copyright">This text is available under the terms of the <a class='internal' href="../../../t/e/x/Wikipedia%7EText_of_the_GNU_Free_Documentation_License_702a.html" title="Wikipedia:Text of the GNU Free Documentation License">GNU Free Documentation License</a>. (See <b><a class='internal' href="../../../c/o/p/Wikipedia%7ECopyrights_92c4.html" title="Wikipedia:Copyrights">Copyrights</a></b> for details.) <br /> Wikipedia&reg; is a registered trademark of the <a href="http://www.wikimediafoundation.org">Wikimedia Foundation, Inc</a>., a US-registered <a class='internal' href="http://en.wikipedia.org/wiki/501%28c%29" title="501(c)(3)">501(c)(3)</a> <a href="http://wikimediafoundation.org/wiki/Deductibility_of_donations">tax-deductible</a> <a class='internal' href="http://en.wikipedia.org/wiki/Non-profit_organization" title="Non-profit organization">nonprofit</a> <a href="http://en.wikipedia.org/wiki/Charitable_organization" title="Charitable organization">charity</a>.<br /></li>	  <li id="f-about"><a href="../../../a/b/o/Wikipedia%7EAbout_8d82.html" title="Wikipedia:About">About Wikipedia</a></li>	  <li id="f-disclaimer"><a href="../../../g/e/n/Wikipedia%7EGeneral_disclaimer_3e44.html" title="Wikipedia:General disclaimer">Disclaimers</a></li>	  	</ul>
+      </div>
+    </div>
+  </body>
+</html>

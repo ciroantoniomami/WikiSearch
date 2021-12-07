@@ -1,0 +1,377 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    		<meta name="keywords" content="RSA,Binary exponentiation,Coprime,Dictionary attack,Encryption,Exponentiation by squaring,Information,Integer,Key,Key (cryptography),Modular arithmetic" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="/w/opensearch_desc.php" title="Wikipedia (English)" />
+		<link rel="copyright" href="../../../COPYING.html" />
+    <title>RSA - Simple English Wikipedia, the free encyclopedia</title>
+    <style type="text/css">/*<![CDATA[*/ @import "../../../skins/htmldump/main.css"; /*]]>*/</style>
+    <link rel="stylesheet" type="text/css" media="print" href="../../../skins/common/commonPrint.css" />
+    <!--[if lt IE 5.5000]><style type="text/css">@import "../../../skins/monobook/IE50Fixes.css";</style><![endif]-->
+    <!--[if IE 5.5000]><style type="text/css">@import "../../../skins/monobook/IE55Fixes.css";</style><![endif]-->
+    <!--[if IE 6]><style type="text/css">@import "../../../skins/monobook/IE60Fixes.css";</style><![endif]-->
+    <!--[if IE]><script type="text/javascript" src="../../../skins/common/IEFixes.js"></script>
+    <meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+    <script type="text/javascript" src="../../../skins/common/wikibits.js"></script>
+    <script type="text/javascript" src="../../../skins/htmldump/md5.js"></script>
+    <script type="text/javascript" src="../../../skins/htmldump/utf8.js"></script>
+    <script type="text/javascript" src="../../../skins/htmldump/lookup.js"></script>
+    <script type="text/javascript" src="../../../raw/gen.js"></script>        <style type="text/css">/*<![CDATA[*/
+@import "../../../raw/MediaWiki%7ECommon.css";
+@import "../../../raw/MediaWiki%7EMonobook.css";
+@import "../../../raw/gen.css";
+/*]]>*/</style>          </head>
+  <body
+    class="ns-0">
+    <div id="globalWrapper">
+      <div id="column-content">
+	<div id="content">
+	  <a name="top" id="contentTop"></a>
+	        <h1 class="firstHeading">RSA</h1>
+	  <div id="bodyContent">
+	    <h3 id="siteSub">From Simple English Wikipedia, the free encyclopedia</h3>
+	    <div id="contentSub"></div>
+	    	    	    <!-- start content -->
+	    <p><b>RSA</b> is a method to <a href="../../../e/n/c/Encryption.html" title="Encryption">encrypt</a> and <a href="../../../s/i/g/Signature.html" title="Signature">sign</a> <a href="../../../i/n/f/Information.html" title="Information">information</a>. It was developed in 1977 by Ronald Rivest, Adi Shamir &amp; Leonard Adleman. It is an asymmetric cryptographic algorithm. Asymmetric means that there are two different <a href="../../../k/e/y/Key.html" title="Key">keys</a>. Sometimes this is also called <i>public key cryptography</i>, because one of the two keys is freely circulated. The other key is kept private.</p>
+<table id="toc" class="toc" summary="Contents">
+<tr>
+<td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul>
+<li class="toclevel-1"><a href="#Operation"><span class="tocnumber">1</span> <span class="toctext">Operation</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Encrypting_messages"><span class="tocnumber">1.1</span> <span class="toctext">Encrypting messages</span></a></li>
+<li class="toclevel-2"><a href="#Decrypting_messages"><span class="tocnumber">1.2</span> <span class="toctext">Decrypting messages</span></a></li>
+<li class="toclevel-2"><a href="#A_working_example"><span class="tocnumber">1.3</span> <span class="toctext">A working example</span></a></li>
+<li class="toclevel-2"><a href="#Padding_schemes"><span class="tocnumber">1.4</span> <span class="toctext">Padding schemes</span></a></li>
+<li class="toclevel-2"><a href="#Signing_messages"><span class="tocnumber">1.5</span> <span class="toctext">Signing messages</span></a></li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+</table>
+<script type="text/javascript">
+//<![CDATA[
+ if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } 
+//]]>
+</script>
+<p><a name="Operation" id="Operation"></a></p>
+<h2><span class="editsection">[<a href="../../../r/s/a/RSA_445d.html" title="Edit section: Operation">edit</a>]</span> <span class="mw-headline">Operation</span></h2>
+<p>RSA involves a public and private <a href="../../../k/e/y/Key_%28cryptography%29.html" title="Key (cryptography)">key</a>. The public key can be known to everyone and is used for encrypting messages. Messages encrypted with the public key can only be decrypted using the private key. The keys for the RSA algorithm are generated the following way:</p>
+<ol>
+<li>Choose two large random <a href="../../../p/r/i/Prime_number.html" title="Prime number">prime numbers</a> <img class='tex' src="../../../math/5/a/3/5a34bb082daf037b3c4b14c13af6855b.png" alt="p \," /> and <img class='tex' src="../../../math/d/3/5/d35e628d4924b45b5200ab2b56b1efb8.png" alt="q \," /></li>
+<li>Calculate <img class='tex' src="../../../math/6/8/d/68d74ff176503095ac4d06c909b68b6b.png" alt="n = p q \," />
+<ul>
+<li><img class='tex' src="../../../math/a/9/5/a957404c96e59f1746f97ab668c8e1f8.png" alt="n\," /> is used as the modulus for both the public and private keys</li>
+</ul>
+</li>
+<li>Calculate the <a href="../../../t/o/t/Totient.html" title="Totient">totient</a>: <img class='tex' src="../../../math/4/a/9/4a9feeb8111c8b7f10cddc3bbb8dc0c9.png" alt="\phi(n) = (p-1)(q-1) \," />.</li>
+<li>Choose an <a href="../../../i/n/t/Integer.html" title="Integer">integer</a> <img class='tex' src="../../../math/b/5/f/b5f7e60e340c9674ec2f7559eb9505d5.png" alt="e\," /> such that 1 &lt; <img class='tex' src="../../../math/b/5/f/b5f7e60e340c9674ec2f7559eb9505d5.png" alt="e\," /> &lt; <img class='tex' src="../../../math/7/5/2/7521c55fbfd1f7b42d547ec750829f68.png" alt="\phi(n)\," />, and <img class='tex' src="../../../math/b/5/f/b5f7e60e340c9674ec2f7559eb9505d5.png" alt="e\," /> is <a href="../../../c/o/p/Coprime.html" title="Coprime">coprime</a> to <img class='tex' src="../../../math/7/5/2/7521c55fbfd1f7b42d547ec750829f68.png" alt="\phi(n)\," /> <b>ie:</b> <img class='tex' src="../../../math/b/5/f/b5f7e60e340c9674ec2f7559eb9505d5.png" alt="e\," /> and <img class='tex' src="../../../math/7/5/2/7521c55fbfd1f7b42d547ec750829f68.png" alt="\phi (n)\," /> share no factors other than 1; gcd(<img class='tex' src="../../../math/b/5/f/b5f7e60e340c9674ec2f7559eb9505d5.png" alt="e\," />,<img class='tex' src="../../../math/7/5/2/7521c55fbfd1f7b42d547ec750829f68.png" alt="\phi(n)\," />) = 1.
+<ul>
+<li><img class='tex' src="../../../math/b/5/f/b5f7e60e340c9674ec2f7559eb9505d5.png" alt="e\," /> is released as the public key exponent</li>
+</ul>
+</li>
+<li>Compute <img class='tex' src="../../../math/3/d/6/3d6de401d007ea0cffc99610ad623239.png" alt="d\," /> to satisfy the <a href="../../../m/o/d/Modular_arithmetic.html#The_congruence_relation" title="Modular arithmetic">congruence relation</a> <img class='tex' src="../../../math/0/f/1/0f177e14a52de7efb3b8a1fc3e9cea35.png" alt="d e \equiv 1\pmod{\phi(n)}\," /> <b>ie:</b> <img class='tex' src="../../../math/f/8/7/f87306e9d3500e02ff79ad296c88e112.png" alt="de = 1 + k\phi(n)\," /> for some integer <img class='tex' src="../../../math/b/f/f/bff2e94865b44c361e46c4beb2b040fe.png" alt="k\," />.
+<ul>
+<li><img class='tex' src="../../../math/3/d/6/3d6de401d007ea0cffc99610ad623239.png" alt="d\," /> is kept as the private key exponent</li>
+</ul>
+</li>
+</ol>
+<p><br />
+Notes on the above steps:</p>
+<ul>
+<li>Step 1: Numbers can be <a href="../../../p/r/i/Primality_test.html#Probabilistic_tests" title="Primality test">probabilistically tested</a> for primality.</li>
+<li>Step 3: changed in PKCS#1 v2.0 to <img class='tex' src="../../../math/5/b/d/5bd4042cb2f3efdc9d8baeaaf25214f0.png" alt="\lambda(n) = {\rm lcm}(p-1, q-1) \," /> instead of <img class='tex' src="../../../math/4/a/9/4a9feeb8111c8b7f10cddc3bbb8dc0c9.png" alt="\phi(n) = (p-1)(q-1) \," />.</li>
+<li>Step 4: A popular choice for the public exponents is <img class='tex' src="../../../math/b/5/f/b5f7e60e340c9674ec2f7559eb9505d5.png" alt="e\," /> = 2<sup>16</sup> + 1 = 65537. Some applications choose smaller values such as <img class='tex' src="../../../math/b/5/f/b5f7e60e340c9674ec2f7559eb9505d5.png" alt="e\," /> = 3, 5, or 35 instead. This is done to make encryption and signature verification faster on small devices like smart cards but small public exponents may lead to greater security risks.</li>
+<li>Steps 4 and 5 can be performed with the extended Euclidean algorithm; see <a href="../../../m/o/d/Modular_arithmetic.html" title="Modular arithmetic">modular arithmetic</a>.</li>
+</ul>
+<p><br />
+The <b>public key</b> is made of the modulus <img class='tex' src="../../../math/a/9/5/a957404c96e59f1746f97ab668c8e1f8.png" alt="n\," /> and the public (or encryption) exponent <img class='tex' src="../../../math/b/5/f/b5f7e60e340c9674ec2f7559eb9505d5.png" alt="e\," />.<br />
+The <b>private key</b> is made of the modulus <img class='tex' src="../../../math/a/9/5/a957404c96e59f1746f97ab668c8e1f8.png" alt="n\," /> and the private (or decryption) exponent <img class='tex' src="../../../math/3/d/6/3d6de401d007ea0cffc99610ad623239.png" alt="d\," /> which must be kept secret.</p>
+<ul>
+<li>For efficiency a different form of the <b>private key</b> can be stored:
+<ul>
+<li><img class='tex' src="../../../math/5/a/3/5a34bb082daf037b3c4b14c13af6855b.png" alt="p\," /> and <img class='tex' src="../../../math/d/3/5/d35e628d4924b45b5200ab2b56b1efb8.png" alt="q\," />: the primes from the key generation,</li>
+<li><img class='tex' src="../../../math/f/c/3/fc31464e5670ea21dfef701d083363a5.png" alt="d\mod (p - 1)\," /> and <img class='tex' src="../../../math/f/0/4/f0495c185d3cc6ae499d07dfc97687ee.png" alt="d\mod(q - 1)\," />: often called <i>dmp1</i> and <i>dmq1</i>.</li>
+<li><img class='tex' src="../../../math/c/2/5/c25e1475df44d0cb485ce742f6d6e0f8.png" alt="q^{-1} \mod(p)\," />: often called <i>iqmp</i></li>
+</ul>
+</li>
+<li>All parts of the the private key must be kept secret in this form. <img class='tex' src="../../../math/5/a/3/5a34bb082daf037b3c4b14c13af6855b.png" alt="p\," /> and <img class='tex' src="../../../math/d/3/5/d35e628d4924b45b5200ab2b56b1efb8.png" alt="q\," /> are sensitive since they are the factors of <img class='tex' src="../../../math/a/9/5/a957404c96e59f1746f97ab668c8e1f8.png" alt="n\," />, and allow computation of <img class='tex' src="../../../math/3/d/6/3d6de401d007ea0cffc99610ad623239.png" alt="d\," /> given <img class='tex' src="../../../math/b/5/f/b5f7e60e340c9674ec2f7559eb9505d5.png" alt="e\," />. If <img class='tex' src="../../../math/5/a/3/5a34bb082daf037b3c4b14c13af6855b.png" alt="p\," /> and <img class='tex' src="../../../math/d/3/5/d35e628d4924b45b5200ab2b56b1efb8.png" alt="q\," /> are not stored in this form of the private key then they are securely deleted along with other intermediate values from key generation.</li>
+<li>Although this form allows faster decryption and signing by using the Chinese Remainder Theorem (CRT) it is considerably less secure since it enables side channel attacks. This is a particular problem if implemented on <a href="../../../s/m/a/Smart_card.html" title="Smart card">smart cards</a>, which benefit most from the improved efficiency. (Start with <span class="texhtml"><i>y</i> = <i>x</i><sup><i>e</i></sup><i>m</i><i>o</i><i>d</i><i>n</i></span> and let the card decrypt that. So it computes <span class="texhtml"><i>y</i><sup><i>d</i></sup>(mod <i>p</i>)</span> or <span class="texhtml"><i>y</i><sup><i>d</i></sup>(mod <i>q</i>)</span> whose results give some value <span class="texhtml"><i>z</i></span>. Now, induce an error in one of the computations. Then <span class="texhtml">gcd(<i>z</i> − <i>x</i>,<i>n</i>)</span> will reveal <span class="texhtml"><i>p</i></span> or <span class="texhtml"><i>q</i></span>.)</li>
+</ul>
+<p><a name="Encrypting_messages" id="Encrypting_messages"></a></p>
+<h3><span class="editsection">[<a href="../../../r/s/a/RSA_445d.html" title="Edit section: Encrypting messages">edit</a>]</span> <span class="mw-headline">Encrypting messages</span></h3>
+<p>Alice transmits her public key (<img class='tex' src="../../../math/a/9/5/a957404c96e59f1746f97ab668c8e1f8.png" alt="n\," /> &amp; <img class='tex' src="../../../math/b/5/f/b5f7e60e340c9674ec2f7559eb9505d5.png" alt="e\," />) to Bob and keeps the private key secret. Bob then wishes to send message <b>M</b> to Alice.</p>
+<p>He first turns <b>M</b> into a number <img class='tex' src="../../../math/7/9/d/79dd9720ffa5bbe026e23afc9ab4df3c.png" alt="m\," /> &lt; <img class='tex' src="../../../math/a/9/5/a957404c96e59f1746f97ab668c8e1f8.png" alt="n\," /> by using an agreed-upon reversible protocol known as a <a href="#Padding_schemes" title="">padding scheme</a>. He then computes the ciphertext <img class='tex' src="../../../math/0/8/1/08163b03d3a58471d7f88fc4e581a282.png" alt="c\," /> corresponding to:</p>
+<dl>
+<dd><img class='tex' src="../../../math/9/d/5/9d5c76b09c32b39de8ffb8b470845479.png" alt="c = m^e \mod{n}" /></dd>
+</dl>
+<p>This can be done quickly using the method of <a href="../../../e/x/p/Exponentiation_by_squaring.html" title="Exponentiation by squaring">exponentiation by squaring</a>. Bob then transmits <img class='tex' src="../../../math/0/8/1/08163b03d3a58471d7f88fc4e581a282.png" alt="c\," /> to Alice.</p>
+<p><a name="Decrypting_messages" id="Decrypting_messages"></a></p>
+<h3><span class="editsection">[<a href="../../../r/s/a/RSA_445d.html" title="Edit section: Decrypting messages">edit</a>]</span> <span class="mw-headline">Decrypting messages</span></h3>
+<p>Alice can recover <img class='tex' src="../../../math/7/9/d/79dd9720ffa5bbe026e23afc9ab4df3c.png" alt="m\," /> from <img class='tex' src="../../../math/0/8/1/08163b03d3a58471d7f88fc4e581a282.png" alt="c\," /> by using her private key <img class='tex' src="../../../math/3/d/6/3d6de401d007ea0cffc99610ad623239.png" alt="d\," /> in the following procedure:</p>
+<dl>
+<dd><img class='tex' src="../../../math/9/8/b/98bbb8e6e089c12c4490e4e58822e079.png" alt="m = c^d \mod{n}" /></dd>
+</dl>
+<p>Given <img class='tex' src="../../../math/7/9/d/79dd9720ffa5bbe026e23afc9ab4df3c.png" alt="m\," />, she can recover the original message <b>M</b>.<br />
+<br />
+The decryption procedure works because first</p>
+<dl>
+<dd><img class='tex' src="../../../math/2/d/1/2d111f9e4db279697a9ca902acf62c3a.png" alt="c^d \equiv (m^e)^d \equiv m^{ed}\pmod{n}" />.</dd>
+</dl>
+<p>Now, since</p>
+<dl>
+<dd><img class='tex' src="../../../math/8/1/9/819c8b695e1d04713a9dfd6a7b0de01e.png" alt="e d \equiv 1\pmod{p - 1}\," /> and</dd>
+<dd><img class='tex' src="../../../math/4/c/2/4c224e3d2cd4e939770e15abad60db25.png" alt="e d \equiv 1\pmod{q - 1}\," /></dd>
+</dl>
+<p>Fermat's little theorem yields</p>
+<dl>
+<dd><img class='tex' src="../../../math/d/3/d/d3d0d6f255559e15e8afe3125a50b0e4.png" alt="m^{ed} \equiv m \pmod{p}" /> and</dd>
+<dd><img class='tex' src="../../../math/9/9/9/999af8ae6580b0a892e7adf2b3605509.png" alt="m^{ed} \equiv m \pmod{q}" />.</dd>
+</dl>
+<p>Since <img class='tex' src="../../../math/5/a/3/5a34bb082daf037b3c4b14c13af6855b.png" alt="p\," /> and <img class='tex' src="../../../math/d/3/5/d35e628d4924b45b5200ab2b56b1efb8.png" alt="q\," /> are distinct prime numbers, applying the Chinese remainder theorem to these two congruences yields</p>
+<dl>
+<dd><img class='tex' src="../../../math/8/9/3/893547f87ba76f3055b02e1bad9c13f2.png" alt="m^{ed} \equiv m \pmod{pq}" />.</dd>
+</dl>
+<p>Thus,</p>
+<dl>
+<dd><img class='tex' src="../../../math/a/b/0/ab0d4106d074e1502a64f0c564af8aac.png" alt="c^d \equiv m \pmod{n}" />.</dd>
+</dl>
+<p><a name="A_working_example" id="A_working_example"></a></p>
+<h3><span class="editsection">[<a href="../../../r/s/a/RSA_445d.html" title="Edit section: A working example">edit</a>]</span> <span class="mw-headline">A working example</span></h3>
+<p>Here is an example of RSA encryption and decryption. The parameters used here are artificially small, but you can also <a href="http://en.wikibooks.org/wiki/Transwiki:Generate_a_keypair_using_OpenSSL" class="extiw" title="wikibooks:Transwiki:Generate_a_keypair_using_OpenSSL">use OpenSSL to generate and examine a real keypair</a>.</p>
+<ol>
+<li>Choose two prime numbers
+<dl>
+<dd><span class="texhtml"><i>p</i> = 61</span> and <span class="texhtml"><i>q</i> = 53</span></dd>
+</dl>
+</li>
+<li>Compute <img class='tex' src="../../../math/6/8/d/68d74ff176503095ac4d06c909b68b6b.png" alt="n = p q \," />
+<dl>
+<dd><span class="texhtml"><i>n</i> = 61 * 53 = 3233</span></dd>
+</dl>
+</li>
+<li>Compute the totient <img class='tex' src="../../../math/4/a/9/4a9feeb8111c8b7f10cddc3bbb8dc0c9.png" alt="\phi(n) = (p-1)(q-1) \," />
+<dl>
+<dd><span class="texhtml">φ(<i>n</i>) = (61 − 1)(53 − 1) = 3120</span></dd>
+</dl>
+</li>
+<li>Choose <span class="texhtml"><i>e</i> &gt; 1</span> coprime to 3120
+<dl>
+<dd><span class="texhtml"><i>e</i> = 17</span></dd>
+</dl>
+</li>
+<li>Choose <img class='tex' src="../../../math/3/d/6/3d6de401d007ea0cffc99610ad623239.png" alt="d\," /> to satisfy <img class='tex' src="../../../math/0/f/1/0f177e14a52de7efb3b8a1fc3e9cea35.png" alt="d e \equiv 1\pmod{\phi(n)}\," />
+<dl>
+<dd><span class="texhtml"><i>d</i> = 2753</span></dd>
+<dd>17 * 2753 = 46801 = 1 + 15 * 3120.</dd>
+</dl>
+</li>
+</ol>
+<p><br />
+The <b>public key</b> is (<span class="texhtml"><i>n</i> = 3233</span>, <span class="texhtml"><i>e</i> = 17</span>). For a padded message <img class='tex' src="../../../math/7/9/d/79dd9720ffa5bbe026e23afc9ab4df3c.png" alt="m\," /> the encryption function is:</p>
+<dl>
+<dd><img class='tex' src="../../../math/e/3/1/e31e312ad882a89023c29e18b4fb2ecc.png" alt="c = m^e \mod{n} = m^{17} \mod 3233\," />.</dd>
+</dl>
+<p>The <b>private key</b> is (<span class="texhtml"><i>n</i> = 3233</span>, <span class="texhtml"><i>d</i> = 2753</span>). The decryption function is:</p>
+<dl>
+<dd><img class='tex' src="../../../math/5/e/0/5e0519a1450c7f73bb48244128e839ff.png" alt="m = c^d \mod{n} = c^{2753} \mod 3233\," />.</dd>
+</dl>
+<p><br />
+For example, to encrypt <span class="texhtml"><i>m</i> = 123</span>, we calculate</p>
+<dl>
+<dd><img class='tex' src="../../../math/2/6/0/260966fad1179baf851b2c650b66db80.png" alt="c = 123^{17} \mod 3233 = 855" /></dd>
+</dl>
+<p>To decrypt <span class="texhtml"><i>c</i> = 855</span>, we calculate</p>
+<dl>
+<dd><img class='tex' src="../../../math/f/c/8/fc8cd24f1336a04a03b06b33e8371843.png" alt="m = 855^{2753} \mod 3233 = 123" />.</dd>
+</dl>
+<p>Both of these calculations can be computed efficiently using the <a href="../../../b/i/n/Binary_exponentiation.html" title="Binary exponentiation">square-and-multiply algorithm</a> for modular exponentiation.</p>
+<p><a name="Padding_schemes" id="Padding_schemes"></a></p>
+<h3><span class="editsection">[<a href="../../../r/s/a/RSA_445d.html" title="Edit section: Padding schemes">edit</a>]</span> <span class="mw-headline">Padding schemes</span></h3>
+<p>When used in practice, RSA must be combined with some form of <a href="../../../p/a/d/Padding_%28cryptography%29.html" title="Padding (cryptography)">padding scheme</a>, so that no values of <i>M</i> result in insecure ciphertexts. RSA used without padding may have some problems:</p>
+<ul>
+<li>The values <i>m</i> = 0 or <i>m</i> = 1 always produce ciphertexts equal to 0 or 1 respectively, due to the properties of exponentiation.</li>
+<li>When encrypting with low encryption exponents (e.g., <i>e</i> = 3) and small values of the <i>m</i>, the (non-modular) result of <span class="texhtml"><i>m</i><sup><i>e</i></sup></span> may be strictly less than the modulus <i>n</i>. In this case, ciphertexts may be easily decrypted by taking the <i>e</i>th root of the ciphertext with no regard to the modulus.</li>
+<li>RSA encryption is a deterministic encryption algorithm. It has no random component. Therefore, an attacker can successfully launch a chosen plaintext attack against the cryptosystem. They can make a <a href="../../../d/i/c/Dictionary_attack.html" title="Dictionary attack">dictionary</a> by encrypting likely plaintexts under the public key, and storing the resulting ciphertexts. The attacker can then observe the communication channel. As soon as they see ciphertexts that match the ones in their dictionary, the attackers can then use this dictionary in order to learn the content of the message.</li>
+</ul>
+<p>In practice, the first two problems can arise when short ASCII messages are sent. In such messages, <i>m</i> might be the concatenation of one or more ASCII-encoded character(s). A message consisting of a single ASCII <code>NUL</code> character (whose numeric value is 0) would be encoded as <i>m</i> = 0, which produces a ciphertext of 0 no matter which values of <i>e</i> and <i>N</i> are used. Likewise, a single ASCII <code>SOH</code> (whose numeric value is 1) would always produce a ciphertext of 1. For systems which conventionally use small values of <i>e</i>, such as 3, all single character ASCII messages encoded using this scheme would be insecure, since the largest <i>m</i> would have a value of 255, and 255<sup>3</sup> is less than any reasonable modulus. Such plaintexts could be recovered by simply taking the cube root of the ciphertext.</p>
+<p>To avoid these problems, practical RSA implementations typically embed some form of structured, randomized <a href="../../../p/a/d/Padding_%28cryptography%29.html" title="Padding (cryptography)">padding</a> into the value <i>m</i> before encrypting it. This padding ensures that <i>m</i> does not fall into the range of insecure plaintexts, and that a given message, once padded, will encrypt to one of a large number of different possible ciphertexts. The latter property can increase the cost of a dictionary attack beyond the capabilities of a reasonable attacker.</p>
+<p>Standards such as PKCS have been carefully designed to securely pad messages prior to RSA encryption. Because these schemes pad the plaintext <i>m</i> with some number of additional bits, the size of the un-padded message <i>M</i> must be somewhat smaller. RSA padding schemes must be carefully designed so as to prevent sophisticated attacks. This may be made easier by a predictable message structure. Early versions of the PKCS standard used <a href="http://simple.wiktionary.org/wiki/ad-hoc" class="extiw" title="wikt:ad-hoc">wikt:ad-hoc</a> constructions, which were later found vulnerable to a practical adaptive chosen ciphertext attack. Modern constructions use secure techniques such as Optimal Asymmetric Encryption Padding (OAEP) to protect messages while preventing these attacks. The PKCS standard also has processing schemes designed to provide additional security for RSA signatures, e.g., the Probabilistic Signature Scheme for RSA (RSA-PSS).</p>
+<p><a name="Signing_messages" id="Signing_messages"></a></p>
+<h3><span class="editsection">[<a href="../../../r/s/a/RSA_445d.html" title="Edit section: Signing messages">edit</a>]</span> <span class="mw-headline">Signing messages</span></h3>
+<p>Suppose Alice uses Bob's public key to send him an encrypted message. In the message, she can claim to be Alice but Bob has no way of verifying that the message was actually from Alice since anyone can use Bob's public key to send him encrypted messages. So, in order to verify the origin of a message, RSA can also be used to sign a message.</p>
+<p>Suppose Alice wishes to send a signed message to Bob. She produces a hash value of the message, raises it to the power of <i>d</i> mod <i>n</i> (as she does when decrypting a message), and attaches it as a "signature" to the message. When Bob receives the signed message, he raises the signature to the power of <i>e</i> mod <i>n</i> (as he does when encrypting a message), and compares the resulting hash value with the message's actual hash value. If the two agree, he knows that the author of the message was in possession of Alice's secret key, and that the message has not been tampered with since.</p>
+<p>Note that secure padding schemes such as RSA-PSS are as essential for the security of message signing as they are for message encryption, and that the same key should never be used for both encryption and signing purposes.</p>
+
+<div class="printfooter">
+Retrieved from "<a href="http://simple.wikipedia.org../../../r/s/a/RSA_445d.html">http://simple.wikipedia.org../../../r/s/a/RSA_445d.html</a>"</div>
+	    <div id="catlinks"><p class='catlinks'><a href="../../../c/a/t/Special%7ECategories_101d.html" title="Special:Categories">Category</a>: <span dir='ltr'><a href="../../../c/r/y/Category%7ECryptography_3689.html" title="Category:Cryptography">Cryptography</a></span></p></div>	    <!-- end content -->
+	    <div class="visualClear"></div>
+	  </div>
+	</div>
+      </div>
+      <div id="column-one">
+	<div id="p-cactions" class="portlet">
+	  <h5>Views</h5>
+	  <ul>
+	    <li id="ca-nstab-main"
+	       class="selected"	       ><a href="../../../r/s/a/RSA_445d.html">Article</a></li><li id="ca-talk"
+	       class="new"	       ><a href="../../../r/s/a/Talk%7ERSA_6dda.html">Talk</a></li><li id="ca-current"
+	       	       ><a href="http://simple.wikipedia.org/wiki/RSA">Newest version</a></li>	  </ul>
+	</div>
+	<div class="portlet" id="p-logo">
+	  <a style="background-image: url(../../../upload/b/bc/Wiki.png);"
+	    href="../../../index.html"
+	    title="Main Page"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+	  <h5>Getting around</h5>
+	  <div class='pBody'>
+	    <ul>
+	    	      <li id="n-mainpage"><a href="../../../index.html">Main Page</a></li>
+	     	      <li id="n-portal"><a href="../../../c/o/m/Wikipedia%7ECommunity_Portal_6a3c.html">Community portal</a></li>
+	     	      <li id="n-Simple-talk"><a href="../../../s/i/m/Wikipedia%7ESimple_talk_51fd.html">Simple talk</a></li>
+	     	      <li id="n-help"><a href="../../../c/o/n/Help%7EContents_22de.html">Help</a></li>
+	     	      <li id="n-sitesupport"><a href="http://wikimediafoundation.org/wiki/Fundraising">Support Wikipedia</a></li>
+	     	    </ul>
+	  </div>
+	</div>
+		<div id="p-search" class="portlet">
+	  <h5><label for="searchInput">Search</label></h5>
+	  <div id="searchBody" class="pBody">
+	    <form action="javascript:goToStatic(3)" id="searchform"><div>
+	      <input id="searchInput" name="search" type="text"
+	        accesskey="f" value="" />
+	      <input type='submit' name="go" class="searchButton" id="searchGoButton"
+	        value="Go" />
+	    </div></form>
+	  </div>
+	</div>
+	<div id="p-lang" class="portlet">
+	  <h5>In other languages</h5>
+	  <div class="pBody">
+	    <ul>
+	      	      <li>
+	      <a href="../../../../bg/r/s/a/RSA_445d.html">Български</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../ca/r/s/a/RSA_445d.html">Català</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../cs/r/s/a/RSA_445d.html">Česky</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../da/r/s/a/RSA_445d.html">Dansk</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../de/r/s/a/RSA-Kryptosystem_122c.html">Deutsch</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../et/r/s/a/RSA_445d.html">Eesti</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../el/r/s/a/RSA_445d.html">Ελληνικά</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../en/r/s/a/RSA_445d.html">English</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../es/r/s/a/RSA_445d.html">Español</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../eo/r/s/a/RSA_445d.html">Esperanto</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../eu/r/s/a/RSA_445d.html">Euskara</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../fa/%D8%A2/%D8%B1/%D8%A7/%D8%A2%D8%B1%D8%A7%D8%B3%E2%80%8C%D8%A2.html">فارسی</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../fr/r/i/v/Rivest_Shamir_Adleman_f5e4.html">Français</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../gl/r/s/a/RSA_445d.html">Galego</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../ko/r/s/a/RSA_%EC%95%94%ED%98%B8_38d1.html">한국어</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../id/r/s/a/RSA_445d.html">Bahasa Indonesia</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../is/r/s/a/RSA_445d.html">Íslenska</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../it/r/s/a/RSA_445d.html">Italiano</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../he/r/s/a/RSA_445d.html">עברית</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../lt/r/s/a/RSA_445d.html">Lietuvių</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../hu/r/s/a/RSA-elj%C3%A1r%C3%A1s_edfa.html">Magyar</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../nl/r/s/a/RSA_%28cryptografie%29_e42f.html">Nederlands</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../ja/r/s/a/RSA%E6%9A%97%E5%8F%B7_2652.html">日本語</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../no/r/s/a/RSA_445d.html">‪Norsk (bokmål)‬</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../pl/r/s/a/RSA_%28kryptografia%29_19bb.html">Polski</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../pt/r/s/a/RSA_445d.html">Português</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../ru/r/s/a/RSA_445d.html">Русский</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../sl/r/s/a/RSA_445d.html">Slovenščina</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../sr/r/s/a/RSA_445d.html">Српски / Srpski</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../fi/r/s/a/RSA_445d.html">Suomi</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../sv/r/s/a/RSA_445d.html">Svenska</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../th/r/s/a/RSA_445d.html">ไทย</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../vi/r/s/a/RSA_%28m%C3%A3_h%C3%B3a%29_93a5.html">Tiếng Việt</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../tr/a/%C3%A7/%C4%B1/A%C3%A7%C4%B1k_anahtarl%C4%B1_%C5%9Fifreleme.html">Türkçe</a>
+	      </li>
+	      	      <li>
+	      <a href="../../../../zh/r/s/a/RSA%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95_586a.html">中文</a>
+	      </li>
+	      	    </ul>
+	  </div>
+	</div>
+	      </div><!-- end of the left (by default at least) column -->
+      <div class="visualClear"></div>
+      <div id="footer">
+    <div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../../../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>	<div id="f-copyrightico"><a href="http://wikimediafoundation.org/"><img src="../../../images/wikimedia-button.png" border="0" alt="Wikimedia Foundation"/></a></div>	<ul id="f-list">
+	  	  	  <li id="f-credits">This page was last modified 23:21, 19 March 2007 by Wikipedia user <a href="../../../t/h/i/User%7EThijs%21bot_bdf4.html" title="User:Thijs!bot">Thijs!bot</a>. Based on work by Wikipedia user(s) <a href="../../../e/p/t/User%7EEptalon_a472.html" title="User:Eptalon">Eptalon</a>, <a href="../../../r/o/b/User%7ERobbot_3bd9.html" title="User:Robbot">Robbot</a>, <a href="../../../d/o/d/User%7EDodekBot_488f.html" title="User:DodekBot">DodekBot</a>, <a href="../../../f/l/a/User%7EFlaBot_747f.html" title="User:FlaBot">FlaBot</a>, <a href="../../../y/u/r/User%7EYurikBot_b393.html" title="User:YurikBot">YurikBot</a>, <a href="../../../o/h/a/User%7EOhad.cohen_bc6e.html" title="User:Ohad.cohen">Ohad.cohen</a> and <a href="../../../f/r/e/User%7EFreshstart_f212.html" title="User:Freshstart">Freshstart</a> and Anonymous user(s) of the Simple English Wikipedia.</li>	  <li id="f-copyright">This text is available under the terms of the <a class='internal' href="../../../t/e/x/Wikipedia%7EText_of_the_GNU_Free_Documentation_License_702a.html" title="Wikipedia:Text of the GNU Free Documentation License">GNU Free Documentation License</a>. (See <b><a class='internal' href="../../../c/o/p/Wikipedia%7ECopyrights_92c4.html" title="Wikipedia:Copyrights">Copyrights</a></b> for details.) <br /> Wikipedia&reg; is a registered trademark of the <a href="http://www.wikimediafoundation.org">Wikimedia Foundation, Inc</a>., a US-registered <a class='internal' href="http://en.wikipedia.org/wiki/501%28c%29" title="501(c)(3)">501(c)(3)</a> <a href="http://wikimediafoundation.org/wiki/Deductibility_of_donations">tax-deductible</a> <a class='internal' href="http://en.wikipedia.org/wiki/Non-profit_organization" title="Non-profit organization">nonprofit</a> <a href="http://en.wikipedia.org/wiki/Charitable_organization" title="Charitable organization">charity</a>.<br /></li>	  <li id="f-about"><a href="../../../a/b/o/Wikipedia%7EAbout_8d82.html" title="Wikipedia:About">About Wikipedia</a></li>	  <li id="f-disclaimer"><a href="../../../g/e/n/Wikipedia%7EGeneral_disclaimer_3e44.html" title="Wikipedia:General disclaimer">Disclaimers</a></li>	  	</ul>
+      </div>
+    </div>
+  </body>
+</html>

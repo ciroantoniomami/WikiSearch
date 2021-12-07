@@ -1,0 +1,831 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    		<meta name="keywords" content="User:Crazynas/monobook.js" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="/w/opensearch_desc.php" title="Wikipedia (English)" />
+		<link rel="copyright" href="../../../COPYING.html" />
+    <title>User:Crazynas/monobook.js - Simple English Wikipedia, the free encyclopedia</title>
+    <style type="text/css">/*<![CDATA[*/ @import "../../../skins/htmldump/main.css"; /*]]>*/</style>
+    <link rel="stylesheet" type="text/css" media="print" href="../../../skins/common/commonPrint.css" />
+    <!--[if lt IE 5.5000]><style type="text/css">@import "../../../skins/monobook/IE50Fixes.css";</style><![endif]-->
+    <!--[if IE 5.5000]><style type="text/css">@import "../../../skins/monobook/IE55Fixes.css";</style><![endif]-->
+    <!--[if IE 6]><style type="text/css">@import "../../../skins/monobook/IE60Fixes.css";</style><![endif]-->
+    <!--[if IE]><script type="text/javascript" src="../../../skins/common/IEFixes.js"></script>
+    <meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+    <script type="text/javascript" src="../../../skins/common/wikibits.js"></script>
+    <script type="text/javascript" src="../../../skins/htmldump/md5.js"></script>
+    <script type="text/javascript" src="../../../skins/htmldump/utf8.js"></script>
+    <script type="text/javascript" src="../../../skins/htmldump/lookup.js"></script>
+    <script type="text/javascript" src="../../../raw/gen.js"></script>        <style type="text/css">/*<![CDATA[*/
+@import "../../../raw/MediaWiki%7ECommon.css";
+@import "../../../raw/MediaWiki%7EMonobook.css";
+@import "../../../raw/gen.css";
+/*]]>*/</style>          </head>
+  <body
+    class="ns-2">
+    <div id="globalWrapper">
+      <div id="column-content">
+	<div id="content">
+	  <a name="top" id="contentTop"></a>
+	        <h1 class="firstHeading">User:Crazynas/monobook.js</h1>
+	  <div id="bodyContent">
+	    <h3 id="siteSub">From Simple English Wikipedia, the free encyclopedia</h3>
+	    <div id="contentSub"><span class="subpages">&lt; User:Crazynas</span></div>
+	    	    	    <!-- start content -->
+	    <p><b>Note:</b> After saving, you may have to bypass your browser's cache to see the changes. <b>Mozilla / Firefox / Safari:</b> hold down <i>Shift</i> while clicking <i>Reload</i>, or press <i>Ctrl-Shift-R</i> (<i>Cmd-Shift-R</i> on Apple Mac); <b>IE:</b> hold <i>Ctrl</i> while clicking <i>Refresh</i>, or press <i>Ctrl-F5</i>; <b>Konqueror:</b>: simply click the <i>Reload</i> button, or press <i>F5</i>; <b>Opera</b> users may need to completely clear their cache in <i>Tools→Preferences</i>.
+</p><pre>/*********************************************************************************
+ * 
+ * http://en.wikipedia.org/wiki/User:Kylu/monobook.js
+ * [[User:Crazynas/monobook.js]]
+ *
+ * THERE IS STUFF IN HERE THAT IS USERNAME-SPECIFIC.
+ * IF YOU BORROW THESE SCRIPTS, PLEASE MAKE SURE YOU
+ * EDIT THEM SO IT SHOWS _YOUR_ USERNAME INSTEAD. THANK YOU.
+ *
+ * Licensing:
+ *   Parts dual-licensed by other authors under GPL and GFDL.
+ *   My modifications are purely GFDL.
+ *
+ *   Please see individual authors for licensing specifics:
+ *   From [[User:Bookofjude]]
+ *    [[User:Bookofjude]]'s monobook.js, based on primarily on [[User:Wayward]]'s, 
+ *    which in turn is based on [[User:Alphax/monobook.js]]'s
+ *    with many of [[User:Wayward]]'s own mods
+ *    Must use [[User:Wayward/monobook.css]] for full tab functionality
+ *    Forked from [[User:ABCD/monobook.js]] around April 2005
+ *    Dual licensed under the GFDL and GPL
+ *    See also: [[User:JesseW/monobook.js]]
+ *    And best of all: [[WP:US]]
+ *   From godlike.js:
+ *    Sam Hocevar &lt;sam@zoy.org&gt;
+ *   From [[User:Essjay]]
+ *    [[User:Essjay]]'s monobook.
+ *
+ *   Mirrored from Klyu
+ *
+ *********************************************************************************/
+
+/*********************************************************************************/
+// * SCRIPT SECTION: INCLUDE * //
+/*********************************************************************************/
+// This script fragment makes it easier to include scripts from other pages onto this.
+// Handy-dandy.
+/*** [[User:Lightdarkness]]'s include function ***/
+function inc (file) {
+  var lt = String.fromCharCode(60);
+  var gt = String.fromCharCode(62);
+  document.writeln(lt+'script type=&quot;text/javascript&quot; src=&quot;/w/index.php?title='+file+'&amp;amp;action=raw&amp;amp;ctype=text/javascript&amp;amp;dontcountme=s&quot;'+gt+lt+'/script'+gt);
+}
+
+/*********************************************************************************/
+// * SCRIPT SECTION: INCLUDED SCRIPTS * //
+/*********************************************************************************/
+
+/* POPUPS STUFF */
+
+inc(&quot;User:Lupin/popups.js&quot;);
+
+//popups options:
+simplePopups=false;
+popupAdminLinks=true;
+popupFixRedirs=true;
+popupFixDabs = true;
+popupDelay=0.15;
+popupSubpopups=false;
+popupNavLinkSeparator=' &amp;bull; ';
+popupRedirAutoClick = 'wpPreview';
+
+//Beta!
+popupLiveOptions=true;
+popupLiveOptionsExpanded=false;
+
+// Everyone knows what PopUps are, why advertize?
+// Will happily remove this section if anyone complains.
+popupRedlinkSummary='Removing link to empty page [[%s]]';
+popupFixDabsSummary='Disambiguate [[%s]] to [[%s]]';
+popupFixRedirsSummary='Redirect bypass from [[%s]] to [[%s]]';
+popupExtendedRevertSummary='Revert to revision dated %s by %s, oldid %s';
+popupRevertToPreviousSummary='Revert to the revision prior to revision %s';
+popupRevertSummary='Revert to revision %s';
+popupRmDabLinkSummary='Remove link to dab page [[%s]]';
+
+/* END OF POPUPS STUFF */
+
+// Jude's got a fairly new version, may as well use it.
+inc(&quot;User:Crazynas/godmode.js&quot;);
+
+// Yeah, I troll AfD looking for helpless articles to destroy...
+inc(&quot;User:Jnothman/afd_helper/script.js&quot;);
+
+// Name me a regular editor who DOESN'T use this...
+inc(&quot;User:Interiot/Tool2/code.js&quot;);
+
+// Handy-dandy useful script.
+inc(&quot;User:MarkS/extraeditbuttons.js&quot;);
+
+// Topaz's scripts.
+inc(&quot;User:Topaz/init.js&quot;);
+inc(&quot;User:Topaz/util.js&quot;);
+inc(&quot;User:Topaz/comm.js&quot;);
+inc(&quot;User:Topaz/wputil.js&quot;);
+
+
+/*********************************************************************************/
+// * SCRIPT SECTION: INHERENT SCRIPTS * //
+/*********************************************************************************/
+
+/*********************************************************************************
+ * This is the fun section where I put all the scripts I've stolen from other
+ * editors. I think I suffer from &quot;button envy&quot;, where I need to have all the
+ * fun editing features right at my fingertips at all times.
+ *
+ * Probably not healthy. If I get cancer, you know why.
+ *
+ *********************************************************************************/
+
+/**** Initialize on window load ****/
+/****
+ **** This section loads the scripts so they actually, y'know, work.
+ ****
+ ****/
+
+addOnloadHook( myLoadFuncs );
+/* addOnloadHook(AddTime); */
+addOnloadHook(addPurge);
+addOnloadHook(changeRecent);
+addOnloadHook(addEditSection0);
+addOnloadHook(changeLinks);
+addOnloadHook(morelinks);
+addOnloadHook(addToolBoxLinks);
+addOnloadHook(addWatch);
+addOnloadHook(akeytt);
+addOnloadHook(addNavBarLinks);
+addOnloadHook(addGoogle);
+addOnloadHook(function () {
+	if(document.forms.editform) {
+		addLink('p-cactions', 'javascript:replace()', 'replace', 'ca-replace', 'Regexp replace for the edit window', '', 'ca-history');
+	}
+	});
+
+
+/**** Load custom functions ****/
+
+/**** This section is required for many other sections,
+ **** if a copied function doesn't work, make sure you
+ **** included these and have it addOnloadHook'd (see above)
+ ****/
+
+function myLoadFuncs()
+{
+    if(!document.getElementById) return;
+    // add a clock
+    var toplinks = document.getElementById('p-personal').getElementsByTagName('ul')[0];
+    addlilink(toplinks, '#', '', 'utcdate');
+    showtime();
+    morelinks();
+}
+
+/**** Add generic tab ****/
+
+function addlilink(tabs, url, name, id){
+    var na = document.createElement('a');
+    na.href = url;
+    na.appendChild(document.createTextNode(name));
+    var li = document.createElement('li');
+    li.id = id;
+    li.appendChild(na);
+    tabs.appendChild(li);
+    return li;
+}
+
+/***************************************
+* Tabs by Korath
+* returns &lt;li&gt;&lt;a href=&quot;url&quot;&gt;name&lt;/a&gt;&lt;/li&gt;
+****************************************/
+
+/**** Add tab as menu ****/
+function addlimenu(tabs, name, id)
+{
+    var na = document.createElement('a');
+    na.href = '#';
+    var mn = document.createElement('ul');
+    na.appendChild(document.createTextNode(name));
+    var li = document.createElement('li');
+    li.id = id;
+    li.className = 'tabmenu';
+    li.appendChild(na);
+    li.appendChild(mn);
+    tabs.appendChild(li);
+    return li;
+}
+
+/**** Add tab (basic) ****/
+function addTab(url, name, id, title, key){ 
+    var tabs = document.getElementById('p-cactions').getElementsByTagName('ul')[0];
+    addlilink(tabs, url, name, id, title, key);
+}
+
+/*** Gets a page name ***/
+function getPname() {
+  z=document.getElementById(&quot;content&quot;).childNodes;
+  for (var n=0;n&lt;z.length;n++) { 
+    if (z[n].className==&quot;firstHeading&quot;) return z[n].textContent;
+  };
+}
+	
+/*** Gets a username on userpages ***/
+function getUname() {
+	return document.URL.match(/:.*:(.*)/)[1];
+}
+
+/*** Adds something to the contentSub ***/
+function addcsub(name, link)
+{
+	var csub = document.getElementById('contentSub');
+	var csuba = document.createElement('a');
+	csuba.href = link;
+	csuba.appendChild(document.createTextNode(name));
+	csub.appendChild(csuba);
+	return csuba;
+}
+
+
+// Adds &quot;block&quot; and &quot;blocklog&quot; tabs to User: and User talk: pages.
+function add_block_tab(){
+    var c1 = document.getElementById('column-one');
+    var tabs = document.getElementById('p-cactions').getElementsByTagName('ul')[0];
+    // use the &quot;edit this page&quot; tab to get already-tidied url
+    var editlk = document.getElementById('ca-edit').getElementsByTagName('a')[0].href;
+    // cut everything up to &quot;title=&quot; from the start and everything past &quot;&amp;action=edit&quot; from the end
+    editlk = editlk.substring(editlk.indexOf('title=') + 6, editlk.lastIndexOf('&amp;action=edit'));
+    editlk = editlk.substring(editlk.indexOf(':') + 1);
+    var slloc = editlk.indexOf('/');
+    if(slloc &gt; 0) editlk = editlk.substring(0, slloc);
+
+    // add &quot;block&quot; tab
+    //addTab('/wiki/Special:Blockip/' + editlk, 'block', 'ca-block');
+
+    // add &quot;blocklog&quot; tab
+    addTab('/wiki/Special:Log/block?page=User:' + editlk, 'log', 'ca-blocklog');
+    
+    // add &quot;unblock&quot; tab
+    //addTab('/w/index.php?title=Special:Ipblocklist&amp;action=unblock&amp;ip=' + editlk, 'un');
+
+    // add &quot;contributions&quot; tab
+    addTab('/wiki/Special:Contributions/' + editlk, 'con');
+    
+    // add &quot;edit count&quot; tab
+    addTab('http://tools.wikimedia.de/~interiot/cgi-bin/count_edits?user=' + editlk + '&amp;dbname=enwiki_p', 'count');
+ 
+    // add &quot;whois&quot; tab
+    addTab('http://tools.wikimedia.de/~essjay/nqt.php?queryType=arin&amp;target=' + editlk, 'who');
+   
+    // add &quot;proxycheck&quot; tab
+    addTab('http://quyme.com/proxycheck.php?ip=' + editlk, 'proxy');
+}
+
+// Do useful thinks on Special:Log/newusers //
+
+function NUPatrol()
+{
+	if (	( window.location.href.indexOf( 'Special%3ALog&amp;type=newusers' ) == -1 ) &amp;&amp;
+			( window.location.href.indexOf( 'Special:Log/newusers'        ) == -1 )  )
+	return; // make more robust???
+
+	var items, item, i, links, user, name, talk, contribs, insertLoc, link;
+
+	items = document.getElementById( 'bodyContent' ).getElementsByTagName( 'ul' )[ 0 ].getElementsByTagName( 'li' );
+
+	function NewLink( txt, url, plainlinks, linkColor )
+	{	var a = document.createElement( 'a' );
+			a.appendChild( document.createTextNode( txt ) );
+			a.href = url;
+		if ( plainlinks ) a.className = 'plainlinks';
+		if ( linkColor )
+		{	if ( typeof linkColor == &quot;string&quot; )
+					a.style.color = linkColor;
+			else	a.style.color = '#FF0000'; // old default behavior
+		}
+		return a;
+	}
+
+	for ( i = 0; i &lt; items.length; i++ )
+	{
+		item = items[ i ];
+		
+		links = item.getElementsByTagName( 'a' );
+
+			user = links[ 0 ]; name = user.firstChild.nodeValue;
+			talk = links[ 2 ]; talk.firstChild.nodeValue = 'talk'; // lowercase 'Talk' for consistency
+		contribs = links[ 3 ];
+
+		insertLoc = user.nextSibling; // ' newusers '
+
+		item.insertBefore( document.createTextNode( ' ( ' ), insertLoc );
+
+		item.insertBefore( talk, insertLoc );
+		item.insertBefore( document.createTextNode( ', ' ), insertLoc );
+
+		item.insertBefore( contribs, insertLoc );
+		item.insertBefore( document.createTextNode( ', ' ), insertLoc );
+
+		item.insertBefore( NewLink( 'actions', '/w/index.php?title=Special%3ALog&amp;user=' + name, true, '#000088' ), insertLoc );
+		item.insertBefore( document.createTextNode( ', ' ), insertLoc );
+
+		item.insertBefore( NewLink( 'blocks', '/w/index.php?title=Special%3ALog&amp;type=block&amp;page=User%3A' + name, true, '#008800' ), insertLoc );
+		item.insertBefore( document.createTextNode( ', ' ), insertLoc );
+
+		item.insertBefore( NewLink( 'is blocked?', '/wiki/Special:Ipblocklist?action=search&amp;ip=' + name, true, '#888800' ), insertLoc );
+		item.insertBefore( document.createTextNode( ', ' ), insertLoc );
+
+		item.insertBefore( NewLink( 'do block!', '/w/index.php?title=Special:Blockip&amp;ip=' + name, true, '#880000' ), insertLoc );
+
+		item.insertBefore( document.createTextNode( ' )' ), insertLoc );
+
+		item.removeChild( insertLoc.nextSibling ); // should remove the span
+		item.removeChild( insertLoc ); // should remove ' newusers ' text
+	}
+}
+
+/**** Tabs and functions ****/
+	
+// Add test-n templates to user talk pages
+function testn(number)
+{
+	var page = prompt(&quot;Vandalism to which article?&quot;)
+	var f = document.editform, t = f.wpTextbox1;
+	if (t.value.length &gt; 0)
+	t.value += '\n';
+	t.value += &quot;{{subst:&quot; + number + &quot;-n|&quot; + page + &quot;}} [[User:Crazynas|Crazynas]] 11:51, 15 July 2006 (UTC)&quot;;
+	f.wpSummary.value = &quot;Your edits to [[&quot; + page + &quot;]]&quot;
+	document.editform.wpWatchthis.checked = false; 
+}
+	
+// Add duration for s/block by                                  
+function duration(number)                                             
+{                                                                    
+	var duration = prompt(&quot;Block duration&quot;)                            
+	var f = document.editform, t = f.wpTextbox1;                        
+	if (t.value.length &gt; 0)                                             
+	t.value += '\n';                                                   
+	t.value += &quot;{{s/block2|signature=[[User:Crazynas|Crazynas]] 11:51, 15 July 2006 (UTC)|time=&quot; + duration + &quot;}}&quot;;     
+	f.wpSummary.value = &quot;You have been blocked for &quot; + duration + &quot;&quot;    
+	document.editform.wpWatchthis.checked = false;                                                         
+}
+	
+
+// appends msg to the currently editted page, sets the summary to summ,
+// and marks or unmarks the &quot;Watch this page&quot; checkbox according to watch
+function edit_summary_watch(msg, summ, watch)
+{
+	var f = document.editform, t = f.wpTextbox1;
+	if (t.value.length &gt; 0)
+	t.value += '\n';
+	t.value += msg;
+	f.wpSummary.value = summ;
+	f.wpWatchthis.checked = watch;
+}
+	
+// Places perm block and name block tags at top of edit section,         
+// and marks or unmarks the &quot;Watch this page&quot; checkbox according to watch  
+function perm_name_block(msg, summ, watch)                                
+{                                                                          
+	var f = document.editform, t = f.wpTextbox1;                            
+	if (t.value.length &gt; 0)                                                
+	t.value += '\n';                                                  
+	var temp = t.value;                                                    
+	t.value = msg;                                                         
+	t.value += '\n\n';                                                     
+	t.value += temp;                                                         
+	f.wpSummary.value = summ;                                                
+	f.wpWatchthis.checked = watch; 
+}
+
+function addLink(where, url, name, id, title, key, after){
+	//* where is the id of the toolbar where the button should be added;
+	//   i.e. one of &quot;p-cactions&quot;, &quot;p-personal&quot;, &quot;p-navigation&quot;, or &quot;p-tb&quot;.
+	//
+	//* url is the URL which will be called when the button is clicked.
+	//   javascript: urls can be used to do more complex things.
+	//
+	//* name is what will appear as the name of the button.
+	//
+	//* id is the id of the button; it's best to define one.  
+	//   Use a prefix to make sure its unique. Optional.
+	//
+	//* title is the tooltip title that gives a longer description 
+	//   of the button; if you define a accesskey, mention it here. Optional.
+	//
+	//* key is the char you want for the accesskey. Optional.
+	//
+	//* after is the id of the button you want to follow this one. Optional.
+	//
+	var na = document.createElement('a');
+	na.href = url;
+	na.appendChild(document.createTextNode(name));
+	var li = document.createElement('li');
+	if(id) li.id = id;
+	li.appendChild(na);
+	var tabs = document.getElementById(where).getElementsByTagName('ul')[0];
+	if(after) {
+		tabs.insertBefore(li,document.getElementById(after));
+	} else {
+		tabs.appendChild(li);
+	}
+	if(id) {
+		if(key &amp;&amp; title) { ta[id] = [key, title]; }
+		else if(key) { ta[id] = [key, '']; }
+		else if(title) { ta[id] = ['', title];} 
+	}
+	// re-render the title and accesskeys from existing code in wikibits.js
+	akeytt();
+	return li;
+}
+
+function replace() {
+	var s = prompt(&quot;Search regexp?&quot;);
+	if(s) {
+		var r = prompt(&quot;Replace regexp?&quot;);
+		if(!r &amp;&amp; r != '') return;
+		var txt = document.editform.wpTextbox1;
+		txt.value = txt.value.replace(new RegExp(s, &quot;g&quot;), r);
+	}
+}
+
+/*** Edit section 0 ***/
+function addEditSection0()
+{
+	ta['ca-edit-0'] = ['', 'Edit the zeroth section of this page'];
+	if(!document.getElementById) return;
+	var x = document.getElementById('ca-edit');
+	if(!x) return;
+	var y = document.createElement('LI');
+	y.id = 'ca-edit-0';
+	if(x.className == 'selected'){
+	  if(/&amp;action=edit&amp;section=0$/.test(window.location.href)){
+	x.className = 'istalk';
+	y.className = 'selected';
+	  } else {
+	x.className = 'selected istalk';
+	  }
+	} else if(x.className == 'selected istalk'){
+	  if(/&amp;action=edit&amp;section=0$/.test(window.location.href)){
+	x.className = 'istalk';
+	y.className = 'selected istalk';
+	  } else {
+	y.className = 'istalk';
+	  }
+	} else {
+	  y.className = x.className;
+	  x.className = 'istalk';
+	}
+	var z = document.createElement('A');
+	if(x.children){
+	z.href = x.children[0].href + '&amp;section=0';
+	z.appendChild(document.createTextNode('0'));
+	y.appendChild(z);
+	document.getElementById('p-cactions').children[1].insertBefore(y,x.nextSibling);
+	}else{
+	z.href = x.childNodes[0].href + '&amp;section=0';
+	z.appendChild(document.createTextNode('0'));
+	y.appendChild(z);
+	document.getElementById('p-cactions').childNodes[3].insertBefore(y,x.nextSibling);
+	}
+}
+
+/*** Add purge tab ***/
+function addPurge()
+{
+	ta['ca-purge'] = ['g', 'Purge the internal cache for this page'];
+	if(!document.getElementById) return;
+	var x = document.getElementById('ca-history');
+	var tabs = document.getElementById('p-cactions').getElementsByTagName('ul')[0];
+	if(!x) return;
+	if(x.children) x = x.children[0];
+	else x = x.childNodes[0];
+	
+	var pf = document.createElement('form');
+	pf.action = '?action=purge';
+	pf.method = 'POST';
+	pf.id = 'pf';
+	x.appendChild(pf);
+	
+	addlilink(tabs, 'javascript:document.getElementById(&quot;pf&quot;).submit();', 'purge', 'ca-purge');
+}
+	
+/*** Add article watchlist tab ***/
+function addWatch()
+{
+	if (!location.href.indexOf(&quot;Special:&quot;) == -1) {
+	ta['ca-watchlist'] = ['u', 'Add this article to Wikibot watchlist'];
+	if(!document.getElementById) return;
+	var tabs = document.getElementById('p-cactions').getElementsByTagName('ul')[0];
+	// use the &quot;edit this page&quot; tab to get already-tidied url
+	var editlk = document.getElementById('ca-edit').getElementsByTagName('a')[0].href;
+	// cut everything up to &quot;title=&quot; from the start and everything past &quot;&amp;action=edit&quot; from the end
+	editlk = editlk.substring(editlk.indexOf('title=') + 6, editlk.lastIndexOf('&amp;action=edit'));
+	addlilink(tabs, 'http://192.168.0.64/rc.php?watchlist=' + editlk, 'watchlist', 'ca-watchlist', 'ca-watchlist');	
+	}
+}
+
+/*** Add google tab ***/
+function addGoogle() 
+{
+	var tabs = document.getElementById('p-cactions').getElementsByTagName('ul')[0];
+	addlilink(tabs, 'http://www.google.com.au/search?q=' + getPname(), 'google',  'ca-google', 'ca-google');
+}
+	
+/*** Change recent changes link ***/
+	
+function changeRecent()
+{
+	var portlet = document.getElementById('n-recentchanges');
+	portlet.innerHTML = &quot;&lt;a href=\&quot;http://192.168.0.64/rc.php\&quot;&gt;Recent changes&lt;/a&gt;&quot;;
+}
+
+/*** Add afd header, footer and comment ***/
+function closeafd(bold, notbold)
+{
+	var txt = document.editform.wpTextbox1;
+	txt.value = &quot;{{subst:vt}} '''&quot; + bold + &quot;'''&quot; + notbold + &quot;. &amp;ndash; [[User:Crazynas|Crazynas]] 11:51, 15 July 2006 (UTC)\n&quot; + txt.value
+	+ &quot;\n{{subst:vb}}\n&quot;;
+	txt = document.editform.wpSummary;
+	txt.value = &quot;close discussion: &quot; + bold + notbold;
+	document.editform.wpWatchthis.checked = false;
+}
+	
+/*** Talk page AFD result ***/
+function afdresult()
+{
+	var res = prompt(&quot;Result?&quot;);
+	if(!res) return;
+	var afddate = prompt(&quot;Nomination date?&quot;);
+	document.editform.wpSummary.value = 'AFD result - ' + res.replace(/'/g, '');
+	var txt = document.editform.wpTextbox1;
+	if(txt.value.length &gt; 0) txt.value += '\n';
+	txt.value += '{{oldafdfull|date=[[' + afddate + ']] [[2006]]|result=' + res + '|votepage=Crazynas/monobook.js}}';
+	txt.focus();
+}
+	
+/*** Make old AfD's appear or disappear ***/
+	
+function hideafd()
+{
+	var divs = document.getElementsByTagName(&quot;div&quot;);
+	for(var x = 0; x &lt; divs.length; ++x)
+		if(divs[x].className.indexOf(&quot;vfd&quot;) != -1)
+		divs[x].style.display = &quot;none&quot;;
+	document.getElementById('footer').style.display = 'none';
+}
+	
+function showafd()
+{
+	var divs = document.getElementsByTagName(&quot;div&quot;);
+	for(var x = 0; x &lt; divs.length; ++x)
+		if(divs[x].className.indexOf(&quot;vfd&quot;) != -1)
+		divs[x].style.display = &quot;&quot;;
+	document.getElementById('footer').style.display = '';
+}
+
+/*** Not sure how this works ***/
+	
+function afddelete(){
+	//    var form = document.forms.deleteconfirm;
+	//    form.wpReason.value = '[[Wikipedia:Articles for deletion/' + unescape(window.location.href.replace(/^.*\?title=([^&amp;]+)&amp;action=delete.*$/, '$1').replace(/_/g, ' ')) + ']]';
+	//    form.wpConfirm.checked = true;
+}
+
+	
+/*** Make the top links look better ***/
+	
+function changeLinks()
+{
+	if(!document.getElementById) return;
+	document.getElementById('pt-mytalk').firstChild.innerHTML = 'talk';
+	document.getElementById('pt-preferences').firstChild.innerHTML = 'preferences';
+	document.getElementById('pt-watchlist').firstChild.innerHTML = 'watchlist';
+	document.getElementById('pt-mycontris').firstChild.innerHTML = 'contributions';
+}
+	
+/**** Automatically-updating word count on edit pages ****/
+
+/*** Count words in a field ***/
+function countWords(field) { 
+	return field &amp;&amp; field.value ? field.value.split(/\s+/).length : 0;
+}
+
+/*** Creates div ***/ 
+function doWordCount() {
+	if (document.title.slice(0,7) == &quot;Editing&quot;) {
+	var x = document.getElementById('editpage-copywarn');
+	var y = document.getElementById('editform');
+	if (x &amp;&amp; y &amp;&amp; y.wpTextbox1) {
+		var z = document.createElement('div');
+		z.id = 'word-count';
+		x.appendChild(z);
+		refreshCount();
+	} else {
+		alert('Missing element needed for word count');
+	}
+	}
+}
+
+/*** Auto-updated ***/
+function refreshCount() {
+	var wc = '&lt;small&gt;Word count: ' + countWords(document.getElementById('editform').wpTextbox1) + '&lt;/small&gt;';
+	document.getElementById('word-count').innerHTML = wc;
+	setTimeout(refreshCount, 10000);
+}
+
+
+function morelinks() {
+	var tabs = document.getElementById('p-cactions').getElementsByTagName('ul')[0];
+	if(document.title.indexOf(&quot;Editing User talk:&quot;) == 0) {
+	  addlimenu(tabs, 'Talk page messages', 'talkm');
+	  var talkm = document.getElementById('talkm').getElementsByTagName('ul')[0];
+	// Welcome menu      
+	  addlimenu(talkm, 'Welcome', 'welcomess');
+	  var welcomess = document.getElementById('welcomess').getElementsByTagName('ul')[0];
+	  addlilink(welcomess,'javascript:edit_summary_watch(&quot;{{subst:User:Bookofjude/Welcome}}  [[User:Crazynas|Crazynas]] 11:51, 15 July 2006 (UTC)&quot;, &quot;Welcome to Wikipedia!&quot;, true, 1)','Welcome', '');
+	  addlilink(welcomess,'javascript:edit_summary_watch(&quot;[[Wikipedia:Welcome|Welcome to Wikipedia]], the free encyclopedia! You don't have to [[Special:Userlogin|log in]] to read or edit articles on Wikipedia, but creating an account is quick, free and non-intrusive, requires you to provide no personal information, and gives you many benefits, including:
+
+* The use of a [[Wikipedia:Username|username]] of your choice
+* The ability to view all your contributions via a &quot;my changes&quot; link 
+* Your own ''user page'' 
+* Your own ''talk page'' which, if you choose, also allows users to send you messages without knowing your e-mail address
+* The use of your own personal list of watched pages (&quot;my watched pages&quot;) to which you can add articles that interest you
+* The ability to move/rename pages
+* The ability to customize the appearance and behaviour of the website
+* The eligibility to become an [[Wikipedia:Administrators|Administrator or Sysop]] (can delete and undelete pages, protect them from being edited, edit protected pages, and block users for violation of our policies)
+* The right to be heard in formal votes and elections, and on pages like [[Wikipedia:Requests for deletion|requests for deletion]]
+
+Click &lt;big&gt;'''[[Special:Userlogin|here]]'''&lt;/big&gt; to create an account.  [[User:Crazynas|Crazynas]] 11:51, 15 July 2006 (UTC)&quot;, &quot;Welcome to Wikipedia!&quot;, true, 1)','Anon', '');
+	// Test menu
+	  addlimenu(talkm, 'Test[x]', 'testx');
+	  var testx = document.getElementById('testx').getElementsByTagName('ul')[0];
+	  addlilink(testx,'javascript:testn(&quot;nn-test&quot;)','Non-notable test', '');
+	  addlilink(testx,'javascript:testn(&quot;test0&quot;)', 'Test0', '');
+	  addlilink(testx,'javascript:testn(&quot;test1&quot;)', 'Test1', '');
+	  addlilink(testx,'javascript:testn(&quot;test2&quot;)','Test2', '');
+	  addlilink(testx,'javascript:testn(&quot;test2a&quot;)','Test2a', '');
+	  addlilink(testx,'javascript:testn(&quot;test3&quot;)','Test3', '');
+	  addlilink(testx,'javascript:testn(&quot;test4&quot;)','Test4', '');
+	  addlilink(testx,'javascript:testn(&quot;test4-im&quot;)','Only warning', '');
+	  addlilink(testx,'javascript:testn(&quot;User:Bookofjude/tpv1&quot;)','Talk page vandalism 1', '');
+	  addlilink(testx,'javascript:edit_summary_watc(&quot;{{subst:wr}}  [[User:Crazynas|Crazynas]] 11:51, 15 July 2006 (UTC)&quot;, &quot;Blanking your talk page&quot;, false, 1)', 'Warning blankings 1', '');
+	// Blatant vandalism
+	  addlimenu(talkm, 'Blatant vandalism', 'bv')
+	  var bv = document.getElementById('bv').getElementsByTagName('ul')[0];
+	  addlilink(bv,'javascript:testn(&quot;vw&quot;)','Blatant vandalism 1', '');
+	  addlilink(bv,'javascript:testn(&quot;bv&quot;)','Blatant vandalism 2', '');
+	  addlilink(bv,'javascript:edit_summary_watch(&quot;{{subst:blanking}}  [[User:Crazynas|Crazynas]] 11:51, 15 July 2006 (UTC)&quot;, &quot;Blanking pages&quot;, false, 1)','blanking', '');
+	// Spam
+	  addlimenu(talkm, 'Spam', 'spam');
+	  var spam = document.getElementById('spam').getElementsByTagName('ul')[0];
+	  addlilink(spam,'javascript:edit_summary_watch(&quot;{{subst:spam1}}  [[User:Crazynas|Crazynas]] 11:51, 15 July 2006 (UTC)&quot;, &quot;Adding links to Wikipedia&quot;, false, 1)','Spam1', '');
+	  addlilink(spam,'javascript:edit_summary_watch(&quot;{{subst:spam2}}  [[User:Crazynas|Crazynas]] 11:51, 15 July 2006 (UTC)&quot;, &quot;Spamming&quot;, false, 1)','Spam2', '');
+	  addlilink(spam,'javascript:edit_summary_watch(&quot;{{subst:spam3}}  [[User:Crazynas|Crazynas]] 11:51, 15 July 2006 (UTC)&quot;, &quot;Last warning for spamming&quot;, false, 1)','Spam3', '');
+	  addlilink(spam,'javascript:edit_summary_watch(&quot;{{subst:spam4}}  [[User:Crazynas|Crazynas]] 11:51, 15 July 2006 (UTC)&quot;, &quot;You have been blocked for spamming&quot;, false, 1)','Spam4', '');
+	// Talk page messages
+	  addlimenu(talkm, 'Talk messages', 'tkm');
+	  var tkm = document.getElementById('tkm').getElementsByTagName('ul')[0];
+	  addlilink(tkm,'javascript:edit_summary_watch(&quot;{{subst:Summary}}  [[User:Crazynas|Crazynas]] 11:51, 15 July 2006 (UTC)&quot;, &quot;Edit summaries&quot;, false, 1)','Edit summary 1', '');
+	  addlilink(tkm,'javascript:edit_summary_watch(&quot;{{subst:Mess2}}  [[User:Crazynas|Crazynas]] 11:51, 15 July 2006 (UTC)&quot;, &quot;Messages in articles&quot;, false, 1)','Messages 1', '');
+	  addlilink(tkm,'javascript:edit_summary_watch(&quot;{{subst:Comment2}}  [[User:Crazynas|Crazynas]] 11:51, 15 July 2006 (UTC)&quot;, &quot;Messages in articles&quot;, false, 1)','Messages 2', '');
+	  addlilink(tkm,'javascript:edit_summary_watch(&quot;{{subst:Comment3}}  [[User:Crazynas|Crazynas]] 11:51, 15 July 2006 (UTC)&quot;, &quot;Messages in articles&quot;, false, 1)','Messages 3', '');
+	  addlilink(tkm,'javascript:edit_summary_watch(&quot;{{subst:Vanity|}}  [[User:Crazynas|Crazynas]] 11:51, 15 July 2006 (UTC)&quot;, &quot;About the page you created&quot;, false, 1)','Vanity', '');
+	  addlilink(tkm,'javascript:edit_summary_watch(&quot;Hello, and [[Wikipedia:Welcome|welcome]] to [[Wikipedia]]! We appreciate your contributions to the [[]] article, but we cannot accept [[Wikipedia:Copyrights|copyrighted]] text or images borrowed from other web sites or printed material. Perhaps you would like to rewrite the article in your own words. For more information, take a look at [[Wikipedia:Policies and guidelines|Wikipedia's policies and guidelines]]. Happy editing!&lt;!-- Template:Nothanks --&gt;  [[User:Crazynas|Crazynas]] 11:51, 15 July 2006 (UTC)&quot;, &quot;About your edits&quot;, false, 1)','nothanks', '');
+	  addlilink(tkm,'javascript:edit_summary_watch(&quot;{{subst:nothanks-sd|pg=page name|url=url of source}}  [[User:Crazynas|Crazynas]] 11:51, 15 July 2006 (UTC)&quot;, &quot;{{nothanks-sd}}&quot;, false, 1)','nothanks-sd', '');
+	  addlilink(tkm,'javascript:rvfd(1)', 'rvfd', ''); 
+	// Block messages
+	  // addlilink(talkm,'javascript:duration(1)', 'Temp Block', '');
+	  // addlilink(talkm,'javascript:perm_name_block(&quot;{{s/block3|signature=[[User:Crazynas|Crazynas]] 11:51, 15 July 2006 (UTC)}}&quot;, &quot;You have been indefinitely blocked&quot;, true, 1)','Perm Block', ''); 
+	  // addlilink(talkm,'javascript:perm_name_block(&quot;{{subst:nameblock}} [[User:Crazynas|Crazynas]] 11:51, 15 July 2006 (UTC)&quot;, &quot;{{nameblock}}&quot;, true, 1)','Name Block', ''); 
+	} else if(document.title.indexOf(&quot;Wikipedia:Articles for deletion&quot;) == 0) {
+		addlilink(tabs, 'javascript:hideafd()', 'hide closed', 'ca-hide');
+		ta['ca-hide'] = ['', 'Hide closed AFDs'];
+		addlilink(tabs, 'javascript:showafd()', 'show closed', 'ca-show');
+		ta['ca-show'] = ['', 'Show closed AFDs'];
+	} else if(document.title.indexOf(&quot;User&quot;) == 0) {
+		addlilink(tabs, '/wiki/Special:Contributions/' + getUname(), 'contributions', 'ca-contribs');
+		addlilink(tabs, 'http://192.168.0.64/rc.php?whitelist=' + getUname(), 'whitelist', 'ca-whitelist');
+		addlilink(tabs, 'http://192.168.0.64/rc.php?blacklist=' + getUname(), 'blacklist', 'ca-blacklist');
+	}
+}
+	
+/*** Add links to the toolbox ***/
+
+function addToolBoxLinks()
+	{
+	if(document.title.indexOf(&quot;User:&quot;) == 0) {
+		var tb = document.getElementById('p-tb').getElementsByTagName('ul')[0];
+		addlilink(tb, '/wiki/Special:Ipblocklist', 'IPBlocklist', '');
+		addlilink(tb, '/wiki/Wikipedia:Template messages/User_talk_namespace', 'Talk templates', '');
+		addlilink(tb, '/wiki/Wikipedia:Template_messages', 'Templates', '');
+		addlilink(tb, '/wiki/WP:CSD', 'SD criteria', '');
+		username_a = document.URL.match(/:.*:(.*)/);
+		username=username_a[1];
+		addlilink(tb, 'http://www.math.ucla.edu/~aoleg/wp/rfa/edit_summary.cgi?user=' + getUname() + '&amp;lang=en', 'User\'s edit summary calculations');
+		addlilink(tb, 'http://tools.wikimedia.de/~interiot/cgi-bin/count_edits?dbname=enwiki_p&amp;user=' + getUname(), 'User\'s edit count', '');
+		var username=document.getElementById(&quot;pt-userpage&quot;).textContent;
+		addlilink(tb, 'http://www.math.ucla.edu/~aoleg/wp/rfa/edit_summary.cgi?user=' + username + '&amp;lang=en', 'My edit summary calculations');
+		addlilink(tb, 'http://tools.wikimedia.de/~interiot/cgi-bin/count_edits?dbname=enwiki_p&amp;user=' + username, 'My edit count', '');
+		addlilink(tb, '/wiki/Special:Log', 'Log', '');
+		addlilink(tb, '/wiki/Category:Requests for unblock', 'Unblock requests', '');
+	}
+}
+	
+/*** Add navigation bar links ***/
+	
+function addNavBarLinks() {   
+	var navbar = document.getElementById('p-navigation').getElementsByTagName('ul')[0];
+	var afdtime = new Date();
+	var months = ['January', 'February', 'March', 'April', 'May', 'June',
+		'July', 'August', 'September', 'October', 'November', 'December'];
+	addlilink(navbar, '/w/index.php?title=Special:Recentchanges&amp;hidemyself=1&amp;hideminor=1&amp;hideliu=1', 'Recent changes 2', '');
+	addlilink(navbar, '/wiki/Wikipedia:Articles_for_deletion/Log/' + afdtime.getUTCFullYear()
+		+ '_' + months[afdtime.getUTCMonth()] + '_' + afdtime.getUTCDate(), 'Today\'s AfD', '');
+	afdtime.setUTCDate(afdtime.getUTCDate() - 5);
+	addlilink(navbar, '/wiki/Wikipedia:Articles_for_deletion/Log/' + afdtime.getUTCFullYear()
+		+ '_' + months[afdtime.getUTCMonth()] + '_' + afdtime.getUTCDate(), '5-day-old AfD', '');
+	var username=document.getElementById(&quot;pt-userpage&quot;).textContent;
+	addlilink(navbar, '/w/index.php?title=User:' + username + '/monobook.js&amp;action=edit', 'My monobook.js', '');   
+	addlilink(navbar, '/w/index.php?title=User:' + username + '/monobook.css&amp;action=edit', 'My monobook.css', ''); 
+	/* addlilink(navbar, '/wiki/User:Bookofjude/Sandbox', 'My sandbox', ''); &lt;- gotta work on this... */
+}
+/*** Adds a link for the clock ***/
+function AddTime() {
+	var toplinks = document.getElementById('p-personal').getElementsByTagName('ul')[0];
+	addlilink(toplinks, 'http://192.168.0.64/rc.php', 'Recent changes', '');
+	addlilink(toplinks, '#', '', 'utcdate');
+	showtime();
+}
+
+/*** Auto-updating clock ***/
+function showtime() {
+	var timerID;
+	var now = new Date();
+	var timeValue = now.toLocaleString().replace(/GMT/, &quot;UTC&quot;);
+        var timeValue2 = now.toUTCString().replace(/GMT/, &quot;UTC&quot;);
+	document.getElementById('utcdate').firstChild.innerHTML = timeValue + &quot;&lt;br&gt;&quot; + timeValue2;
+	timerID = setTimeout('showtime()', 100);
+}
+
+
+/* &lt;/nowiki&gt;&lt;/pre&gt; */
+</pre><div class="printfooter">
+Retrieved from "<a href="http://simple.wikipedia.org../../../c/r/a/User%7ECrazynas_monobook.js_9fa3.html">http://simple.wikipedia.org../../../c/r/a/User%7ECrazynas_monobook.js_9fa3.html</a>"</div>
+	    	    <!-- end content -->
+	    <div class="visualClear"></div>
+	  </div>
+	</div>
+      </div>
+      <div id="column-one">
+	<div id="p-cactions" class="portlet">
+	  <h5>Views</h5>
+	  <ul>
+	    <li id="ca-nstab-user"
+	       class="selected"	       ><a href="../../../c/r/a/User%7ECrazynas_monobook.js_9fa3.html">User page</a></li><li id="ca-talk"
+	       class="new"	       ><a href="../../../c/r/a/User_talk%7ECrazynas_monobook.js_05ed.html">Talk</a></li><li id="ca-current"
+	       	       ><a href="http://simple.wikipedia.org/wiki/User:Crazynas/monobook.js">Newest version</a></li>	  </ul>
+	</div>
+	<div class="portlet" id="p-logo">
+	  <a style="background-image: url(../../../upload/b/bc/Wiki.png);"
+	    href="../../../index.html"
+	    title="Main Page"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+	  <h5>Getting around</h5>
+	  <div class='pBody'>
+	    <ul>
+	    	      <li id="n-mainpage"><a href="../../../index.html">Main Page</a></li>
+	     	      <li id="n-portal"><a href="../../../c/o/m/Wikipedia%7ECommunity_Portal_6a3c.html">Community portal</a></li>
+	     	      <li id="n-Simple-talk"><a href="../../../s/i/m/Wikipedia%7ESimple_talk_51fd.html">Simple talk</a></li>
+	     	      <li id="n-help"><a href="../../../c/o/n/Help%7EContents_22de.html">Help</a></li>
+	     	      <li id="n-sitesupport"><a href="http://wikimediafoundation.org/wiki/Fundraising">Support Wikipedia</a></li>
+	     	    </ul>
+	  </div>
+	</div>
+		<div id="p-search" class="portlet">
+	  <h5><label for="searchInput">Search</label></h5>
+	  <div id="searchBody" class="pBody">
+	    <form action="javascript:goToStatic(3)" id="searchform"><div>
+	      <input id="searchInput" name="search" type="text"
+	        accesskey="f" value="" />
+	      <input type='submit' name="go" class="searchButton" id="searchGoButton"
+	        value="Go" />
+	    </div></form>
+	  </div>
+	</div>
+	      </div><!-- end of the left (by default at least) column -->
+      <div class="visualClear"></div>
+      <div id="footer">
+    <div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../../../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>	<div id="f-copyrightico"><a href="http://wikimediafoundation.org/"><img src="../../../images/wikimedia-button.png" border="0" alt="Wikimedia Foundation"/></a></div>	<ul id="f-list">
+	  	  	  <li id="f-credits">This page was last modified 11:51, 15 July 2006 by Wikipedia user Crazynas. </li>	  <li id="f-copyright">This text is available under the terms of the <a class='internal' href="../../../t/e/x/Wikipedia%7EText_of_the_GNU_Free_Documentation_License_702a.html" title="Wikipedia:Text of the GNU Free Documentation License">GNU Free Documentation License</a>. (See <b><a class='internal' href="../../../c/o/p/Wikipedia%7ECopyrights_92c4.html" title="Wikipedia:Copyrights">Copyrights</a></b> for details.) <br /> Wikipedia&reg; is a registered trademark of the <a href="http://www.wikimediafoundation.org">Wikimedia Foundation, Inc</a>., a US-registered <a class='internal' href="http://en.wikipedia.org/wiki/501%28c%29" title="501(c)(3)">501(c)(3)</a> <a href="http://wikimediafoundation.org/wiki/Deductibility_of_donations">tax-deductible</a> <a class='internal' href="http://en.wikipedia.org/wiki/Non-profit_organization" title="Non-profit organization">nonprofit</a> <a href="http://en.wikipedia.org/wiki/Charitable_organization" title="Charitable organization">charity</a>.<br /></li>	  <li id="f-about"><a href="../../../a/b/o/Wikipedia%7EAbout_8d82.html" title="Wikipedia:About">About Wikipedia</a></li>	  <li id="f-disclaimer"><a href="../../../g/e/n/Wikipedia%7EGeneral_disclaimer_3e44.html" title="Wikipedia:General disclaimer">Disclaimers</a></li>	  	</ul>
+      </div>
+    </div>
+  </body>
+</html>

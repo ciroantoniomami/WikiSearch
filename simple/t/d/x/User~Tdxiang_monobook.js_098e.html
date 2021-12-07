@@ -1,0 +1,505 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    		<meta name="keywords" content="User:Tdxiang/monobook.js" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="/w/opensearch_desc.php" title="Wikipedia (English)" />
+		<link rel="copyright" href="../../../COPYING.html" />
+    <title>User:Tdxiang/monobook.js - Simple English Wikipedia, the free encyclopedia</title>
+    <style type="text/css">/*<![CDATA[*/ @import "../../../skins/htmldump/main.css"; /*]]>*/</style>
+    <link rel="stylesheet" type="text/css" media="print" href="../../../skins/common/commonPrint.css" />
+    <!--[if lt IE 5.5000]><style type="text/css">@import "../../../skins/monobook/IE50Fixes.css";</style><![endif]-->
+    <!--[if IE 5.5000]><style type="text/css">@import "../../../skins/monobook/IE55Fixes.css";</style><![endif]-->
+    <!--[if IE 6]><style type="text/css">@import "../../../skins/monobook/IE60Fixes.css";</style><![endif]-->
+    <!--[if IE]><script type="text/javascript" src="../../../skins/common/IEFixes.js"></script>
+    <meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+    <script type="text/javascript" src="../../../skins/common/wikibits.js"></script>
+    <script type="text/javascript" src="../../../skins/htmldump/md5.js"></script>
+    <script type="text/javascript" src="../../../skins/htmldump/utf8.js"></script>
+    <script type="text/javascript" src="../../../skins/htmldump/lookup.js"></script>
+    <script type="text/javascript" src="../../../raw/gen.js"></script>        <style type="text/css">/*<![CDATA[*/
+@import "../../../raw/MediaWiki%7ECommon.css";
+@import "../../../raw/MediaWiki%7EMonobook.css";
+@import "../../../raw/gen.css";
+/*]]>*/</style>          </head>
+  <body
+    class="ns-2">
+    <div id="globalWrapper">
+      <div id="column-content">
+	<div id="content">
+	  <a name="top" id="contentTop"></a>
+	        <h1 class="firstHeading">User:Tdxiang/monobook.js</h1>
+	  <div id="bodyContent">
+	    <h3 id="siteSub">From Simple English Wikipedia, the free encyclopedia</h3>
+	    <div id="contentSub"><span class="subpages">&lt; <a href="../../../t/d/x/User%7ETdxiang_efc6.html" title="User:Tdxiang">User:Tdxiang</a></span></div>
+	    	    	    <!-- start content -->
+	    <p><b>Note:</b> After saving, you may have to bypass your browser's cache to see the changes. <b>Mozilla / Firefox / Safari:</b> hold down <i>Shift</i> while clicking <i>Reload</i>, or press <i>Ctrl-Shift-R</i> (<i>Cmd-Shift-R</i> on Apple Mac); <b>IE:</b> hold <i>Ctrl</i> while clicking <i>Refresh</i>, or press <i>Ctrl-F5</i>; <b>Konqueror:</b>: simply click the <i>Reload</i> button, or press <i>F5</i>; <b>Opera</b> users may need to completely clear their cache in <i>Tools→Preferences</i>.
+</p><pre>/* &lt;pre&gt;&lt;nowiki&gt; */
+//////////////////////////////////
+// [[User:Essjay]]'s monobook.  //
+//////////////////////////////////
+
+// Please note: This is a non-sysop, non-bureaucrat, and non-checkuser version of my .js    //
+//              If you're looking for sysop, bureaucrat, or checkuser fuctions, please see  //
+//              User:Essjay/monobook.js   All settings                                      // 
+//              User:Essjay/sysop/monobook.js   Sysop settings only                         //
+//              User:Essjay/bureaucrat/monobook.js   Bureaucrat &amp; Sysop settings            //
+//              User:Essjay/checkuser/monobook.js   Checkuser &amp; Sysop settings                                                                      //
+
+/**** Initialize on window load ****/
+
+addOnloadHook( myLoadFuncs );
+
+/**** Load custom functions ****/
+
+function myLoadFuncs()
+{
+    if(!document.getElementById) return;
+    // add a clock
+    var toplinks = document.getElementById('p-personal').getElementsByTagName('ul')[0];
+    addlilink(toplinks, '#', '', 'utcdate');
+    showtime();
+    morelinks();
+}
+
+/**** Add generic tab ****/
+
+function addlilink(tabs, url, name, id){
+    var na = document.createElement('a');
+    na.href = url;
+    na.appendChild(document.createTextNode(name));
+    var li = document.createElement('li');
+    li.id = id;
+    li.appendChild(na);
+    tabs.appendChild(li);
+    return li;
+}
+
+//////////////////////////////////////////
+// Tabs by Korath
+// returns &lt;li&gt;&lt;a href=&quot;url&quot;&gt;name&lt;/a&gt;&lt;/li&gt;
+//////////////////////////////////////////
+/**** Add tab as menu ****/
+
+function addlimenu(tabs, name, id)
+{
+    var na = document.createElement('a');
+    na.href = '#';
+    var mn = document.createElement('ul');
+    na.appendChild(document.createTextNode(name));
+    var li = document.createElement('li');
+    li.id = id;
+    li.className = 'tabmenu';
+    li.appendChild(na);
+    li.appendChild(mn);
+    tabs.appendChild(li);
+    return li;
+}
+
+/**** Get a clock that autoupdates! ****/
+
+function showtime()
+{
+    var timerID;
+    var now = new Date();
+    var timeValue = now.toUTCString().replace(/GMT/, &quot;UTC&quot;);
+    document.getElementById('utcdate').firstChild.innerHTML = timeValue;
+    timerID = setTimeout('showtime()', 100);
+}
+
+function addTab(url, name, id, title, key){ 
+    var tabs = document.getElementById('p-cactions').getElementsByTagName('ul')[0];
+    addlilink(tabs, url, name, id, title, key);
+}
+
+
+function morelinks()
+{
+    var tabs = document.getElementById('p-cactions').getElementsByTagName('ul')[0];
+if(document.title.indexOf(&quot;User&quot;) == 0)
+    {
+        addlimenu(tabs, 'User', 'userf');
+        var userf = document.getElementById('userf').getElementsByTagName('ul')[0];
+
+             //User functions //
+
+        var editlk = document.getElementById('ca-edit').getElementsByTagName('a')[0].href;
+            editlk = editlk.substring(editlk.indexOf('title=') + 6, editlk.lastIndexOf('&amp;action=edit'));
+            editlk = editlk.substring(editlk.indexOf(':') + 1);
+            var slloc = editlk.indexOf('/');
+            if(slloc &gt; 0) editlk = editlk.substring(0, slloc);
+        
+        // format: addlilink(userf, url, name);
+        
+        // add &quot;listusers&quot; tab
+        addlilink(userf, '/w/index.php?title=Special:Listusers&amp;group=&amp;username=' + editlk, 'list', '');
+
+        // add &quot;contributions&quot; tab
+        addlilink(userf, '/wiki/Special:Contributions/' + editlk, 'contrib', '');
+        // addTab('/wiki/Special:Contributions/' + editlk, 'con');
+        
+        // add &quot;userspace&quot; tab
+        addlilink(userf, '/w/index.php?title=Special:Prefixindex&amp;namespace=2&amp;from=' + editlk, 'space', '');
+
+        // add &quot;edit count&quot; tab
+        addlilink(userf, 'http://tools.wikimedia.de/~essjay/edit_count/Count.php?username=' + editlk, 'count', '');
+        // addTab('http://tools.wikimedia.de/~essjay/edit_count/Count.php?username=' + editlk, 'count');
+        
+        // add &quot;whois&quot; tab
+        addlilink(userf, 'http://tools.wikimedia.de/~essjay/nqt.php?queryType=arin&amp;target=' + editlk, 'whois', '');
+        // addTab('http://tools.wikimedia.de/~essjay/nqt.php?queryType=arin&amp;target=' + editlk, 'who');
+        
+        // add &quot;proxycheck&quot; tab
+        addlilink(userf, 'http://quyme.com/proxycheck.php?ip=' + editlk, 'proxy', '');
+        // addTab('http://quyme.com/proxycheck.php?ip=' + editlk, 'proxy');
+
+        // add &quot;url&quot; tab
+        addlilink(userf, 'http://' + editlk, 'url', '');
+        // addTab('http://' + editlk, 'url');
+
+        // add &quot;blocklog&quot; tab
+        addlilink(userf, '/wiki/Special:Log/block?page=User:' + editlk, 'log', '');
+        // addTab('/wiki/Special:Log/block?page=User:' + editlk, 'log', 'ca-blocklog');
+
+     
+}
+
+function do_onload()
+{
+ if (document.title.indexOf('Block user') == 0) // could stand to be more robust
+    do_blockip_stuff();
+}
+
+//From User:Func
+if (window.addEventListener) 
+  window.addEventListener(&quot;load&quot;, do_onload, false);
+else if (window.attachEvent) 
+  window.attachEvent(&quot;onload&quot;, do_onload);
+
+if ( document.createElement &amp;&amp; window.addEventListener )
+{
+	function SoFixItInit() // pre-load, (don't want to slow down loading of article's content, though)
+	{
+
+	}
+
+	function SoFixItLoad() // post-load
+	{
+		UserMenu = new PortletMenu( 'p-personal'   );
+		PageMenu = new PortletMenu( 'p-cactions'   );
+		 NavMenu = new PortletMenu( 'p-navigation' );
+		//ToolMenu = new PortletMenu( 'p-tb'         );
+
+			//	This is inefficient and not particularly robust.
+			//	This comes first, I want this link to come up as
+			//	fast as possible.
+			//
+		function GetByClass( sElem, sClass )
+		{	var i, a2 = [], a = document.getElementsByTagName( sElem );
+			for ( i = 0; i &lt; a.length; i++ )
+				if ( a[ i ].className == sClass )
+					a2.push( a[ i ] );
+			return a2;
+		}
+		var a, td = GetByClass( 'td', 'diff-otitle' );
+		if ( ( td = td[ 0 ] ) &amp;&amp; ( a = td.getElementsByTagName( 'a' )[ 0 ] ) )
+			a.href = a.href + '&amp;action=edit'; // need to change text, later
+
+		var userName = UserMenu.getText( 'pt-userpage' );
+
+			// personal (top-most) menu
+			//
+			//		
+			//
+		UserMenu.setText( 'pt-mytalk'     , 'Talk'  );
+		UserMenu.setText( 'pt-preferences', 'Prefs' );
+		UserMenu.setText( 'pt-watchlist'  , 'Watchlist' );
+		UserMenu.setText( 'pt-mycontris'  , 'Contribs' );
+		UserMenu.setText( 'pt-logout'     , 'Log out'   );
+			//
+		UserMenu.setHref( 'pt-mycontris',
+			'http://simple.wikipedia.org/w/index.php?title=Special:Contributions&amp;target=' +
+			userName + '&amp;offset=0&amp;limit=500' );
+			//
+			//
+			//		
+		
+			//	article-actions menu, (the &quot;tabs&quot;)
+			//
+		if ( PageMenu[ 'ca-history' ] ) // theory: if it has a history tab, then it's purgable
+		{
+			PageMenu.insertBefore( 'ca-history', 'ca-lastdiff', 'diff',
+				PageMenu.getHref( 'ca-history' ).replace( /action=history/, 'diff=0' ) );
+
+			PageMenu.append( 'ca-purge', 'Purge',
+				PageMenu.getHref( 'ca-history' ).replace( /action=history/, 'action=purge' ) );
+							//Shorten tab names //
+                        PageMenu.setText( 'ca-nstab-user' , 'user' );
+                        PageMenu.setText( 'ca-talk' , 'talk' );
+                        PageMenu.setText( 'ca-edit'     , 'edit'   );
+                        PageMenu.setText( 'ca-history'     , 'history'   );
+                        PageMenu.setText( 'ca-delete'     , 'delete'   );
+                        PageMenu.setText( 'ca-watch'     , 'watch'   );
+                        PageMenu.setText( 'ca-protect'     , 'protect'   );
+
+		}
+
+		var x = 1;
+		NavMenu.append( 'n-' + x++, 'Monobook.js', '/wiki/User:' + userName + '/monobook.js' );
+		NavMenu.append( 'n-' + x++, 'Interiot', 'http://tools.wikimedia.de/~interiot/cgi-bin/count_edits?user=Tdxiang&amp;dbname=simplewiki_p' );
+
+	}
+
+	function PortletMenu( id ) // constructor
+	{
+		this.menu = document.getElementById( id );
+		this.list = this.menu.getElementsByTagName( 'ul' )[ 0 ]; // bypass &quot;&lt;h5&gt;Views&lt;/h5&gt;&quot;, etc.
+
+			//	sigh...as far as I can figure, there is empty whitespace being treated
+			//	as TextNodes....
+			//
+		var LIs = this.list.getElementsByTagName( 'li' );
+
+		for ( var i = 0; i &lt; LIs.length; i++ )
+		{
+			this[ LIs[ i ].id ] = LIs[ i ];
+		}
+
+		this.newItem = function( id, txt, url )
+		{	var li = document.createElement( 'li' ); li.id   = id;
+			var  a = document.createElement( 'a'  );  a.href = url;
+
+			 a.appendChild( document.createTextNode( txt ) );
+			li.appendChild( a );
+
+			this[ id ] = li; // watch this!!!
+
+			return li;
+		}
+
+		this.append = function( id, txt, url )
+		{	this.list.appendChild( this.newItem( id, txt, url ) );
+		}
+		
+		this.insertBefore = function( old, id, txt, url )
+		{	this.list.insertBefore( this.newItem( id, txt, url ), this[ old ] );
+		}
+
+			//	the ByTagName here is a bit annoying, but in Safari, I was picking
+			//	up TextNodes by using this[ id ].firstChild.firstChild
+			//
+		this.getText = function( id      ) { return this[ id ].getElementsByTagName( 'a' )[ 0 ].firstChild.data }
+		this.setText = function( id, txt ) {        this[ id ].getElementsByTagName( 'a' )[ 0 ].firstChild.data = txt }
+
+		this.getHref = function( id      ) { return this[ id ].getElementsByTagName( 'a' )[ 0 ].href       }
+		this.setHref = function( id, url ) {        this[ id ].getElementsByTagName( 'a' )[ 0 ].href = url }
+		
+		//	I add em as I need em....
+	}
+
+	function RemoveNode( id )
+	{	var node = document.getElementById( id )
+		node.parentNode.removeChild( node );
+	}
+
+	SoFixItInit();
+	window.addEventListener( 'load', SoFixItLoad, false );
+}
+
+// Do useful thinks on Special:Log/newusers //
+
+function NUPatrol()
+{
+	if (	( window.location.href.indexOf( 'Special%3ALog&amp;type=newusers' ) == -1 ) &amp;&amp;
+			( window.location.href.indexOf( 'Special:Log/newusers'        ) == -1 )  )
+	return; // make more robust???
+
+	var items, item, i, links, user, name, talk, contribs, insertLoc, link;
+
+	items = document.getElementById( 'bodyContent' ).getElementsByTagName( 'ul' )[ 0 ].getElementsByTagName( 'li' );
+
+	function NewLink( txt, url, plainlinks, linkColor )
+	{	var a = document.createElement( 'a' );
+			a.appendChild( document.createTextNode( txt ) );
+			a.href = url;
+		if ( plainlinks ) a.className = 'plainlinks';
+		if ( linkColor )
+		{	if ( typeof linkColor == &quot;string&quot; )
+					a.style.color = linkColor;
+			else	a.style.color = '#FF0000'; // old default behavior
+		}
+		return a;
+	}
+
+	for ( i = 0; i &lt; items.length; i++ )
+	{
+		item = items[ i ];
+		
+		links = item.getElementsByTagName( 'a' );
+
+			user = links[ 0 ]; name = user.firstChild.nodeValue;
+			talk = links[ 2 ]; talk.firstChild.nodeValue = 'talk'; // lowercase 'Talk' for consistency
+		contribs = links[ 3 ];
+
+		insertLoc = user.nextSibling; // ' newusers '
+
+		item.insertBefore( document.createTextNode( ' ( ' ), insertLoc );
+
+		item.insertBefore( talk, insertLoc );
+		item.insertBefore( document.createTextNode( ', ' ), insertLoc );
+
+		item.insertBefore( contribs, insertLoc );
+		item.insertBefore( document.createTextNode( ', ' ), insertLoc );
+
+		item.insertBefore( NewLink( 'actions', '/w/index.php?title=Special%3ALog&amp;user=' + name, true, '#000088' ), insertLoc );
+		item.insertBefore( document.createTextNode( ', ' ), insertLoc );
+
+		item.insertBefore( NewLink( 'blocks', '/w/index.php?title=Special%3ALog&amp;type=block&amp;page=User%3A' + name, true, '#008800' ), insertLoc );
+		item.insertBefore( document.createTextNode( ', ' ), insertLoc );
+
+		item.insertBefore( NewLink( 'is blocked?', '/wiki/Special:Ipblocklist?action=search&amp;ip=' + name, true, '#888800' ), insertLoc );
+		item.insertBefore( document.createTextNode( ', ' ), insertLoc );
+
+		item.insertBefore( NewLink( 'do block!', '/w/index.php?title=Special:Blockip&amp;ip=' + name, true, '#880000' ), insertLoc );
+
+		item.insertBefore( document.createTextNode( ' )' ), insertLoc );
+
+		item.removeChild( insertLoc.nextSibling ); // should remove the span
+		item.removeChild( insertLoc ); // should remove ' newusers ' text
+	}
+}
+
+if ( window.addEventListener ) window.addEventListener( 'load', NUPatrol, false );
+else if ( window.attachEvent ) window.attachEvent( 'onload', NUPatrol );
+
+function inc (file) {
+  var lt = String.fromCharCode(60);
+  var gt = String.fromCharCode(62);
+  document.writeln(lt+'script type=&quot;text/javascript&quot; src=&quot;/w/index.php?title='+file+'&amp;amp;action=raw&amp;amp;ctype=text/javascript&amp;amp;dontcountme=s&quot;'+gt+lt+'/script'+gt);
+}
+
+inc(&quot;User:Essjay/statuschanger.js&quot;);
+
+//Interiot's Java //
+
+document.write('&lt;script type=&quot;text/javascript&quot; src=&quot;' 
+    + 'http://en.wikipedia.org/w/index.php?title=User:Interiot/Tool2/code.js' 
+    + '&amp;action=raw&amp;ctype=text/javascript&amp;dontcountme=s&quot;&gt;&lt;/script&gt;');
+
+// Unwatch Links //
+
+addOnloadHook(function () {
+    var query_prefix = &quot;title=Special:Watchlist&amp;action=submit&amp;remove=1&amp;id[]=&quot;;
+    //var query_prefix = &quot;action=unwatch&amp;title=&quot;;
+
+    if (window.location.href.indexOf(&quot;Special:Watchlist&quot;) &lt; 0) return;
+    if (window.location.href.indexOf(&quot;Special:Watchlist/edit&quot;) &gt;= 0) return;
+
+    var links = document.getElementById('content').getElementsByTagName('a');
+    for (var i = 0; i &lt; links.length; i++) {
+        if (links[i].href.substring(links[i].href.length-15) != '&amp;action=history')
+            continue;
+        var unwatch = document.createElement('a');
+        unwatch.href = &quot;/w/index.php?&quot; + query_prefix + encodeURIComponent(links[i].title);
+        unwatch.title = &quot;Unwatch &quot;+links[i].title;
+        unwatch.appendChild(document.createTextNode(&quot;unwatch&quot;));
+        links[i].parentNode.insertBefore(unwatch, links[i].nextSibling);
+        // kluge to handle case where &quot;diff&quot; is unlinked:
+        var delim = links[i].previousSibling;
+        delim = (delim.nodeType == 3 ? delim.nodeValue : &quot;&quot;);
+        links[i].parentNode.insertBefore(document.createTextNode(delim.replace(/^.*diff/, &quot;&quot;)), unwatch);
+    }
+});
+
+//Death to editing on redlinks //
+
+function stopRedlinksEditing(){ 
+    var len=document.links.length;
+    for(var i=0; i&lt;len; ++i) {
+        var l=document.links[i];
+        if (l.className=='new') {
+            l.href=l.href.replace('&amp;action=edit', '');
+        }
+    }
+}
+addOnloadHook(stopRedlinksEditing); 
+}
+
+// &lt;/nowiki&gt;&lt;/pre&gt; //
+// [[User:Lupin/popups.js]]
+
+document.write('&lt;script type=&quot;text/javascript&quot; src=&quot;' 
+             + 'http://en.wikipedia.org/w/index.php?title=User:Lupin/popups.js' 
+             + '&amp;action=raw&amp;ctype=text/javascript&amp;dontcountme=s&quot;&gt;&lt;/script&gt;');
+
+
+
+
+
+
+
+
+
+
+
+
+//Interiot's javascript edit counter
+if (document.title.indexOf('User:Interiot/Tool2/code.js') != -1) {
+  document.write('&lt;script type=&quot;text/javascript&quot; src=&quot;' 
+    + 'http://en.wikipedia.org/w/index.php?title=User:Interiot/Tool2/code.js' 
+    + '&amp;action=raw&amp;ctype=text/javascript&amp;dontcountme=s&quot;&gt;&lt;/script&gt;'); }
+</pre><div class="printfooter">
+Retrieved from "<a href="http://simple.wikipedia.org../../../t/d/x/User%7ETdxiang_monobook.js_098e.html">http://simple.wikipedia.org../../../t/d/x/User%7ETdxiang_monobook.js_098e.html</a>"</div>
+	    	    <!-- end content -->
+	    <div class="visualClear"></div>
+	  </div>
+	</div>
+      </div>
+      <div id="column-one">
+	<div id="p-cactions" class="portlet">
+	  <h5>Views</h5>
+	  <ul>
+	    <li id="ca-nstab-user"
+	       class="selected"	       ><a href="../../../t/d/x/User%7ETdxiang_monobook.js_098e.html">User page</a></li><li id="ca-talk"
+	       class="new"	       ><a href="../../../t/d/x/User_talk%7ETdxiang_monobook.js_94a2.html">Talk</a></li><li id="ca-current"
+	       	       ><a href="http://simple.wikipedia.org/wiki/User:Tdxiang/monobook.js">Newest version</a></li>	  </ul>
+	</div>
+	<div class="portlet" id="p-logo">
+	  <a style="background-image: url(../../../upload/b/bc/Wiki.png);"
+	    href="../../../index.html"
+	    title="Main Page"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+	  <h5>Getting around</h5>
+	  <div class='pBody'>
+	    <ul>
+	    	      <li id="n-mainpage"><a href="../../../index.html">Main Page</a></li>
+	     	      <li id="n-portal"><a href="../../../c/o/m/Wikipedia%7ECommunity_Portal_6a3c.html">Community portal</a></li>
+	     	      <li id="n-Simple-talk"><a href="../../../s/i/m/Wikipedia%7ESimple_talk_51fd.html">Simple talk</a></li>
+	     	      <li id="n-help"><a href="../../../c/o/n/Help%7EContents_22de.html">Help</a></li>
+	     	      <li id="n-sitesupport"><a href="http://wikimediafoundation.org/wiki/Fundraising">Support Wikipedia</a></li>
+	     	    </ul>
+	  </div>
+	</div>
+		<div id="p-search" class="portlet">
+	  <h5><label for="searchInput">Search</label></h5>
+	  <div id="searchBody" class="pBody">
+	    <form action="javascript:goToStatic(3)" id="searchform"><div>
+	      <input id="searchInput" name="search" type="text"
+	        accesskey="f" value="" />
+	      <input type='submit' name="go" class="searchButton" id="searchGoButton"
+	        value="Go" />
+	    </div></form>
+	  </div>
+	</div>
+	      </div><!-- end of the left (by default at least) column -->
+      <div class="visualClear"></div>
+      <div id="footer">
+    <div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../../../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>	<div id="f-copyrightico"><a href="http://wikimediafoundation.org/"><img src="../../../images/wikimedia-button.png" border="0" alt="Wikimedia Foundation"/></a></div>	<ul id="f-list">
+	  	  	  <li id="f-credits">This page was last modified 04:10, 13 March 2007 by Wikipedia user <a href="../../../t/d/x/User%7ETdxiang_efc6.html" title="User:Tdxiang">Tdxiang</a>. </li>	  <li id="f-copyright">This text is available under the terms of the <a class='internal' href="../../../t/e/x/Wikipedia%7EText_of_the_GNU_Free_Documentation_License_702a.html" title="Wikipedia:Text of the GNU Free Documentation License">GNU Free Documentation License</a>. (See <b><a class='internal' href="../../../c/o/p/Wikipedia%7ECopyrights_92c4.html" title="Wikipedia:Copyrights">Copyrights</a></b> for details.) <br /> Wikipedia&reg; is a registered trademark of the <a href="http://www.wikimediafoundation.org">Wikimedia Foundation, Inc</a>., a US-registered <a class='internal' href="http://en.wikipedia.org/wiki/501%28c%29" title="501(c)(3)">501(c)(3)</a> <a href="http://wikimediafoundation.org/wiki/Deductibility_of_donations">tax-deductible</a> <a class='internal' href="http://en.wikipedia.org/wiki/Non-profit_organization" title="Non-profit organization">nonprofit</a> <a href="http://en.wikipedia.org/wiki/Charitable_organization" title="Charitable organization">charity</a>.<br /></li>	  <li id="f-about"><a href="../../../a/b/o/Wikipedia%7EAbout_8d82.html" title="Wikipedia:About">About Wikipedia</a></li>	  <li id="f-disclaimer"><a href="../../../g/e/n/Wikipedia%7EGeneral_disclaimer_3e44.html" title="Wikipedia:General disclaimer">Disclaimers</a></li>	  	</ul>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,880 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    		<meta name="keywords" content="User:GangstaEB/recent2.js" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="/w/opensearch_desc.php" title="Wikipedia (English)" />
+		<link rel="copyright" href="../../../COPYING.html" />
+    <title>User:GangstaEB/recent2.js - Simple English Wikipedia, the free encyclopedia</title>
+    <style type="text/css">/*<![CDATA[*/ @import "../../../skins/htmldump/main.css"; /*]]>*/</style>
+    <link rel="stylesheet" type="text/css" media="print" href="../../../skins/common/commonPrint.css" />
+    <!--[if lt IE 5.5000]><style type="text/css">@import "../../../skins/monobook/IE50Fixes.css";</style><![endif]-->
+    <!--[if IE 5.5000]><style type="text/css">@import "../../../skins/monobook/IE55Fixes.css";</style><![endif]-->
+    <!--[if IE 6]><style type="text/css">@import "../../../skins/monobook/IE60Fixes.css";</style><![endif]-->
+    <!--[if IE]><script type="text/javascript" src="../../../skins/common/IEFixes.js"></script>
+    <meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+    <script type="text/javascript" src="../../../skins/common/wikibits.js"></script>
+    <script type="text/javascript" src="../../../skins/htmldump/md5.js"></script>
+    <script type="text/javascript" src="../../../skins/htmldump/utf8.js"></script>
+    <script type="text/javascript" src="../../../skins/htmldump/lookup.js"></script>
+    <script type="text/javascript" src="../../../raw/gen.js"></script>        <style type="text/css">/*<![CDATA[*/
+@import "../../../raw/MediaWiki%7ECommon.css";
+@import "../../../raw/MediaWiki%7EMonobook.css";
+@import "../../../raw/gen.css";
+/*]]>*/</style>          </head>
+  <body
+    class="ns-2">
+    <div id="globalWrapper">
+      <div id="column-content">
+	<div id="content">
+	  <a name="top" id="contentTop"></a>
+	        <h1 class="firstHeading">User:GangstaEB/recent2.js</h1>
+	  <div id="bodyContent">
+	    <h3 id="siteSub">From Simple English Wikipedia, the free encyclopedia</h3>
+	    <div id="contentSub"><span class="subpages">&lt; <a href="../../../g/a/n/User%7EGangstaEB_ce1e.html" title="User:GangstaEB">User:GangstaEB</a></span></div>
+	    	    	    <!-- start content -->
+	    <p><b>Note:</b> After saving, you may have to bypass your browser's cache to see the changes. <b>Mozilla / Firefox / Safari:</b> hold down <i>Shift</i> while clicking <i>Reload</i>, or press <i>Ctrl-Shift-R</i> (<i>Cmd-Shift-R</i> on Apple Mac); <b>IE:</b> hold <i>Ctrl</i> while clicking <i>Refresh</i>, or press <i>Ctrl-F5</i>; <b>Konqueror:</b>: simply click the <i>Reload</i> button, or press <i>F5</i>; <b>Opera</b> users may need to completely clear their cache in <i>Tools→Preferences</i>.
+</p><pre>
+
+/*
+
+This tool hits the RSS feed for recent changes every 30 seconds or so
+and checks for common vandalism. It does not make a separate server request 
+for every edit.
+
+Currently, the RSS feed is full of holes and so this may miss many edits.
+http://bugzilla.wikimedia.org/show_bug.cgi?id=3942 
+
+*/
+
+
+// &lt;pre&gt;&lt;nowiki&gt;
+
+recent2={
+  // Edit these to your liking. 
+  // Make sure there's a comma at the end of each line.
+  badwordsUrl:          'User:GangstaEB/badwords',
+  filterPage:           'User:GangstaEB/Filter_recent_changes',
+  allRecentPage:        'User:GangstaEB/All_recent_changes',
+  recentIPPage:         'User:GangstaEB/Recent_IP_edits',
+  monitorWatchlistPage: 'User:GangstaEB/Monitor_my_watchlist',
+  spelldictUrl:         'Wikipedia:Lists_of_common_misspellings/For_machines',
+  spelldictPage:        'User:GangstaEB/Live_spellcheck',
+  
+  // leave this alone
+  dummy: null
+};
+
+recent2.download=function(bundle) {
+  // mandatory: bundle.url
+  // optional:  bundle.onSuccess (xmlhttprequest, bundle)
+  // optional:  bundle.onFailure (xmlhttprequest, bundle)
+  // optional:  bundle.otherStuff OK too, passed to onSuccess and onFailure
+
+  var x = window.XMLHttpRequest ? new XMLHttpRequest()
+        : window.ActiveXObject ? new ActiveXObject(&quot;Microsoft.XMLHTTP&quot;)
+        : false;
+  
+  if (x) {
+    x.onreadystatechange=function() {
+      x.readyState==4 &amp;&amp; recent2.downloadComplete(x,bundle);
+    };
+    x.open(&quot;GET&quot;,bundle.url,true);
+    x.send(null); 
+  }
+  return x;
+}
+
+recent2.downloadComplete=function(x,bundle) {
+  x.status==200 &amp;&amp; ( bundle.onSuccess &amp;&amp; bundle.onSuccess(x,bundle) || true )
+  || ( bundle.onFailure &amp;&amp; bundle.onFailure(x,bundle) || alert(x.statusText));
+}
+
+window.gettingBadWords=false;
+window.badWords=null;
+
+recent2.getBadWords=function() {
+  window.gettingBadWords=true;
+  recent2.download({ url: 'http://' + document.location.hostname + 
+	'/w/index.php?title=' + recent2.badwordsUrl + '&amp;action=raw&amp;ctype=text/css',
+	onSuccess: recent2.processBadWords, onFailure: function () { recent2.runOnce(recent2.getBadWords, 15000); return true;}});
+}
+
+recent2.processBadWords=function(d) {
+  var data=d.responseText.split('\n');
+  var ret=[];
+  for (var i=0; i&lt;data.length; ++i) {
+    var s=data[i];
+    if (s.length==0) continue;
+    if (RegExp('^/.*/\\s*$').test(s)) {
+      s=s.replace(RegExp('^/'), '').replace(RegExp('/\\s*$'), '');
+      s=s.replace(RegExp('[(]([^?])', 'g'), '(?:$1');
+      try { var r=new RegExp(s); }
+      catch (err) {
+	var errDiv=newOutputDiv('recent2_error', recent2.outputPosition);
+	errDiv.innerHTML='Warning: ignoring odd-looking regexp on line '+i
+	  +' of &lt;a href=&quot;/wiki/' + recent2.badwordsUrl + '&quot;&gt;badwords&lt;/a&gt;:&lt;pre&gt;' + s + '&lt;/pre&gt;';
+	continue;
+      }
+      ret.push(s);
+      continue;
+    }
+    if (s.charAt(0)=='&lt;') continue;
+    ret.push(s.replace(RegExp('([-|.()\\+:!,?*^${}\\[\\]])', 'g'), '\\$1'));
+  }
+  //                                                     123                       3       2|       4                     415           5
+  //                                                     (((    repeatedchar       )       )|       ( ...  | ... | ...    ))( bdy       )
+  window.badWords=RegExp(&quot;&lt;td&gt;[+]&lt;/td&gt;\\s*&lt;td .*?&gt;\\s*.*?((([^-{}.\\s'=wI:*#0-9A-F])\\3{2,})|[^/]\\b(&quot; + ret.join('|') + &quot;))(\\b[^/]|[|]).*\\s*&lt;/td&gt;&quot;, 'im');
+}
+
+window.gettingWatchlist=false;
+recent2.watchlist=null;
+recent2.getWatchlist=function() {
+  window.gettingWatchlist=true;
+  recent2.download({url: 'http://' + document.location.hostname + '/wiki/Special:Watchlist/edit', 
+              onSuccess: recent2.processWatchlist, onFailure: function () { recent2.runOnce(getWatchlist, 15000); return true; }});
+}
+recent2.processWatchlist=function(req, bundle) {
+  var watchlist={};
+  var lines=req.responseText.split('\n');
+  for (var i=0; i&lt;lines.length; ++i) {
+    if (lines[i].indexOf('&lt;li&gt;&lt;input type=&quot;checkbox&quot; name=&quot;id[]&quot; value=') &gt; -1) {
+      var article=lines[i].replace(/.*title=&quot;(.*?)&quot;&gt;.*/, '$1');
+      watchlist[article]=true;
+    }
+  }
+  window.watchlist=watchlist; 
+}
+
+window.gettingSpelldict=false;
+window.spelldict=null;
+recent2.getSpelldict=function() {
+  window.gettingSpelldict=true;
+  recent2.download({url: 'http://' + document.location.hostname + '/w/index.php?title=' + recent2.spelldictUrl + '&amp;action=raw&amp;ctype=text/css',
+              onSuccess: recent2.processSpelldict, onFailure: function () { recent2.runOnce(getSpelldict, 15000); return true; }});
+}
+recent2.processSpelldict=function(req, bundle) {
+  var spelldict={};
+  var lines=req.responseText.split('\n');
+  var a=[];
+  for (var i=0; i&lt;lines.length; ++i) {
+    var split=lines[i].split('-&gt;');
+    if (split.length&lt;2) { continue; }
+    split[1]=split.slice(1).join('-&gt;').split(/, */);
+    split[0]=split[0].toLowerCase().replace(/^\s*/, '');
+    spelldict[split[0]]=split[1];
+    a.push(split[0]);
+  }
+  window.spelldict=spelldict;
+  window.spellRe=RegExp('&lt;td&gt;[+]&lt;/td&gt;\\s*&lt;td .*?&gt;\\s*.*?\\b(' + a.join('|') + ')\\b', 'i');
+}
+
+
+
+recent2.runOnce=function(f, time) {
+  var i=recent2.runOnce.timers.length;
+  var ff = function () { clearInterval(recent2.runOnce.timers[i]); f() };
+  var timer=setInterval(ff, time);
+  recent2.runOnce.timers.push(timer);
+}
+recent2.runOnce.timers=[];
+
+var feed='http://' + document.location.hostname + '/w/index.php?title=Special:Recentchanges&amp;feed=rss';
+
+window.newOutputDiv=function(klass, position, immortal) {
+  var h1=document.getElementsByTagName('h1')[0];
+  var ret=document.createElement('div'); 
+  if (klass) ret.className=klass;
+  if (!position) position='bottom';
+  switch(position) {
+  case 'top': 
+    h1.parentNode.insertBefore(ret, h1.nextSibling);
+    break;
+  case 'bottom':
+    h1.parentNode.appendChild(ret);
+    break;
+  default:
+    if (!newOutputDiv.alerted) {
+      alert('Unknown position '+position+' in recent2.js, newOutputDiv');
+      window.newOutputDiv.alerted=true;
+    }
+    return newOutputDiv(klass, 'bottom');
+  }
+  if (!immortal) { ret.id=newOutputDiv.uid++; }
+  window.outputDivs.push(ret);
+  return ret;
+}
+window.newOutputDiv.alerted=false;
+window.newOutputDiv.uid=0;
+window.outputDivs=[];
+
+window.grabRecentChanges=function(feed) {
+  if (! window.badWords &amp;&amp; recent2.filter_badwords ) {
+    if ( ! window.gettingBadWords ) recent2.getBadWords();
+    return recent2.runOnce(function(){grabRecentChanges(feed);}, 500);
+  }
+  if (! window.watchlist &amp;&amp; recent2.filter_watchlist) { 
+    if (! window.gettingWatchlist ) recent2.getWatchlist();
+    return recent2.runOnce(function(){grabRecentChanges(feed);}, 500);
+  }
+  if (! window.spelldict &amp;&amp; recent2.filter_spelling) {
+    if (! window.gettingSpelldict) recent2.getSpelldict();
+    return recent2.runOnce(function(){grabRecentChanges(feed);}, 500);
+  }
+  var pos=recent2.outputPosition;
+  if (recent2.outputPosition=='top') {
+    var output=newOutputDiv('recent2.lines', pos);
+    var status=newOutputDiv('recent2.status', pos);
+  } else {
+    var status=newOutputDiv('recent2.status', pos);
+    var output=newOutputDiv('recent2.lines', pos);
+  }
+  status.style.borderStyle='solid';
+  status.style.borderColor='orange';
+  status.innerHTML=greyFont+'(' + recent2.count + ') updating...&lt;/font&gt;';
+
+  // this abort stuff doesn't work properly for some reason...
+  //recent2.lastFeedDownload &amp;&amp; recent2.lastFeedDownload.abort(); // } catch (summatNasty) { /* do nothing */ }
+  recent2.lastFeedDownload=recent2.download(
+    {url: feed, onSuccess: processRecentChanges, output: output, status: status, onFailure: feedFailed});
+}
+
+var greyFont='&lt;font color=&quot;#777&quot;&gt;';
+
+window.feedFailed=function(x,bundle) {
+  try { bundle.status.innerHTML+=greyFont+'failed: '+x.statusText + '&lt;/font&gt;'; } 
+  catch (err) { bundle.status.innerHTML+=greyFont+'failed badly: '+err+'&lt;/font&gt;'; }
+  return true;
+}
+
+recent2.newWindows=true;
+
+window.linkmaker=function(url, text) {
+  var s='&lt;a href=&quot;' + url + '&quot;';
+  recent2.newWindows &amp;&amp; (s += ' target=&quot;_blank&quot;');
+  s += '&gt;' + text + '&lt;/a&gt;';
+  return s;
+}
+
+
+recent2.ipUserRegex=RegExp('(User:)?((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])');
+recent2.outputSeparator='&lt;hr&gt;';
+
+recent2.delayedLines={};
+recent2.delay=0;
+recent2.namespaces={'Media':1, &quot;Special&quot;:1, &quot;User&quot;:1, &quot;User talk&quot;:1, &quot;Wikipedia&quot;:1, 
+		    &quot;Wikipedia talk&quot;:1, &quot;Image&quot;:1, &quot;Image talk&quot;:1, &quot;MediaWiki&quot;:1, 
+		    &quot;MediaWiki talk&quot;:1, &quot;Template&quot;:1, &quot;Template talk&quot;:1, &quot;Help&quot;:1, 
+		    &quot;Help talk&quot;:1, &quot;Category&quot;:1, &quot;Category talk&quot;:1, &quot;Portal&quot;:1, &quot;Portal talk&quot;:1};
+window.processRecentChanges=function(req, bundle){  
+  var initialId=processRecentChanges.id;
+  var doc=req.responseXML.documentElement;
+  var items=doc.getElementsByTagName('item');
+  var latest=processRecentChanges.lastDate;
+  for (var i=items.length - 1; i&gt;=0; --i) {
+    var timestamp = Date.parse(getFirstTagContent(items[i],'pubDate'));
+    if (timestamp &lt;= processRecentChanges.lastDate) continue;
+    latest = (timestamp &gt; latest) ? timestamp : latest;
+    var diffText=getFirstTagContent(items[i],'description').split('&lt;/tr&gt;').join('&lt;/tr&gt;\n');
+    var editSummary=diffText.replace(RegExp('^&lt;p&gt;(.*?)&lt;/p&gt;[\\s\\S]*'), '$1');
+    var editor=getFirstTagContent(items[i], 'creator') || getFirstTagContent(items[i], 'dc:creator');
+
+    var article=getFirstTagContent(items[i], 'link');
+    if (recent2.delayedLines[article] &amp;&amp; recent2.delayedLines[article].editor != editor) {
+      delete recent2.delayedLines[article];
+    }
+    
+    if (recent2.filter_anonsOnly &amp;&amp; !recent2.ipUserRegex.test(editor)) continue;
+
+    var articleTitle=getFirstTagContent(items[i], 'title');
+    if (recent2.hideNonArticles) {
+      var namespace=articleTitle.replace(/:.*/, '');
+      if (recent2.namespaces[namespace]) continue;
+    }
+    if (! recent2.show_talkpages &amp;&amp; articleTitle &amp;&amp; /^Talk:|^[^:]*?[_ ]talk:/.test(articleTitle)) continue;
+    if (recent2.filter_watchlist &amp;&amp; articleTitle &amp;&amp; 
+        ! window.watchlist[articleTitle.replace(/^Talk:/, '').replace(/[ _]talk:/, ':')]) continue;
+    if (recent2.filter_badwords) {
+      var badMatch=null;
+      if (window.vandals[editor] &gt; 0) badMatch=['', '', '[previously rolled back this editor]'];
+      else badMatch=badWords.test(diffText); // .test() is meant to be faster than a full match
+      if (badMatch) {
+        if (badMatch===true) { badMatch=diffText.match(badWords); }
+        articleTitle=getFirstTagContent(items[i], 'title');
+	var badWord=badMatch[2] || badMatch[4];
+        // highlighting
+        badMatch[0]=badMatch[0].split(badWord).join('&lt;span style=&quot;background-color: #FF6&quot;&gt;'+badWord+'&lt;/span&gt;');
+        recent2.delayedLines[article]={timestamp: timestamp, article:article, count:recent2.count, articleTitle:articleTitle, 
+				       editor:editor, badWord:badWord, badDiffFragment:badMatch[0], diff:diffText,
+				       summary:editSummary};
+      }
+    } else if (recent2.filter_spelling) {
+      var splMatch=spellRe.test(diffText);
+      if (splMatch) {
+	splMatch = diffText.match(spellRe);
+	var misspelling = splMatch[1]; //.replace(/^\s*/, '');
+	var badWord = '&lt;a href=\'javascript:recent2.correctSpelling(&quot;' + articleTitle.split(&quot;'&quot;).join(&quot;%27&quot;) + 
+	  '&quot;,&quot;'+misspelling.split(&quot;'&quot;).join(&quot;%27&quot;)+'&quot;)\'&gt;'+ misspelling + '&lt;/a&gt;';
+	diffText = diffText.replace(RegExp('('+misspelling+')', 'gi'), '&lt;span style=&quot;background-color: #FF6&quot;&gt;$1&lt;/span&gt;');
+	recent2.delayedLines[article] = {timestamp: timestamp, article:article, count:recent2.count, articleTitle:articleTitle,
+					 editor:editor, badWord:badWord, badDiffFragment:'', diff:diffText, summary: editSummary};
+      }
+    } else {
+      var article=getFirstTagContent(items[i], 'link');
+      var articleTitle=getFirstTagContent(items[i], 'title');
+      if (recent2.CustomFilter &amp;&amp; 
+          ! recent2.CustomFilter({timestamp:timestamp, article:article, articleTitle:articleTitle, 
+		editor:editor, diff:diffText, summary:editSummary})) continue;
+      recent2.delayedLines[article]={timestamp: timestamp, article:article, count:recent2.count, articleTitle:articleTitle,
+				     editor:editor, diff:diffText, summary:editSummary};
+    }
+  } /* end for loop */
+  var output=recent2.getDelayedLineOutput();
+  var outputString='';
+  if (recent2.outputPosition=='top') {
+    outputString=output.join(recent2.outputSeparator);
+  }
+  else {
+    for (var i=output.length-1; i&gt;=0; --i) {
+      outputString+=output[i] + (i&gt;0 ? recent2.outputSeparator : '') ;
+    }
+  }
+  bundle.output.innerHTML+=outputString;
+  recent2.runOnce(function() {recent2.doPopups(bundle.output)}, 300);
+  processRecentChanges.lastDate=latest; // - 1; // overlap better than missing some out, i think; FIXME do this properly
+  var statusTail=greyFont+'done up to ' + formatTime(latest) + '&lt;/font&gt;';
+  if (processRecentChanges.id &gt; initialId) {
+    statusTail+=' &lt;a href=&quot;javascript:showHideDetailRange(' + initialId + ',' + processRecentChanges.id  + ')&quot;&gt;toggle these details&lt;/a&gt; |';
+    if (recent2.autoexpand) {
+      recent2.runOnce( function() { 
+	  /* document.title=initialId+' '+processRecentChanges.id; */
+	  showHideDetailRange(initialId, processRecentChanges.id); }, 250 );
+    }
+  }
+  statusTail += ' &lt;a href=&quot;javascript:deleteEarlierOutputDivs(' + bundle.status.id + ')&quot;&gt;remove earlier output&lt;/a&gt;';
+  statusTail+='&lt;br&gt;';
+  bundle.status.innerHTML+=statusTail;
+}
+processRecentChanges.lastDate=0;
+processRecentChanges.id=0;
+
+recent2.getDelayedLineOutput=function() {
+  var ret=[];
+  var id=processRecentChanges.id;
+  for (var a in recent2.delayedLines) {
+    if (recent2.delayedLines[a] &amp;&amp; typeof recent2.delayedLines[a].count == typeof 1 &amp;&amp; 
+	recent2.count - recent2.delayedLines[a].count &gt;= recent2.delay) {
+      recent2.delayedLines[a].id=id++;
+      ret.push(recent2.doLine(recent2.delayedLines[a]));
+      delete recent2.delayedLines[a];
+    }
+  }
+  processRecentChanges.id=id;
+  return ret;
+}
+
+window.deleteEarlierOutputDivs=function(cur) {
+  for(var i=0; i&lt;outputDivs.length; ++i) {
+    if (!outputDivs[i] || !outputDivs[i].id) continue;
+    if (outputDivs[i].id &gt;= 0 &amp;&amp; outputDivs[i].id &lt; cur) {
+      // FIXME BUG: if we go from the bottom up, then we'll delete one too many or too few, or something :-)
+      outputDivs[i].parentNode.removeChild(outputDivs[i]);
+      outputDivs[i]=null;
+    }
+  }
+  // scroll to the top if we're appending output to the bottom, to keep the div we've clicked visible after the deletions
+  if (recent2.outputPosition!='top') document.location='#';
+}
+
+window.showHideDetailRange=function(start,end) {
+  // use the first div to see if we should show or hide
+  var div=document.getElementById('diff_div_' + start);
+  if (!div) {alert('no such div: diff_div_' + start); return; }
+  var state=false; // hide
+  if (div.style.display=='none') state=true; // show
+  for (var i=start; i&lt;end; ++i) {
+    showHideDetail(i, true, state);
+  }
+}
+
+window.toggleSysopEdits=function() {
+  var divs=document.getElementsByTagName('div');
+  for (var i=0; i&lt;divs.length; ++i) {
+    if (divs[i].className=='sysop_edit_line') divs[i].style.display= ( toggleSysopEdits.hidden ? 'none' : 'inline' );
+  }
+  toggleSysopEdits.hidden = ! toggleSysopEdits.hidden;
+}
+
+window.bundles={};
+
+window.vandalColour = function(vandal) {
+  var num=window.vandals[vandal];
+  if (!num) return '';
+  switch (num) {
+  case 1: return '#DDFFDD';
+  case 2: return '#BBFFBB';
+  }
+  var i= 9-(num - 3) *2;
+  if (i &lt; 0) i=0;
+  return '#' + i + i + 'FF' + i + i;
+}
+
+window.clickDetails=function(action, max) {
+  if(!action) action='show';
+  if (!max) max = document.links.length;
+  var count=0;
+  for (var i=0; i&lt;document.links.length &amp;&amp; count &lt; max; ++i) {
+    if(document.links[i].innerHTML==action + ' details' &amp;&amp; document.links[i].href.indexOf('javascript:') == 0) {
+      ++count; 
+      eval(document.links[i].href.replace('javascript:', ''));
+    }
+  }
+}
+
+
+recent2.pendingLines=[];
+
+recent2.togglePausedOutput=function() {
+  if (!recent2.pausedOutput) { recent2.pausedOutput = true; return true; }
+  else recent2.pausedOutput=false; 
+  var outputBuffer='';
+  while (recent2.pendingLines.length) {
+    outputBuffer+=recent2.doLine(recent2.pendingLines.pop());
+  }
+  var pos=recent2.outputPosition;
+  var output=newOutputDiv('recent2.lines', pos);
+  output.innerHTML=outputBuffer;
+  return false;
+}
+
+recent2.togglePaused=function() {
+  if(!recent2.paused) { recent2.paused=true; return true; }
+  recent2.paused=false;
+  loopRecentChanges(loopRecentChanges.url, loopRecentChanges.iterations);
+  return false;
+}
+
+recent2.doLine=function(bundle) {
+  if (recent2.pausedOutput) {
+    recent2.pendingLines.push(bundle);
+    return '';
+  }
+  //if (recent2.filter_spelling) { return recent2.doSpellLine(bundle); }
+  var wikiBase='http://' + document.location.hostname + '/wiki/';
+  var sysop = null;
+  if (typeof sysops != 'undefined') sysop=sysops.test(bundle.editor);
+  var lastDiffPage=bundle.article + '?diff=cur&amp;oldid=prev';
+  bundle.url=lastDiffPage;
+  saveBundle(bundle);
+  var div='';
+  if (window.vandals[bundle.editor] &gt; 0) { div='&lt;div style=&quot;background-color:' + vandalColour(bundle.editor) + '&quot;&gt;'}
+  else if (sysop) {div='&lt;div class=&quot;sysop_edit_line&quot;&gt;'};
+  return div +
+  '&lt;li&gt;' +
+  formatTime(bundle.timestamp) + ' ' +
+  //latest + ' ' + processRecentChanges.lastDate + ' ' +
+  '(' + linkmaker(lastDiffPage, 'last') + ')' +
+  ' (' + linkmaker(bundle.article+'?action=history', 'hist') + ')' + 
+  ' ' + linkmaker(bundle.article, bundle.articleTitle) +
+  ( bundle.badWord ? ' matched &lt;b&gt;' + bundle.badWord + '&lt;/b&gt; . . ' : ' . . ') +
+  linkmaker(wikiBase + 'User:' + bundle.editor,           bundle.editor)     + ' ('  +
+  linkmaker(wikiBase + 'User_talk:' + bundle.editor,             'talk')     + ' | ' +
+  linkmaker(wikiBase + 'User_talk:' + bundle.editor + '?action=edit' +
+            '&amp;autoedit=s#$#\\n{{sub'+'st:test1-n|' + bundle.articleTitle + 
+	    '}}%20~~' + '~~#&amp;autosummary=Your%20recent%20edits',
+            'warn')     + ' | ' +
+  linkmaker(wikiBase + 'Special:Contributions/' + bundle.editor, 'contribs') + ' | ' +
+  linkmaker(wikiBase + 'Special:Blockip/' + bundle.editor,       'block')    +  ') . . ' +
+  ( bundle.summary ? '&lt;i&gt;('+bundle.summary+')&lt;/i&gt; . . ' : '') +
+    '&lt;a href=&quot;javascript:showHideDetail(' + bundle.id + ')&quot; id=&quot;showdiff_link_' + bundle.id + '&quot;&gt;show details&lt;/a&gt;' +
+    ' . . [&lt;a href=&quot;javascript:tryRollback(' + bundle.id + ')&quot; class=&quot;recent2_rollback&quot;&gt;rollback&lt;/a&gt;]' +
+  '&lt;p&gt;&lt;div id=&quot;diff_div_' + bundle.id + '&quot; style=&quot;display: none&quot;&gt;' +
+  '&lt;/div&gt;&lt;/li&gt;' +
+  ( div ? '&lt;/div&gt;' : '') ;
+};
+
+recent2.correctSpelling=function (article, badword) {
+  var url= 'http://' + document.location.hostname + '/wiki/';
+  url += article + '?action=edit&amp;autoclick=wpDiff&amp;autominor=true';
+  var wl=badword.toLowerCase();
+  var cor=spelldict[wl];
+  if (!cor|| !cor.length) { alert('Could not find an entry for ' + wl); return; }
+  if (cor.length &gt; 1) {
+    var q='Which correction should I use?\nPlease either type a number or another correction.\n';
+    for (var i=0; i&lt;cor.length; ++i) { q += '\n' + i + ': ' + cor[i]; }
+    var ans=prompt(q);
+    if (!ans) {return;}
+    var num=parseInt(ans, 10);
+    if (num &gt; -1 &amp;&amp; num &lt; cor.length) { cor = cor[num]; }
+    else { cor = ans; }
+  } else { 
+    cor = cor[0]; 
+  }
+  cor=cor.replace(/^ *| *$/g, '');
+  url += '&amp;autosummary=Correcting%20spelling:%20' + wl + '-&gt;' + cor;
+  url += '&amp;autoedit=';
+  c0=cor.charAt(0);
+  wl0 = wl.charAt(0);
+  b='\\b';
+  url += ['s', b + wl + b, cor, 'g;'].join('#');
+  wl=wl0.toUpperCase() + wl.substring(1);
+  cor=c0.toUpperCase() + cor.substring(1);
+  url += ['s', b + wl + b, cor, 'g;'].join('#');
+  wl=wl.toUpperCase();
+  cor=cor.toUpperCase();
+  url += ['s', b + wl + b, cor, 'g;'].join('#');
+  window.open(url);
+};
+
+window.saveBundle= function(bundle) {
+  var z={};
+  for (var prop in bundle) { z[prop]=bundle[prop]; }
+  window.bundles[bundle.id]=z;
+}
+
+window.vandals={}
+
+window.tryRollback=function(id) {
+  if (recent2.non_admin_rollback) { recent2.tryNonAdminRollback(id); }
+  else { recent2.tryAdminRollback(id); }
+};
+
+recent2.getBundleVandal=function(id) {
+  var b=window.bundles[id];
+  if (!b) { 
+    alert('No bundle! Please tell Lupin how to reproduce this error - it should not really happen.'); 
+    return null; 
+  }
+  var vandal=b.editor;
+  if (window.vandals[vandal]==null) { window.vandals[vandal]=1; }
+  else { window.vandals[vandal]++; }
+  return b;
+}
+
+recent2.tryAdminRollback=function(id){
+  var b=recent2.getBundleVandal(id);
+  if (!b) { return; }
+  var vandal=b.editor;
+  var onSuccess=function (x, bundle) {
+    var rollRe=RegExp('&lt;a href=&quot;(/w/index.php[^&quot;]*?action=rollback[^&quot;]*?from=([^&amp;]*)[^&quot;]*?)&quot;.*?&lt;br /&gt;(&lt;span[^&gt;]*&gt;)?(.*?)(&lt;/span&gt;)?&lt;br /&gt;[^&lt;&gt;]*?&lt;/td&gt;');
+    // match[0]: useless
+    // match[1]: url (escaped)
+    // match[2]: last editor (escaped)
+    // match[4]: last edit summary (wikiText - FIXME strip this to plain text)
+    var match=rollRe.exec(x.responseText);
+    if (!match) {
+      alert('No rollback link found.' + 
+	    '\nMaybe you should try the non-admin rollback by checking the checkbox above?\n' +
+	    'Alternatively, this may be a bug.');
+      return;
+    }
+    var lastEditor=match[2].split('+').join(' ');
+    var lastSummary=match[4];
+    // var vandal=b.editor; // from the closure
+    if (lastEditor != vandal) {
+      var summary=lastSummary.replace(RegExp('&lt;[^&gt;]*?&gt;','g'),'');
+      if (!summary) summary=lastSummary;
+      alert( 'Could not rollback - someone else has edited since the vandal.\n\nPage: '+ b.articleTitle +
+             '\nVandal: '+vandal+'\nLast editor: '+lastEditor+'\nEdit summary: '+summary);
+      return;
+    }
+    var rollbackUrl=match[1].split('&amp;amp;').join('&amp;');
+    // confirm('Rollback edits by '+vandal + ' to '+b.articleTitle+'?') &amp;&amp; 
+    window.open(rollbackUrl, '_blank');
+  }
+  var onFailure = function(x,bundle) {
+    alert('HTTP failed when trying to get rollback link in url\n' + bundle.url +
+          '\n\nHTTP status text: ' + x.statusText);
+    return true;
+  }
+  recent2.download({ url:b.url, onSuccess: onSuccess, id: b.id, onFailure:onFailure});
+};
+
+recent2.tryNonAdminRollback=function(id) {
+  if (!autoEdit) { alert('You need to have autoedit functionality for non-admin rollback.\n\n' +
+			 'This is included in Navigation popups - see [[WP:POP]].\n\n'+
+			 'Alternatively, you can try adding '+
+			 '{{sub'+'st:js|User:Lupin/autoedit.js}} ' +
+			 'to your user javascript file.'); return; }
+  var b=recent2.getBundleVandal(id);
+  if (!b) { return; }
+  var vandal=b.editor;
+  var url='http://' + document.location.hostname + '/w/query.php?format=json&amp;titles=' + b.articleTitle;
+  url += '&amp;what=revisions&amp;rvlimit=100&amp;rvcomments';
+  var onSuccess=function(x,y){ recent2.processHistoryQuery(x,y,b); }
+  recent2.download({ url: url, onSuccess: onSuccess, id: b.id}); // fixme: onFailure
+};
+
+recent2.processHistoryQuery=function(x,downloadBundle, bundle) {
+  var json=x.responseText;
+  try { 
+    eval('var o='+json);
+    var p=o['pages']; 
+    var edits=recent2.anyChild(p)['revisions'];
+  }
+  catch ( someError ) { alert('JSON business failed.\n\n' + json.substring(0,100) 
+			      + '\n\nCannot rollback.'); return; }
+  var i;
+  for (i=0; i&lt;edits.length; ++i) {
+    if (edits[i]['user']!=bundle.editor) { break; }
+  }
+  if (i===0) { 
+    alert( 'Could not rollback - someone else has edited since the vandal.\n\nPage: '+ bundle.articleTitle +
+	   '\nVandal: '+bundle.editor+'\nLast editor: '+edits[0]['user']+'\nEdit summary: '+edits[0]['*']);
+    return; 
+  }
+  if (i==edits.length) { alert(bundle.editor + ' seems to be the only editor to ' + bundle.articleTitle + 
+			       '.\n\nRollback aborted.'); return; }
+  var prevEditor=edits[i]['user'];
+  var prevRev=edits[i]['revid'];
+  var summary='Reverted edits by [[Special:Contributions/' + escape(bundle.editor) + '|' + 
+  escape(bundle.editor) + ']] to last version by ' + escape(prevEditor);
+  summary=summary.split(' ').join('%20');
+  var url=bundle.article + '?action=edit&amp;autosummary=' + summary + '&amp;oldid=' + prevRev + 
+  '&amp;autoclick=wpSave&amp;autominor=true';
+  window.open(url, '_blank');
+};
+//recent2.non_admin_rollback=true;
+
+recent2.anyChild=function(obj) {
+	for (var p in obj) {
+		return obj[p];
+	}
+	return null;
+}
+
+
+recent2.doPopups=function(div) {
+  if (typeof(mouseOverWikiLink)!='undefined' &amp;&amp; 
+      typeof(mouseOutWikiLink) !='undefined' &amp;&amp; 
+      typeof(killPopup)        !='undefined') {
+    var anchors=div.getElementsByTagName('A');
+    for (var i=0; i&lt;anchors.length; ++i) {
+      var a=anchors[i];
+      if (a.href.indexOf('javascript')==0) continue;
+      a.onmouseover=mouseOverWikiLink;
+      a.onmouseout= mouseOutWikiLink;
+      a.onclick= killPopup;
+    }
+  }
+}
+
+window.formatTime=function(timestamp) {
+  var date=new Date(timestamp);
+  nums=[date.getHours(), date.getMinutes(), date.getSeconds()];
+  for (var i=0; i&lt;nums.length; ++i) if (nums[i]&lt;10) nums[i]='0'+nums[i];
+  return nums.join(':');
+}
+
+window.showHideDetail = function(id, force, state) {
+  var div=document.getElementById('diff_div_' + id);
+  var lk=document.getElementById('showdiff_link_' + id);
+  if (!div) return;
+  var bundle=window.bundles[id];
+  if (!div.innerHTML) div.innerHTML= ( bundle.badDiffFragment ? bundle.badDiffFragment:'') + bundle.diff;
+  if ((force &amp;&amp; state==true) || (!force &amp;&amp; div.style.display=='none')) { div.style.display='inline'; lk.innerHTML='hide details'; }
+  else { div.style.display='none';   lk.innerHTML='show details'; }
+    
+}
+
+
+window.getFirstTagContent=function(parent, tag) {
+  var e=parent.getElementsByTagName(tag);
+  if (e &amp;&amp; (e=e[0]) ) {
+    var ret = e.firstChild.nodeValue || e.nodeValue; 
+    if (typeof ret != typeof '') return '';
+    return ret; 
+  }
+}
+
+recent2.newCheckbox=function(label, state, onclick, internalName) {
+  // checkbox
+  var ret=document.createElement('input');
+  ret.type='checkbox';
+  ret.checked = state;
+  ret.onclick = onclick;
+  recent2.controls.appendChild(ret);
+  if (internalName) { recent2.controls[internalName]=ret; }
+  // label
+  var l=document.createElement('label');
+  l.innerHTML=label;
+  recent2.controls.appendChild(l);
+
+  return ret;
+}
+
+recent2.controlUI=function() {
+  recent2.controls=newOutputDiv('recent2.controls', 'top', true);
+  recent2.controls.newline = function(){ recent2.controls.appendChild(document.createElement('br')); };
+  recent2.newCheckbox('Ignore talk pages', !recent2.show_talkpages, 
+		      function() { recent2.show_talkpages=!this.checked; },
+		      'talk');
+  recent2.controls.newline();
+  recent2.newCheckbox('Ignore pages outside the article namespace', false,
+		      function() { recent2.hideNonArticles = this.checked; },
+		      'hidenonarticles');
+  recent2.controls.newline();
+  recent2.newCheckbox('Automatically expand new content', recent2.autoexpand,
+		      function() { recent2.autoexpand = this.checked; },
+		      'autoexpand');
+  recent2.controls.newline();
+  recent2.newCheckbox('Only show edits unchanged after four updates', false,
+		      function() { recent2.delay = (this.checked) ? 4 : 0; },
+		      'delayby4');
+  recent2.controls.newline();
+  recent2.newCheckbox('Use non-admin rollback', false,
+		      function() { recent2.non_admin_rollback = this.checked; },
+		      'nonadminrollback');
+}
+
+recent2.count=0;
+window.loopRecentChanges=function(url, iterations) {
+  if (!iterations) iterations=20;
+  loopRecentChanges.iterations=iterations;
+  loopRecentChanges.url=url;
+  grabRecentChanges(url);
+  recent2.runOnce(function () { 
+    if (recent2.paused) {++recent2.count; return; }
+    if (++recent2.count &gt;= iterations &amp;&amp; ! confirm('Continue monitoring recent changes?') ) return; 
+    recent2.count %= iterations; loopRecentChanges(url, iterations);
+  }, 30000);
+}
+window.marvin=function() { 
+  // this isn't really used (not accessible from the UI), so don't worry about it
+  window.sysops=RegExp(&quot;^(\\-\\- April|23skidoo|A Man In Black|ABCD|ALoan|Academic Challenger|Acetic Acid|Adam Bishop|Ahoerstemeier|Alabamaboy|Alai|AlainV|Alex S|Alex756|AlistairMcMillan|Alkivar|Allen3|AllyUnion|Alteripse|Ambi|Ams80|Andres|Andrevan|Andrew Yong|Andrewa|Andris|Android79|Angela|Angr|Antandrus|Anthere|AntonioMartin|Aranel|Arcadian|Aris Katsaris|Arminius|Arvindn|Arwel Parry|Asbestos|AstroNomer|Ausir|AxelBoldt|BanyanTree|BaronLarf|Bcorr|Bdesham|Bearcat|Beland|Benc|Bhadani|Biekko|BillyH|Bishonen|Bkonrad|Blankfaze|Bluemoose|Bmicomp|Bovlb|Bratsche|Brian Kendig|Brian0918|BrianSmithson|Briangotts|Brighterorange|Brion VIBBER|Brockert|BrokenSegue|Brookie|Bryan Derksen|Bumm13|Burgundavia|CJCurrie|COGDEN|CSTAR|CYD|Cacycle|Caltrop|CambridgeBayWeather|Camembert|Canderson7|Capitalistroadster|Carbonite|Carnildo|Catbar|CatherineMunro|Cburnett|Cdc|Cecropia|Cedar\\-Guardian|Celestianpower|CesarB|Cgs|Chadloder|Chancemill|Changlc|Charles Matthews|Chmod007|Chris 73|Chris Roy|ChrisO|Christopher Mahan|Chuck SMITH|Chuq|Cimon avaro|Clarkk|Clifford Adams|ClockworkSoul|Commander Keane|ContiE|Cool Hand Luke|Cprompt|Craigy144|Cryptic|CryptoDerk|Curps|Cutler|Cyan|Cyberjunkie|CyborgTosser|Cyp|Cyrius|DESiegel|DF08|DJ Clayworth|Dale Arnett|Dan100|DanKeshet|Daniel Quinlan|DanielCD|Danny|Dante Alighieri|Darwinek|Dave souza|David Gerard|David Newton|David\\.Monniaux|DavidLevinson|DavidWBrooks|Davidcannon|Davodd|Dbachmann|Dbenbenn|Dbiv|Dcoetzee|Deb|Decumanus|Delirium|Denelson83|Denni|Derek Ross|Dgrant|Diberri|Dieter Simon|Dino|Dmcdevit|Dmn|Doc glasgow|Docu|Dori|Dpbsmith|DrBob|DragonflySixtyseven|Dragons flight|Drini|DropDeadGorgias|Duk|Duncharris|Durin|Dvyost|Dwheeler|Dysprosia|Earl Andrew|Ed Poor|Ed g2s|Edcolins|Edward|Efghij|Egil|El C|Elf|Ellsworth|Eloquence|Enchanter|Essjay|Eugene van der Pijll|Evercat|Everyking|Evil Monkey|Evil saltine|Evilphoenix|Exploding Boy|Ezhiki|FCYTravis|Fabiform|Fantasy|Fastfission|Fawcett5|Feco|FeloniousMonk|Fennec|Ferkelparade|Fernando Rizo|Ffirehorse|Filiocht|Finlay McWalter|Fire Star|FireFox|Flcelloguy|Flockmeal|Francs2000|Frazzydee|Fred Bauder|Fredrik|Freestylefrappe|FreplySpang|Friday|Func|Furrykef|Fuzheado|Fvw|G\\-Man|Gabbe|Gadfium|Gamaliel|Garzo|Gaz|Gdr|GeneralPatton|Geni|Gentgeen|Geogre|Gerald Farinas|Goatasaur|Golbez|Graft|GregAsche|GregRobson|Grenavitar|Grm wnr|Ground Zero|Grue|Grunt|Grutness|Gtrmp|Guettarda|Gwalla|Gyrofrog|Hadal|Hajor|Hall Monitor|HappyCamper|Hashar|Hawstom|Hcheney|Hedley|Hemanshu|Henrygb|Hephaestos|Hermione1980|Heron|Homeontherange|Humblefool|Hyacinth|Icairns|IceKarma|Ihcoyc|Ike9898|Ilyanep|Improv|Imran|Infrogmation|Ingoolemo|Inter|Isomorphic|Ixfd64|J\\.J\\.|JCarriker|JHK|JIP|JRM|JYolkowski|Jake Nelson|Jallan|JamesTeterenko|Jamesday|Jasonr|Jaxl|Jay|Jayjg|Jcw69|Jdavidb|Jdforrester|JeLuF|Jeffrey O\\. Gustafson|Jengod|JeremyA|Jeronimo|Jerzy|JesseW|Jfdwolff|Jiang|Jimbo Wales|Jimfbleak|Jimregan|Jinian|Jitse Niesen|Jmabel|Jnc|Jni|JoJan|John Kenney|JohnOwens|Johnleemk|Johntex|JonMoore|Jondel|Joolz|Josh Grosse|Jossifresco|Journalist|Joy|Joy Stovall|Jpgordon|Jrdioko|Jredmond|Jtdirl|Jtkiefer|Justinc|Jwrosenzweig|K1Bond007|KF|Kaihsu|Kaldari|Karada|Karen Johnson|Karmafist|Katefan0|Kbdank71|Kelly Martin|Khaosworks|Khendon|Khym Chanur|Kingturtle|Kirill Lokshin|Kmccoy|Knowledge Seeker|Kosebamse|Ktsquare|Kwamikagami|Kzollman|LC|Lachatdelarue|Lacrimosus|Lectonar|Lee Daniel Crocker|Lexor|Linuxbeak|LittleDan|Llywrch|Lommer|Longhair|Lord Emsworth|LordAmeth|LouI|Lowellian|Lucky 6\\.9|Ludraman|Lupin|Lupo|MC MasterChef|MacGyverMagic|Mackensen|Mackeriv|Madchester|Magnus Manske|Mailer diablo|Mairi|Malcolm Farmer|Manning Bartlett|Marianocecowski|Marine 69\\-71|Mark|Mark Christensen|Mark Dingemanse|Mark Richards|MarkSweep|Markalexander100|Marshman|Marudubshinki|Marumari|Master Thief Garrett|Matt Crypto|Maury Markowitz|Maveric149|Maximus Rex|Mbecker|Meelar|Mel Etitis|Menchi|Merovingian|Merphant|Mic|Michael Hardy|Michael Snow|Mike Halterman|Mikkalai|Mindspillage|Minesweeper|Mintguy|Mirv|Mirwin|Mkmcconn|Mkweise|Modemac|Moink|Moncrief|Montrealais|Moriori|Morven|Morwen|Mulad|Mustafaa|MyRedDice|MykReeve|Mysekurity|Mzajac|Nabla|Nandesuka|Nanobug|Necrothesp|Neutrality|Ngb|Nichalp|NicholasTurnbull|Nickptar|Nickshanks|Niteowlneils|Nohat|Noldoaran|Notheruser|Nufy8|Nunh\\-huh|Nv8200p|Oberiko|OldakQuill|Oleg Alexandrov|Oliver Pereira|Olivier|Omegatron|Optim|Ortolan88|Oven Fresh|OwenX|PFHLai|PMA|PRueda29|PZFUN|Pakaran|Pamri|Patrick|Paul A|Paul August|Pcb21|PedanticallySpeaking|Petaholmes|Peter Winnberg|Pfortuny|Pharos|Phil Bordelon|Phil Boswell|Phils|Philwelch|Phroziac|Physchim62|PierreAbbat|Piotrus|Pjacobi|Pollinator|Poor Yorick|Postdlf|Pratyeka|Premeditated Chaos|Proteus|Psy guy|Qaz|Quadell|Quercusrobur|R\\. fiend|R3m0t|RHaworth|RJFJR|RN|Radiant\\!|RadicalBender|Ragib|Ral315|Ram\\-Man|Rama|Ramallite|Ran|Raul654|Rbrwr|Rd232|Rdsmith4|RedWolf|RedWordSmith|Redux|Redwolf24|Refdoc|Reflex Reaction|Rfl|Rhobite|Rholton|Rhymeless|Rich Farmbrough|Rick Block|RickK|Rje|Rlandmann|Rlquall|Rmhermen|Roadrunner|RobLa|Robchurch|Robert Merkel|RobertG|Robin Patterson|RobyWayne|Roozbeh|RoseParks|Rossami|RoyBoy|RoySmith|Rx StrangeLove|Ryan Delaney|SD6\\-Agent|SWAdair|Salsa Shark|Sam Hocevar|Sam Korn|Sango123|Sannse|Sarge Baldy|Sasquatch|Schissel|Schneelocke|Scimitar|Scipius|Scott Burley|ScottDavis|Seabhcan|Sebastiankessel|Secretlondon|Seglea|Sesel|Seth Ilys|Sfoskett|Shanes|Shauri|Sheldon Rampton|Shimgray|SimonP|Siroxo|Sj|Sjakkalle|Sjc|Slambo|SlimVirgin|Slowking Man|Slrubenstein|Smith03|Sn0wflake|Snowspinner|Snoyes|Solipsist|Someone else|Sortior|Spangineer|Spencer195|Splash|Ssd|Stan Shebs|Starblind|Stevenj|Stevertigo|Stewartadcock|Stormie|Sugarfish|Sundar|Sverdrup|TPK|TUF\\-KAT|Ta bu shi da yu|Talrias|Tannin|Tarquin|Taw|Taxman|TenOfAllTrades|Texture|Thames|The Anome|The Cunctator|The Epopt|The Singing Badger|The wub|TheCoffee|TheoClarke|Theresa knott|Thryduulf|Thue|Thunderbrand|Tillwe|Tim Ivorson|Tim Starling|Timc|Timrollpickering|Timshell|Timwi|Titoxd|Tkinias|Toby Bartels|Tom\\-|Tomf688|Tompagenet|Tony Sidaway|Topbanana|Tregoweth|Trevor macinnis|Triddle|Trilobite|Tristanb|Ugen64|Ulayiti|Uncle G|UninvitedCompany|Urhixidur|Utcursch|UtherSRG|Vague Rant|VampWillow|Vancouverguy|Vaoverland|Viajero|Vicki Rosenzweig|Violetriga|Visorstuff|Voice of All\\(MTG\\)|Vsmith|Waltpohl|Wapcaplet|Warofdreams|Wayward|Wernher|Wesley|WhisperToMe|Who|Wiglaf|Wikiacc|Wikibofh|Wile E\\. Heresiarch|Wilfried Derksen|Willmcw|Woggly|WojPob|Woohookitty|Worldtraveller|Ww|Wwoods|XJamRastafire|Xezbeth|Y0u|Yacht|Zanimum|Zero0000|Zippy|Zocky|Zoe|Zoicon5|Zoney|Zscout370|Zzyzx11)$&quot;);
+  recent2.show_talkpages=true;
+  recent2.controlUI();
+  loopRecentChanges(feed, 200); 
+}
+
+// **************************************************
+// Installation
+// **************************************************
+
+recent2.addlilink=function(tabs, url, name, id, title, key){
+    var na = document.createElement('a');
+    na.href = url;
+    na.appendChild(document.createTextNode(name));
+    var li = document.createElement('li');
+    if(id) li.id = id;
+    li.appendChild(na);
+    tabs.appendChild(li);
+    if(id) {
+      if(key &amp;&amp; title) ta[id] = [key, title];
+      else if(key)     ta[id] = [key, ''];
+      else if(title)   ta[id] = ['', title];
+    }
+    // re-render the title and accesskeys from existing code in wikibits.js
+    akeytt();
+    return li;
+}
+
+recent2.addToolboxLink=function(url, name, id){
+    var tb = document.getElementById('p-tb').getElementsByTagName('ul')[0];
+    recent2.addlilink(tb, url, name, id);
+}
+
+window.addMarvin=function() {
+  var prefix = 'http://' + document.location.hostname + '/wiki/';
+  recent2.addToolboxLink(prefix + recent2.filterPage, 'Filter recent changes', 'toolbox_filter_changes');
+  recent2.addToolboxLink(prefix + recent2.allRecentPage, 'All recent changes', 'toolbox_all_changes');
+  recent2.addToolboxLink(prefix + recent2.recentIPPage, 'Recent IP edits', 'toolbox_IP_edits');
+  recent2.addToolboxLink(prefix + recent2.monitorWatchlistPage, 'Monitor my watchlist', 'toolbox_watchlist_edits');
+  recent2.addToolboxLink(prefix + recent2.spelldictPage, 'Live spellcheck', 'toolbox_spelling');
+  //document.getElementById('toolbox_filter_changes').onclick=marvin;
+}
+	
+recent2.testPage = function (str) { 
+  return RegExp(str.split(/[_ ]/).join('[_ ]'), 'i').test(document.location.href);
+};
+
+window.maybeStart=function() {
+  var loc=document.location.href;
+  if (recent2.testPage(recent2.filterPage)) {
+    recent2.filter_badwords=true;
+    recent2.runOnce(marvin, 1000);
+  }
+  else if (recent2.testPage(recent2.allRecentPage)) {
+    recent2.filter_badwords=false;
+    recent2.runOnce(marvin, 1000);
+  }
+  else if (recent2.testPage(recent2.recentIPPage)) {
+    recent2.filter_anonsOnly=true;
+    recent2.runOnce(marvin, 1000);
+  }
+  else if (recent2.testPage(recent2.monitorWatchlistPage)) {
+    recent2.filter_watchlist=true;
+    recent2.runOnce(marvin, 1000);
+  }
+  else if (recent2.testPage(recent2.spelldictPage)) {
+    recent2.filter_spelling=true;
+    recent2.runOnce(marvin, 1000);
+  }
+}
+
+// onload 
+addOnloadHook(maybeStart);
+addOnloadHook(addMarvin);
+
+//// testing code 
+//recent2.filter_badwords=true;
+//recent2.filter_spelling=true;
+//recent2.runOnce(marvin,1000);
+
+
+// &lt;/nowiki&gt;&lt;/pre&gt;
+</pre><div class="printfooter">
+Retrieved from "<a href="http://simple.wikipedia.org../../../g/a/n/User%7EGangstaEB_recent2.js_bc56.html">http://simple.wikipedia.org../../../g/a/n/User%7EGangstaEB_recent2.js_bc56.html</a>"</div>
+	    	    <!-- end content -->
+	    <div class="visualClear"></div>
+	  </div>
+	</div>
+      </div>
+      <div id="column-one">
+	<div id="p-cactions" class="portlet">
+	  <h5>Views</h5>
+	  <ul>
+	    <li id="ca-nstab-user"
+	       class="selected"	       ><a href="../../../g/a/n/User%7EGangstaEB_recent2.js_bc56.html">User page</a></li><li id="ca-talk"
+	       class="new"	       ><a href="../../../g/a/n/User_talk%7EGangstaEB_recent2.js_af30.html">Talk</a></li><li id="ca-current"
+	       	       ><a href="http://simple.wikipedia.org/wiki/User:GangstaEB/recent2.js">Newest version</a></li>	  </ul>
+	</div>
+	<div class="portlet" id="p-logo">
+	  <a style="background-image: url(../../../upload/b/bc/Wiki.png);"
+	    href="../../../index.html"
+	    title="Main Page"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+	  <h5>Getting around</h5>
+	  <div class='pBody'>
+	    <ul>
+	    	      <li id="n-mainpage"><a href="../../../index.html">Main Page</a></li>
+	     	      <li id="n-portal"><a href="../../../c/o/m/Wikipedia%7ECommunity_Portal_6a3c.html">Community portal</a></li>
+	     	      <li id="n-Simple-talk"><a href="../../../s/i/m/Wikipedia%7ESimple_talk_51fd.html">Simple talk</a></li>
+	     	      <li id="n-help"><a href="../../../c/o/n/Help%7EContents_22de.html">Help</a></li>
+	     	      <li id="n-sitesupport"><a href="http://wikimediafoundation.org/wiki/Fundraising">Support Wikipedia</a></li>
+	     	    </ul>
+	  </div>
+	</div>
+		<div id="p-search" class="portlet">
+	  <h5><label for="searchInput">Search</label></h5>
+	  <div id="searchBody" class="pBody">
+	    <form action="javascript:goToStatic(3)" id="searchform"><div>
+	      <input id="searchInput" name="search" type="text"
+	        accesskey="f" value="" />
+	      <input type='submit' name="go" class="searchButton" id="searchGoButton"
+	        value="Go" />
+	    </div></form>
+	  </div>
+	</div>
+	      </div><!-- end of the left (by default at least) column -->
+      <div class="visualClear"></div>
+      <div id="footer">
+    <div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../../../skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>	<div id="f-copyrightico"><a href="http://wikimediafoundation.org/"><img src="../../../images/wikimedia-button.png" border="0" alt="Wikimedia Foundation"/></a></div>	<ul id="f-list">
+	  	  	  <li id="f-credits">This page was last modified 18:06, 3 July 2006 by Wikipedia user <a href="../../../g/a/n/User%7EGangstaEB_ce1e.html" title="User:GangstaEB">GangstaEB</a>. </li>	  <li id="f-copyright">This text is available under the terms of the <a class='internal' href="../../../t/e/x/Wikipedia%7EText_of_the_GNU_Free_Documentation_License_702a.html" title="Wikipedia:Text of the GNU Free Documentation License">GNU Free Documentation License</a>. (See <b><a class='internal' href="../../../c/o/p/Wikipedia%7ECopyrights_92c4.html" title="Wikipedia:Copyrights">Copyrights</a></b> for details.) <br /> Wikipedia&reg; is a registered trademark of the <a href="http://www.wikimediafoundation.org">Wikimedia Foundation, Inc</a>., a US-registered <a class='internal' href="http://en.wikipedia.org/wiki/501%28c%29" title="501(c)(3)">501(c)(3)</a> <a href="http://wikimediafoundation.org/wiki/Deductibility_of_donations">tax-deductible</a> <a class='internal' href="http://en.wikipedia.org/wiki/Non-profit_organization" title="Non-profit organization">nonprofit</a> <a href="http://en.wikipedia.org/wiki/Charitable_organization" title="Charitable organization">charity</a>.<br /></li>	  <li id="f-about"><a href="../../../a/b/o/Wikipedia%7EAbout_8d82.html" title="Wikipedia:About">About Wikipedia</a></li>	  <li id="f-disclaimer"><a href="../../../g/e/n/Wikipedia%7EGeneral_disclaimer_3e44.html" title="Wikipedia:General disclaimer">Disclaimers</a></li>	  	</ul>
+      </div>
+    </div>
+  </body>
+</html>

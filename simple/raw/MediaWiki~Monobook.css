@@ -1,0 +1,22 @@
+/* <pre><nowiki> */
+
+/* Display of "From Wikipedia" line */
+#siteSub {
+    display: inline;
+    font-size: 92%;
+    font-weight: normal;
+}
+
+/* Remove padding from external links displayed without icon ([[bugzilla:714]]) */
+#bodyContent .plainlinks a {padding: 0 !important}
+
+
+/* </nowiki> */
+
+/* On special allpages and watchlist, to make redirects show up in green (allpages redirect is already in italic by default) */
+.allpagesredirect a,
+.watchlistredir a  {
+color:green;
+}
+
+/* </pre> */
