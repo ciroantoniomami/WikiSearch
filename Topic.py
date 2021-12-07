@@ -69,7 +69,7 @@ if __name__ == '__main__':
     G = read_graph("data_filters.json")
     meta = read_graph('meta.json')
     topic = ['arts', 'economics', 'computers', 'games', 'health', 'news', 'religion',
-             'science', 'shopping', 'society', 'sports', 'world']
+             'science', 'shopping', 'society', 'football', 'world']
     x = np.genfromtxt('Rank.csv', delimiter=',')
     Topic_Rank = [TopicRank(G, meta, t) for t in topic]
     for tr in Topic_Rank:
