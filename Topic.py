@@ -66,11 +66,9 @@ class TopicRank(PageRank):
 
 
 if __name__ == '__main__':
-    G = read_graph("data_filters.json")
-    meta = read_graph('meta.json')
-    topic = ['arts', 'economics', 'computers', 'games', 'health', 'news', 'religion',
-             'science', 'shopping', 'society', 'football', 'world']
-    x = np.genfromtxt('Rank.csv', delimiter=',')
+    G = read_graph("data/data_filters.json")
+    meta = read_graph('data/meta.json')
+    topic = ['food']
     Topic_Rank = [TopicRank(G, meta, t) for t in topic]
     for tr in Topic_Rank:
         tr.update_Rank(0.2, 0.001)
