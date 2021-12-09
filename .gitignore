@@ -2,3 +2,4 @@ Rank/
 data/
 term-frequency/
 .idea/
+__pycache__/
