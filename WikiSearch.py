@@ -3,6 +3,12 @@ import numpy as np
 import PySimpleGUI as sg
 
 def WikiSearch(term):
+    """
+    The function takes as input a term to be searched and return the top ten pages by
+    rank associated with that term. This operation is performed by retrieving all the ranks
+    and the term frequency dictionary for all topic, and then the final rank is computed
+    according to the paper by Taher H. Haveliwala "Topic Sensitive PageRank"
+    """
     topic = ['arts', 'economics', 'games', 'health', 'news',
              'science', 'society', 'politics', 'food', 'football', 'mathematics', 'basketball']
     Rank_by_topic = {t :{} for t in topic}

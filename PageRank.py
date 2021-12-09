@@ -21,12 +21,17 @@ class PageRank():
         self.R = np.zeros((self.n, self.n))
         self.J = np.ones(self.n)/self.n
         self.rank = np.zeros(self.n)
+        
+    """
+    This is a base class to compute vanilla PageRank. The methods computes the basic steps:
+    the transition matrix is constructed from the dataset, then the PageRank algorithm is computed
+    until convergence.
+    """
 
     def compute_R(self,
     ) -> None:
         key_to_pos = dict(zip(self.G.keys(), range(0, self.n)))
         for i, source in enumerate(self.G.keys()):
-            # The out degree of a node is simply the length of its adjacency list
             out_deg = len(self.G[source])
             for dest in self.G[source]:
                 j = key_to_pos[dest]

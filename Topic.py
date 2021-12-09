@@ -19,7 +19,16 @@ class TopicRank(PageRank):
         self.J = np.zeros(self.n)
         self.rank = rank
         self.topic = topic
-
+    """
+    This class inherit from PageRank class and it's used to compute topic
+    sensitive pagerank.The main difference is the computation of the 
+    jump vector, indeed all the webpages which contains the topic in 
+    their metadata will have a probability of 1 over the total amount 
+    of webpages containing the topic, 0 elsewhere. At the same time 
+    the corpus of the webpage is extracted and the words are added 
+    to a term frequency dictionary specific for the topic.
+    """
+    
     def compute_J(self) -> None:
         tf_dict = {}
         for i, key in enumerate(self.M.keys()):

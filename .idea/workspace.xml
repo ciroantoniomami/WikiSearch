@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="14dcae94-09eb-4398-98ed-1699b355a69d" name="Changes" comment="add git ignore" />
+    <list default="true" id="14dcae94-09eb-4398-98ed-1699b355a69d" name="Changes" comment="update">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraphDataset.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PageRank.py" beforeDir="false" afterPath="$PROJECT_DIR$/PageRank.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pagerank.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Topic.py" beforeDir="false" afterPath="$PROJECT_DIR$/Topic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WikiSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/WikiSearch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/corpus.py" beforeDir="false" afterPath="$PROJECT_DIR$/corpus.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -165,7 +175,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638900035353</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="update">
+      <created>1639068005410</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1639068005410</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -182,22 +199,11 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add git ignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="add git ignore" />
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/PageRank.py</url>
-          <line>57</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/corpus.py</url>
-          <line>23</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
