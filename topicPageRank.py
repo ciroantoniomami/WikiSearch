@@ -1,6 +1,6 @@
 import numpy as np
 from collections.abc import Sequence
-from PageRank import read_graph, PageRank
+from pageRank import read_graph, PageRank
 from corpus import extract_corpus
 import json
 
@@ -45,7 +45,7 @@ class TopicRank(PageRank):
         n = len(tf_dict)
         for key in tf_dict.keys():
             tf_dict[key] /= n
-        with open(f'{self.topic}_tf_dict.json', 'w') as fp:
+        with open(f'data/term-frequency/{self.topic}_tf_dict.json', 'w') as fp:
             json.dump(tf_dict, fp, ensure_ascii=False)
         self.J = self.J/np.sum(self.J)
 
@@ -84,5 +84,5 @@ if __name__ == '__main__':
     for tr in Topic_Rank:
         tr.update_Rank(0.2, 0.01)
         results = dict(zip(G.keys(), tr.rank))
-        with open(f'{tr.topic}_rank.json', 'w') as fp:
+        with open(f'data/rank/{tr.topic}_rank.json', 'w') as fp:
             json.dump(results, fp, ensure_ascii=False)

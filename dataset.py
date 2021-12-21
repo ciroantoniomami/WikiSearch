@@ -4,11 +4,10 @@ import os
 from bs4 import BeautifulSoup
 import json
 
-
 def filtering(filename: str, subdir: str) -> bool:
     """Filter all the files or directory not needed for the project"""
     
-    if filename in ['COPYING.html', 'index.html', 'Wikimedia_Commons_7b57.html']:
+    if filename in ['COPYING.html', 'index.html', 'Wikimedia_Commons_7b57.html', 'Wiktionary.html']:
         return True
     if subdir in ['images', 'raw', 'upload', 'skins']:
         return True
