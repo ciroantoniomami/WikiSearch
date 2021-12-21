@@ -58,6 +58,7 @@ class GraphDataset:
                         for link in soup.find_all('a'):
                             if link.get('href') is not None:
                                 self.pages[key].append(link.get('href').replace("../../../", ""))
+
         """Since the dataset is not "closed", i.e. there are outgoing links which are not keys, those links are
          filtered out"""
         for key in self.pages.keys():
@@ -67,11 +68,9 @@ class GraphDataset:
 if __name__ == '__main__':
 
     dataset = GraphDataset('simple')
-    with open('data.json', 'w') as fp:
-        json.dump(dataset.pages, fp, ensure_ascii=False)
-    with open('data_filters.json', 'w') as fp:
+    with open('data/data_filters.json', 'w') as fp:
         json.dump(dataset.pages_filtered, fp, ensure_ascii=False)
-    with open('meta.json', 'w') as fp:
+    with open('data/meta.json', 'w') as fp:
         json.dump(dataset.meta, fp, ensure_ascii=False)
     #with open('data.json') as json_file:
     #    data = json.load(json_file)

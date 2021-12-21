@@ -1,5 +1,9 @@
-Rank/
+rank/
 data/
 term-frequency/
+Rank.csv
+result.html
+tmp.py
+meta_dict.json
 .idea/
 __pycache__/

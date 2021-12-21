@@ -8,8 +8,9 @@ nltk.download('stopwords')
 
 def extract_corpus(html):
 
-   """The function extract the corpus of the Wikipedia page, then a light preprocessing is applied
-   removing punctuation, stopwords and to lowercase"""
+
+    """The function extract the corpus of the Wikipedia page, then a light preprocessing is applied
+    removing punctuation, stopwords and to lowercase"""
     soup = BeautifulSoup(html, 'lxml')
 
     paras = []
@@ -28,7 +29,3 @@ def extract_corpus(html):
     return corpus
 
 
-if __name__ == '__main__':
-    fname = 'simple/f/a/b/Fabio_Cannavaro_6778.html'
-    with open(fname, 'r') as f:
-        print(extract_corpus(f))

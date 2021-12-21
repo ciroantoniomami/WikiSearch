@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 import numpy as np
 from collections.abc import Sequence
+from scipy.sparse import csr_matrix
+
 
 def read_graph(filename):
     with open(filename, 'r') as f:
@@ -31,11 +33,18 @@ class PageRank():
     def compute_R(self,
     ) -> None:
         key_to_pos = dict(zip(self.G.keys(), range(0, self.n)))
-        for i, source in enumerate(self.G.keys()):
-            out_deg = len(self.G[source])
-            for dest in self.G[source]:
-                j = key_to_pos[dest]
-                self.R[i][j] = 1 / out_deg
+        row = []
+        col = []
+        data = []
+
+        for key in self.G.keys():
+            for edge in self.G[key]:
+                row.append(key_to_pos[key])
+                col.append(key_to_pos[edge])
+                data.append(1 / len(self.G[key]))
+        R = csr_matrix((data, (row, col)), shape=(self.n, self.n))
+
+        self.R = R
 
     def PageRank_iteration(
             self,
@@ -57,7 +66,7 @@ class PageRank():
         x = x / x.sum()
         err = np.inf
         while (err > epsilon):
-            x_new = self.PageRank_iteration(x, alpha, self.J)
+            x_new = self.PageRank_iteration(x, alpha)
             err = (abs(x_new - x)).sum()
             print(err)
             x = x_new
@@ -75,16 +84,16 @@ class PageRank():
 
 
 if __name__ == '__main__':
-    G = read_graph("data_filters.json")
+    G = read_graph("data/data_filters.json")
     Page_Rank = PageRank(G)
     Page_Rank.compute_PageRank(0.1, 0.01)
-    Page_Rank.print_rank()
-    np.savetxt('Rank.csv', Page_Rank.rank, delimiter=',')
-    results = dict(zip(Page_Rank.G.keys(), Page_Rank.rank))
-    sort_orders = sorted(results.items(), key=lambda x: x[1], reverse=True)
-    j = 0
-    for i in sort_orders:
-        if j == 10:
-            break
-        j += 1
-        print(i[0], i[1])
+    #Page_Rank.print_rank()
+    #np.savetxt('Rank.csv', Page_Rank.rank, delimiter=',')
+    #results = dict(zip(Page_Rank.G.keys(), Page_Rank.rank))
+    #sort_orders = sorted(results.items(), key=lambda x: x[1], reverse=True)
+    #j = 0
+    #for i in sort_orders:
+    #    if j == 10:
+    #        break
+    #    j += 1
+    #    print(i[0], i[1])

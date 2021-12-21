@@ -4,6 +4,7 @@ from PageRank import read_graph, PageRank
 from corpus import extract_corpus
 import json
 
+
 class TopicRank(PageRank):
     def __init__(
             self,
@@ -35,7 +36,7 @@ class TopicRank(PageRank):
             for m in self.M[key]:
                 words = m.split(',')
                 for w in words:
-                    if w.lower() == self.topic:
+                    if w.lower() == self.topic.lower():
                         self.J[i] = 1
                         with open('simple/'+key, 'r') as f:
                             corpus = extract_corpus(f)
@@ -77,10 +78,11 @@ class TopicRank(PageRank):
 if __name__ == '__main__':
     G = read_graph("data/data_filters.json")
     meta = read_graph('data/meta.json')
-    topic = ['food']
+    topic = ['Mathematics', 'Football (soccer)', 'Film', 'Government', 'Music', 'Book', 'Food', 'Computer',
+             'Actor', 'Animal', 'Plant']
     Topic_Rank = [TopicRank(G, meta, t) for t in topic]
     for tr in Topic_Rank:
-        tr.update_Rank(0.2, 0.001)
+        tr.update_Rank(0.2, 0.01)
         results = dict(zip(G.keys(), tr.rank))
         with open(f'{tr.topic}_rank.json', 'w') as fp:
             json.dump(results, fp, ensure_ascii=False)
