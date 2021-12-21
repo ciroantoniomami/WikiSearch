@@ -76,7 +76,7 @@ class TopicRank(PageRank):
 
 
 if __name__ == '__main__':
-    G = read_graph("data/data_filters.json")
+    G = read_graph("data/graph.json")
     meta = read_graph('data/meta.json')
     topic = ['Mathematics', 'Football (soccer)', 'Film', 'Government', 'Music', 'Book', 'Food', 'Computer',
              'Actor', 'Animal', 'Plant']

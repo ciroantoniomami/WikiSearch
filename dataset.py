@@ -68,10 +68,8 @@ class GraphDataset:
 if __name__ == '__main__':
 
     dataset = GraphDataset('simple')
-    with open('data/data_filters.json', 'w') as fp:
+    with open('data/graph.json', 'w') as fp:
         json.dump(dataset.pages_filtered, fp, ensure_ascii=False)
     with open('data/meta.json', 'w') as fp:
         json.dump(dataset.meta, fp, ensure_ascii=False)
-    #with open('data.json') as json_file:
-    #    data = json.load(json_file)
 

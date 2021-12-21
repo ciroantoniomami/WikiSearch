@@ -8,9 +8,7 @@ from scipy.sparse import csr_matrix
 
 def read_graph(filename):
     with open(filename, 'r') as f:
-        # We have the graph encoded as an adjacency list in a JSON file
         g = json.load(f)
-        # The data structure read from JSON is already "good enough" for us
         return g
 
 class PageRank():
@@ -84,16 +82,6 @@ class PageRank():
 
 
 if __name__ == '__main__':
-    G = read_graph("data/data_filters.json")
+    G = read_graph("data/graph.json")
     Page_Rank = PageRank(G)
     Page_Rank.compute_PageRank(0.1, 0.01)
-    #Page_Rank.print_rank()
-    #np.savetxt('Rank.csv', Page_Rank.rank, delimiter=',')
-    #results = dict(zip(Page_Rank.G.keys(), Page_Rank.rank))
-    #sort_orders = sorted(results.items(), key=lambda x: x[1], reverse=True)
-    #j = 0
-    #for i in sort_orders:
-    #    if j == 10:
-    #        break
-    #    j += 1
-    #    print(i[0], i[1])
