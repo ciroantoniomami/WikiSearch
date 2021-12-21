@@ -6,3 +6,4 @@ tmp.py
 meta_dict.json
 .idea/
 __pycache__/
+.DS_Store
