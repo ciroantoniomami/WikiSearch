@@ -1,6 +1,6 @@
 # WikiSearch
 WikiSearch is a tool that aims to emulate in the most accurate way a search engine.
-The user insert a query through a command-line interface and the most relevants Wikipedia pages 
+The user inserts a query through a command-line interface and the most relevant Wikipedia pages 
 are retrieved from the [simple Wikipedia dump of April 2007](https://dumps.wikimedia.org/other/static_html_dumps/April_2007/).
 The 10 most relevant pages are saved in [`result.html`].
 
@@ -16,7 +16,7 @@ The algorithm under the tool is based on the work of Taher H. Haveliwala ["Topic
 * ` dataset.py` retrieves all the .html files and generates ` data.json` where a graph representing the structure of Wikipedia is stored. And ` meta.json` where the keywords for each Wikipedia page is stored.
 * ` corpus.py` extracts the corpus of a Wikipedia page and preprocess it.
 * ` pageRank.py` computes the famous PageRank algorithm.
-* ` topicPageRank.py` computes a topic specific PageRank, for each topic two ` .json` file are created, a ` topic_rank.json` which contains the rank biased on that specific topic, and ` topic_tf_dict.json` which contains a term-frequency dictionary for each topic. The topic used for this tool has been selected from the most common keywords of the data and are:
+* ` topicPageRank.py` computes a topic specific PageRank, for each topic two ` .json` file are created, a ` topic_rank.json` which contains the rank biased on that specific topic, and ` topic_tf_dict.json` which contains a term-frequency dictionary for each topic. The topics used for this tool have been selected from the most common keywords of the data and are:
     * Actor
     * Animal
     * Book
