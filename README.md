@@ -4,7 +4,7 @@ The user inserts a query through a command-line interface and the most relevant 
 are retrieved from the [simple Wikipedia dump of April 2007](https://dumps.wikimedia.org/other/static_html_dumps/April_2007/).
 The 10 most relevant pages are saved in [`result.html`].
 
-
+![alt text](https://github.com/ciroantoniomami/WikiSearch/img/Wikisearch)
 The algorithm under the tool is based on the work of Taher H. Haveliwala ["Topic Sensitive PageRank"](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.85.9098&rep=rep1&type=pdf).
 
 ## How to run WikiSearch
