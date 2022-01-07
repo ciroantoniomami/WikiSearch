@@ -6,8 +6,8 @@ The 10 most relevant pages are saved in [`result.html`].
 
 ![alt text](https://github.com/ciroantoniomami/WikiSearch/blob/main/img/Wikisearch.png)
 
-
-The algorithm under the tool is based on the work of Taher H. Haveliwala ["Topic Sensitive PageRank"](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.85.9098&rep=rep1&type=pdf).
+q
+The algorithm under the tool is based on the work of Taher H. Haveliwala ["Topic Sensitive PageRank"](http://www-cs-students.stanford.edu/~taherh/papers/topic-sensitive-pagerank.pdf).
 
 ## How to run WikiSearch
 * run ` python3 wikiSearch.py`.
