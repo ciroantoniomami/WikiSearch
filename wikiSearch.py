@@ -23,6 +23,10 @@ def WikiSearch(term):
 
     new_rank = dict(zip(Rank_by_topic[topic[0]].keys(), np.zeros(len(Rank_by_topic[topic[0]]))))
 
+    """
+    I'm assuming that the prior distribution of the topic (P(c_j)) is uniform, for this reason 
+    it is omitted since it would cancel out.
+    """
     for key in new_rank.keys():
         for t in topic:
             prob = 1
