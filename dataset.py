@@ -48,7 +48,6 @@ class GraphDataset:
                     self.meta[key] = []
                     with open(fname, 'r') as f:
                         soup = BeautifulSoup(f.read(), 'html.parser')
-                        # parse the html as you wish
                         for meta in soup.find_all('meta'):
                             if 'name' in meta.attrs:
                                 name = meta.attrs['name']
